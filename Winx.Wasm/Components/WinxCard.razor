@@ -1,0 +1,17 @@
+﻿@using Winx.Wasm.Domain
+
+<card Margin="Margin.Is3">
+    <cardheader>
+        <row>
+            <center><h4>Ты @Fairy.Name !</h4></center>
+        </row>
+    </cardheader>
+    <cardbody>
+        <center><img style="max-height: 400px;  width: auto" src="@Fairy.PhotoUrl" /></center>
+    </cardbody>
+</card>
+
+@code {
+    [Parameter]
+    public Fairy Fairy { get; set; } = new();
+}
