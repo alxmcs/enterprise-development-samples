@@ -17,8 +17,27 @@ public class BookStoreDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Book>().HasData(DataSeeder.Books);
-        modelBuilder.Entity<Author>().HasData(DataSeeder.Authors);
-        modelBuilder.Entity<BookAuthor>().HasData(DataSeeder.BookAuthors);
+        modelBuilder.Entity<Book>(builder =>
+        {
+            builder.HasKey(b => b.Id);
+            builder.HasMany(b => b.BookAuthors).WithOne(ba => ba.Book).IsRequired(false);
+            builder.HasData(DataSeeder.Books);
+        });
+
+        modelBuilder.Entity<Author>(builder =>
+        {
+            builder.HasKey(a => a.Id);
+            builder.HasMany(a => a.BookAuthors).WithOne(bs => bs.Author).IsRequired(false);
+            builder.HasData(DataSeeder.Authors);
+        });
+                       
+        modelBuilder.Entity<BookAuthor>(builder =>
+        {
+            builder.HasKey(ba => ba.Id);
+            builder.HasOne(ba => ba.Author).WithMany(b => b.BookAuthors).IsRequired();
+            builder.HasOne(ba => ba.Book).WithMany(b => b.BookAuthors).IsRequired();
+            builder.HasData(DataSeeder.BookAuthors);
+        });
+
     }
 }

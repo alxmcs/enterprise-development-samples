@@ -33,10 +33,10 @@ var mapperConfig = new MapperConfiguration(config => config.AddProfile(new AutoM
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddDbContextFactory<BookStoreDbContext>(options => options.UseSqlite(builder.Configuration["ConnectionString"]));
+builder.Services.AddDbContextFactory<BookStoreDbContext>(options => options.UseLazyLoadingProxies().UseSqlite(builder.Configuration["ConnectionString"]));
 
-builder.Services.AddScoped<ICrudService<BookDto,BookCreateUpdateDto, int>,BookCrudService>();
-builder.Services.AddScoped<ICrudService<AuthorDto, AuthorCreateUpdateDto, int>, AuthorCrudService>();
+builder.Services.AddScoped<IBookService,BookCrudService>();
+builder.Services.AddScoped<IAuthorService, AuthorCrudService>();
 builder.Services.AddScoped<ICrudService<BookAuthorDto, BookAuthorCreateUpdateDto, int>, BookAuthorCrudService>();
 
 var app = builder.Build();
