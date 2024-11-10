@@ -18,15 +18,16 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     /// <returns>Список авторов</returns>
     [HttpGet("book/{bookId}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<IList<AuthorDto>>> GetBookAuthors(int bookId)
+    public async Task<ActionResult<IList<AuthorDto>?>> GetBookAuthors(int bookId)
     {
-        logger.LogInformation("{method} method of {controller} is called", nameof(GetBookAuthors), GetType().Name);
+        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(GetBookAuthors), GetType().Name, bookId);
         try
         {
             var res = await crudService.GetBookAuthors(bookId);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetBookAuthors), GetType().Name);
-            return Ok(res);
+            return res != null ? Ok(res) : NoContent();
         }
         catch (Exception ex)
         {

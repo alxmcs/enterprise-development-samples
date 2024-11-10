@@ -39,12 +39,15 @@ builder.Services.AddScoped<IBookService,BookCrudService>();
 builder.Services.AddScoped<IAuthorService, AuthorCrudService>();
 builder.Services.AddScoped<ICrudService<BookAuthorDto, BookAuthorCreateUpdateDto, int>, BookAuthorCrudService>();
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin(); policy.AllowAnyMethod(); policy.AllowAnyHeader(); }));
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

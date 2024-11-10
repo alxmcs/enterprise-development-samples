@@ -30,7 +30,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(ICrudServ
     [ProducesResponseType(500)]
     public async Task<ActionResult<TDto>> Create(TCreateUpdateDto newDto)
     {
-        logger.LogInformation("{method} method of {controller} is called with {@parameters} parameters", nameof(Create), GetType().Name, newDto);
+        logger.LogInformation("{method} method of {controller} is called with {@dto} parameter", nameof(Create), GetType().Name, newDto);
         try
         {
             var res = await crudService.Create(newDto);
@@ -55,7 +55,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(ICrudServ
     [ProducesResponseType(500)]
     public async Task<ActionResult<TDto>> Edit(TKey id, TCreateUpdateDto newDto)
     {
-        logger.LogInformation("{method} method of {controller} is called with {@parameters} parameters", nameof(Edit), GetType().Name, newDto);
+        logger.LogInformation("{method} method of {controller} is called with {key},{@dto} parameters", nameof(Edit), GetType().Name, id, newDto);
         try
         {
             var res = await crudService.Update(id, newDto);
@@ -79,7 +79,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(ICrudServ
     [ProducesResponseType(500)]
     public async Task<IActionResult> Delete(TKey id)
     {
-        logger.LogInformation("{method} method of {controller} is called with {@parameters} parameters", nameof(Delete), GetType().Name, id);
+        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Delete), GetType().Name, id);
         try
         {
             var res = await crudService.Delete(id);
@@ -127,7 +127,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(ICrudServ
     [ProducesResponseType(500)]
     public async Task<ActionResult<TDto>> Get(TKey id)
     {
-        logger.LogInformation("{method} method of {controller} is called with {@parameters} parameters", nameof(Get), GetType().Name, id);
+        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
         try
         {
             var res = await crudService.GetById(id);
