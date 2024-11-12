@@ -1,0 +1,104 @@
+﻿@inject IBookStoreApiWrapper BookStoreApi
+
+<Modal @ref="BookModal">
+    <ModalContent Centered>
+        <Form>
+            <ModalHeader>
+                <ModalTitle>Новое издание</ModalTitle>
+                <CloseButton Clicked="CloseBookModalAsync" />
+            </ModalHeader>
+
+            <ModalBody>
+                <Field>
+                    <FieldLabel>Название</FieldLabel>
+                    <TextEdit @bind-Text="@NewBook.Title" />
+                </Field>
+                <Field>
+                    <FieldLabel>Издатель</FieldLabel>
+                    <TextEdit @bind-Text="@NewBook.Publisher" />
+                </Field>
+                <Field>
+                    <FieldLabel>Год печати</FieldLabel>
+                    <NumericEdit @bind-Value="@NewBook.Year" />
+                </Field>
+                <Field>
+                    <FieldLabel>Число страниц</FieldLabel>
+                    <NumericEdit @bind-Value="@NewBook.PageCount" />
+                </Field>
+                <Field>
+                    <FieldLabel>ISBN</FieldLabel>
+                    <TextEdit @bind-Text="@NewBook.Isbn" />
+                </Field>
+                <Field>
+                    <FieldLabel>Автор</FieldLabel>
+                    @if(IsNested)
+                    {
+                        <TextEdit Text="@(CreateCaptionForAuthor(CurrentAuthor))" Disabled />
+                    }
+                    else
+                    {
+                        <SelectList TItem="AuthorDto"
+                                    TValue="int"
+                                    Data="@AuthorList"
+                                    TextField="@((item) => CreateCaptionForAuthor(item))"
+                                    ValueField="@((item)=>item.Id)"
+                                    Multiple
+                                    @bind-SelectedValues="@SelectedAuthors" />
+                    }
+                </Field>
+            </ModalBody>
+
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="CloseBookModalAsync">Отмена</Button>
+                <Button Color="Color.Primary" Clicked="CreateBookAsync">Создать</Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>
+
+@code {
+    [Parameter]
+    public bool IsNested { get; set; }
+    [Parameter]
+    public int? AuthorId { get; set; }
+    [Parameter]
+    public EventCallback OnBookAdded { get; set; }
+
+    private AuthorDto CurrentAuthor { get; set; } = new();
+    private List<AuthorDto> AuthorList { get; set; } = [];
+    private IReadOnlyList<int>? SelectedAuthors { get; set; }
+
+    private Modal BookModal { get; set; } = new();
+    private BookCreateUpdateDto NewBook { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(IsNested)
+            CurrentAuthor = await BookStoreApi.GetAuthor(AuthorId!.Value);
+        else
+            AuthorList = [.. await BookStoreApi.GetAllAuthors()];
+        await base.OnInitializedAsync();
+    }
+
+    public async Task Show() => await BookModal.Show();
+
+    private async Task CloseBookModalAsync() => await BookModal.Hide();
+
+    private async Task CreateBookAsync()
+    {
+        var result = await BookStoreApi.CreateBook(NewBook);
+        if (SelectedAuthors != null)
+            foreach (var authorId in SelectedAuthors)
+                await BookStoreApi.CreateBookAuthor(new() { BookId = result.Id, AuthorId = authorId });
+        else
+            await BookStoreApi.CreateBookAuthor(new() { BookId = result.Id, AuthorId = CurrentAuthor.Id });
+        await BookModal.Hide();
+        await OnBookAdded.InvokeAsync();
+
+    }
+
+    private string CreateCaptionForAuthor(AuthorDto author) =>
+        string.IsNullOrEmpty(author.Patronymic) 
+        ? $"{author.FirstName} {author.LastName}" 
+        : $"{author.LastName} {author.FirstName} {author.Patronymic}";
+}

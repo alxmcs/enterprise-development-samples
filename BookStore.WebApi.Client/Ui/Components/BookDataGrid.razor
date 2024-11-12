@@ -1,0 +1,140 @@
+﻿@inject IBookStoreApiWrapper BookStoreApi
+@inject NavigationManager NavManager
+
+<Card>
+	<CardHeader>
+		<Row Class="justify-content-between">
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<h4>Книги</h4>
+			</Column>
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<Button Color="Color.Primary" Clicked="OpenCreateModal">
+					 Создать
+				</Button>
+                @if (IsNested)
+                {
+                    <Button Color="Color.Secondary" Clicked="OpenLinkModal">
+                        Привязать
+                    </Button>
+                }
+			</Column>
+		</Row>
+	</CardHeader>
+
+	<CardBody>
+        <DataGrid TItem="BookDto"
+                  Data="Books"
+        		  Responsive
+        		  Striped>
+        	<DataGridColumns>
+                <DataGridColumn Width="150px"
+                                TItem="BookDto"
+                                Field="@nameof(BookDto.Id)"
+                                Caption="Действия">
+                    <DisplayTemplate>
+                        <Dropdown>
+                            <DropdownToggle Color="Color.Primary">
+                                Действия
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem Clicked="() => OpenEditPageAsync(context)">
+                                    Редактировать
+                                </DropdownItem>
+                                <DropdownItem Clicked="() => DeleteBookAsync(context)">
+                                    Удалить
+                                </DropdownItem>
+                                @if (IsNested)
+                                {
+                                    <DropdownItem Clicked="() => UnlinkBookAsync(context)">
+                                        Отвязать
+                                    </DropdownItem>
+                                }
+                            </DropdownMenu>
+                        </Dropdown>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="BookDto"
+                                Field="@nameof(BookDto.Title)"
+                                Caption="Название">
+                </DataGridColumn>
+                <DataGridColumn TItem="BookDto"
+                                Field="@nameof(BookDto.Publisher)"
+                                Caption="Издатель">
+                </DataGridColumn>
+                <DataGridColumn TItem="BookDto"
+                                Field="@nameof(BookDto.PageCount)"
+                                Caption="Число страниц">
+                </DataGridColumn>
+                <DataGridColumn TItem="BookDto"
+                                Field="@nameof(BookDto.Year)"
+                                Caption="Год печати">
+                </DataGridColumn>
+                <DataGridColumn TItem="BookDto"
+                                Field="@nameof(BookDto.Isbn)"
+                                Caption="ISBN">
+                </DataGridColumn>
+        	</DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>
+
+<BookCreateModal @ref="BookCreateModal" IsNested="IsNested" AuthorId="AuthorId" OnBookAdded="@HandleBookAdded" />
+
+<BookLinkModal @ref="BookLinkModal" AuthorId="AuthorId" OnBookAdded="@HandleBookAdded" />
+
+@code {
+    [Parameter] 
+    public bool IsNested { get; set; }
+    [Parameter]
+    public int? AuthorId { get; set; }
+    [Parameter]
+    public EventCallback OnDataChanged { get; set; }
+
+    private IList<BookDto> Books { get; set; } = [];
+    private BookCreateModal BookCreateModal { get; set; } = new();
+    private BookLinkModal BookLinkModal { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshBookCollection();
+        await base.OnInitializedAsync();
+    }
+
+    private void OpenEditPageAsync(BookDto context)
+    {
+        NavManager.NavigateTo($"books/{context.Id}");
+    }
+
+    private async Task UnlinkBookAsync(BookDto context)
+    {
+        var bookAuthors = (await BookStoreApi.GetAllBooksAuthors()).Where(ba => ba.BookId == context.Id);
+        foreach (var ba in bookAuthors)
+            await BookStoreApi.DeleteBookAuthor(ba.Id);
+        await RefreshBookCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task DeleteBookAsync(BookDto context)
+    {
+        await UnlinkBookAsync(context);
+        await BookStoreApi.DeleteBook(context.Id);
+        await RefreshBookCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task HandleBookAdded()
+    {
+        await RefreshBookCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task OpenCreateModal() => await BookCreateModal.Show();
+
+    private async Task OpenLinkModal() => await BookLinkModal.Show();
+
+    private async Task RefreshBookCollection() =>
+            Books = IsNested
+            ? await BookStoreApi.GetAuthorBooks(AuthorId!.Value)
+            : await BookStoreApi.GetAllBooks();
+
+}
