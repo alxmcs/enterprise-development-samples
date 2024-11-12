@@ -1,0 +1,65 @@
+﻿@inject IBookStoreApiWrapper BookStoreApi
+
+<Modal @ref="AuthorModal">
+    <ModalContent Centered>
+        <Form>
+            <ModalHeader>
+                <ModalTitle>Новый автор</ModalTitle>
+                <CloseButton Clicked="CloseAuthorModalAsync" />
+            </ModalHeader>
+
+            <ModalBody>
+                <Field>
+                    <FieldLabel>Фамилия</FieldLabel>
+                    <TextEdit @bind-Text="@NewAuthor.LastName" />
+                </Field>
+                <Field>
+                    <FieldLabel>Имя</FieldLabel>
+                    <TextEdit @bind-Text="@NewAuthor.FirstName" />
+                </Field>
+                <Field>
+                    <FieldLabel>Отчество</FieldLabel>
+                    <TextEdit @bind-Text="@NewAuthor.Patronymic" />
+                </Field>
+            </ModalBody>
+
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="CloseAuthorModalAsync">Отмена</Button>
+                <Button Color="Color.Primary" Clicked="CreateAuthorAsync">Создать</Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>
+
+@code {
+    [Parameter]
+    public bool IsNested { get; set; }
+    [Parameter]
+    public int? BookId { get; set; }
+    [Parameter]
+    public EventCallback OnAuthorAdded { get; set; }
+
+    private BookDto CurrentBook { get; set; } = new();
+    private Modal AuthorModal { get; set; } = new();
+    private AuthorCreateUpdateDto NewAuthor { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (IsNested)
+            CurrentBook = await BookStoreApi.GetBook(BookId!.Value);
+        await base.OnInitializedAsync();
+    }
+
+    public async Task Show() => await AuthorModal.Show();
+
+    private async Task CloseAuthorModalAsync() => await AuthorModal.Hide();
+
+    private async Task CreateAuthorAsync()
+    {
+        var result = await BookStoreApi.CreateAuthor(NewAuthor);
+        if (IsNested)
+            await BookStoreApi.CreateBookAuthor(new() { BookId = BookId!.Value, AuthorId = result.Id });
+        await AuthorModal.Hide();
+        await OnAuthorAdded.InvokeAsync();
+    }
+}

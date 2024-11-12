@@ -1,0 +1,94 @@
+﻿@page "/books/{Id}"
+
+@inject IBookStoreApiWrapper BookStoreApi
+@inject IJSRuntime JsRuntime
+
+<Card>
+	<CardHeader>
+        <Row Class="justify-content-between">
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <h4>Изменить издание</h4>
+            </Column>
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <Button Color="Color.Primary" Clicked="UpdateAuthorAsync">
+                    Сохранить
+                </Button>
+                <Button Color="Color.Danger" Clicked="DeleteBookAsync">
+                    Удалить
+                </Button>
+                <Button Color="Color.Secondary" onclick="history.back();">
+                    Закрыть
+                </Button>
+            </Column>
+        </Row>
+	</CardHeader>
+
+    <CardBody>
+    <Field>
+        <FieldLabel>Название</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedBook.Title" />
+    </Field>
+    <Field>
+        <FieldLabel>Издатель</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedBook.Publisher" />
+    </Field>
+    <Field>
+        <FieldLabel>Год печати</FieldLabel>
+            <NumericEdit @bind-Value="@UpdatedBook.Year" />
+    </Field>
+    <Field>
+        <FieldLabel>Число страниц</FieldLabel>
+        <NumericEdit @bind-Value="@UpdatedBook.PageCount" />
+    </Field>
+    <Field>
+        <FieldLabel>ISBN</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedBook.Isbn" />
+    </Field>
+        <Field>
+            <FieldLabel>Аннотация</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedBook.Annotation" />
+        </Field>
+    </CardBody>
+</Card>
+
+<AuthorDataGrid IsNested="true" BookId="@BookId" />
+
+@code {
+	[Parameter]
+	public string Id { get; set; } = "";
+
+	private int BookId { get; set; }
+	private BookDto UpdatedBook{ get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!int.TryParse(Id, out var id))
+            throw new Exception("Некорректный идентификатор книги");
+        BookId = id;
+        UpdatedBook = await BookStoreApi.GetBook(BookId);
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteBookAsync()
+    {
+        await BookStoreApi.DeleteAuthor(BookId);
+        var bookAuthors = (await BookStoreApi.GetAllBooksAuthors()).Where(ba => ba.BookId == BookId);
+        foreach (var ba in bookAuthors)
+            await BookStoreApi.DeleteBookAuthor(ba.Id);
+        await JsRuntime.InvokeVoidAsync("history.back()");
+    }
+
+    private async Task UpdateAuthorAsync()
+    {
+        var EditedBook = new BookCreateUpdateDto
+            {
+                Title = UpdatedBook.Title,
+                Publisher = UpdatedBook.Publisher,
+                Year = UpdatedBook.Year,
+                PageCount = UpdatedBook.PageCount,
+                Isbn = UpdatedBook.Isbn,
+                Annotation = UpdatedBook.Annotation
+            };
+        UpdatedBook = await BookStoreApi.UpdateBook(BookId, EditedBook);
+    }
+}
