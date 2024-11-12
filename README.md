@@ -16,5 +16,5 @@
 |Application|[BookStore.Contracts](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.Contracts)|Class library|Содержит dto и интерфейсы служб|
 |Application|[BookStore.Application](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.Application)|Class library|Содержит имплементацию аппликейшен служб и профайл автомаппера|
 |Persistence|[BookStore.EfCore](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.EfCore)|Class library|Содержит настройки EF Core контекста|
-|Presentation|[BookStore.WebApi.Host](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.WebApi.Host)|Class library|Содержит контроллеры по Open API стандарту|
-|UI|[BookStore.WebApi.Client](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.WebApi.Client)|Class library|Blazor WASM приложение с Open API клиентом|
+|Presentation|[BookStore.WebApi.Host](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.WebApi.Host)|Web application|Содержит контроллеры по Open API стандарту|
+|UI|[BookStore.WebApi.Client](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.WebApi.Client)|Web application|Blazor WASM приложение с Open API клиентом|
