@@ -8,6 +8,7 @@ public interface IAuthorService : ICrudService<AuthorDto, AuthorCreateUpdateDto,
     /// Возвращает авторов издания
     /// </summary>
     /// <param name="bookId">Идентификатор издания</param>
+    /// <param name="cancellationToken"></param>
     /// <returns>Список авторов</returns>
-    public Task<IList<AuthorDto>?> GetBookAuthors(int bookId);
+    public Task<IList<AuthorDto>?> GetBookAuthors(int bookId, CancellationToken cancellationToken);
 }

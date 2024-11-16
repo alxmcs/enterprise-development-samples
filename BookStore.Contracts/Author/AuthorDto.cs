@@ -3,10 +3,30 @@
 /// <summary>
 /// Dto для просмотра сведений об авторе
 /// </summary>
-/// <param name="Id">Идентификатор</param>
-/// <param name="LastName">Фамилия</param>
-/// <param name="FirstName">Имя</param>
-/// <param name="Patronymic">Отчество</param>
-/// <param name="Biography">Биография</param>
-/// <param name="WorkCount">Число работ</param>
-public record AuthorDto(int Id, string? LastName, string? FirstName, string? Patronymic, string? Biography, int? WorkCount);
+public class AuthorDto
+{
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
+    public int Id { get; set; }
+    /// <summary>
+    /// Фамилия
+    /// </summary>
+    public string? LastName { get; set; }
+    /// <summary>
+    /// Имя
+    /// </summary>
+    public string? FirstName { get; set; }
+    /// <summary>
+    /// Отчество
+    /// </summary>
+    public string? Patronymic { get; set; }
+    /// <summary>
+    /// Биография
+    /// </summary>
+    public string? Biography { get; set; }
+    /// <summary>
+    /// Число работ
+    /// </summary>
+    public int? WorkCount { get; set; }
+}
