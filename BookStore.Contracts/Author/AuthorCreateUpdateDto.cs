@@ -3,8 +3,22 @@
 /// <summary>
 /// Dto для создания или изменения автора
 /// </summary>
-/// <param name="LastName">Фамилия</param>
-/// <param name="FirstName">Имя</param>
-/// <param name="Patronymic">Отчество</param>
-/// <param name="Biography">Биография</param>
-public record AuthorCreateUpdateDto(string? LastName, string? FirstName, string? Patronymic, string? Biography);
+public class AuthorCreateUpdateDto
+{
+    /// <summary>
+    /// Фамилия
+    /// </summary>
+    public string? LastName { get; set; }
+    /// <summary>
+    /// Имя
+    /// </summary>
+    public string? FirstName { get; set; }
+    /// <summary>
+    /// Отчество
+    /// </summary>
+    public string? Patronymic { get; set; }
+    /// <summary>
+    /// Биография
+    /// </summary>
+    public string? Biography { get; set; }
+}

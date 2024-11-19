@@ -3,7 +3,18 @@
 /// <summary>
 /// Dto для просмотра сведений о связи автора и издания
 /// </summary>
-/// <param name="Id">Идентификатор</param>
-/// <param name="AuthorId">Идентификатор автора</param>
-/// <param name="BookId">Идентификатор издания</param>
-public record BookAuthorDto(int Id, int AuthorId, int BookId);
+public class BookAuthorDto
+{
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
+    public int Id { get; set; }
+    /// <summary>
+    /// Идентификатор автора
+    /// </summary>
+    public int AuthorId { get; set; }
+    /// <summary>
+    /// Идентификатор издания
+    /// </summary>
+    public int BookId { get; set; }
+}

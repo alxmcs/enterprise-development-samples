@@ -22,7 +22,7 @@ public class Book
     /// <summary>
     /// Аннотация
     /// </summary>
-    [StringLength(1000, ErrorMessage = "Аннотация издания не должна превышать 1000 символов")]
+    [StringLength(10000, ErrorMessage = "Аннотация издания не должна превышать 10000 символов")]
     public string? Annotation { get; set; }
 
     /// <summary>

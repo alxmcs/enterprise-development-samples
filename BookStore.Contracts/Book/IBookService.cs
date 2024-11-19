@@ -9,6 +9,7 @@ public interface IBookService : ICrudService<BookDto, BookCreateUpdateDto, int>
     /// Возвращает авторов издания
     /// </summary>
     /// <param name="authorId">Идентификатор автора</param>
+    /// <param name="cancellationToken"></param>
     /// <returns>Список изданий</returns>
-    public Task<List<BookDto>?> GetAuthorBooks(int authorId);
+    public Task<List<BookDto>?> GetAuthorBooks(int authorId, CancellationToken cancellationToken);
 }

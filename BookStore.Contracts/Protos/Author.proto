@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option csharp_namespace = "BookStore.Contracts.Protos";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+
+service AuthorService
+{
+	rpc Create(AuthorCreateRequest) returns (AuthorResponse);
+	rpc Update(AuthorUpdateRequest) returns (AuthorResponse);
+	rpc Delete(google.protobuf.Int32Value) returns (google.protobuf.BoolValue);
+	rpc GetList(google.protobuf.Empty) returns (AuthorListResponse);
+	rpc GetById(google.protobuf.Int32Value) returns (AuthorResponse);
+	rpc GetBookAuthors(google.protobuf.Int32Value) returns (AuthorListResponse);
+}
+
+message AuthorCreateRequest {
+	google.protobuf.StringValue LastName = 1;
+	google.protobuf.StringValue FirstName = 2;
+	google.protobuf.StringValue Patronymic = 3;
+	google.protobuf.StringValue Biography = 4;
+	google.protobuf.Int32Value WorkCount = 5;
+}
+
+message AuthorUpdateRequest {
+	int32 Id = 1;
+	AuthorCreateRequest Author = 2;
+}
+
+message AuthorResponse {
+	int32 Id = 1;
+	google.protobuf.StringValue LastName = 2;
+	google.protobuf.StringValue FirstName = 3;
+	google.protobuf.StringValue Patronymic = 4;
+	google.protobuf.StringValue Biography = 5;
+	google.protobuf.Int32Value WorkCount = 6;
+}
+
+message AuthorListResponse {
+	repeated AuthorResponse Authors = 1;
+}
