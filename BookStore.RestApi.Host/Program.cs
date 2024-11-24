@@ -11,14 +11,15 @@ using System.Reflection;
 using Serilog;
 using Serilog.Events;
 
+var builder = WebApplication.CreateBuilder(args);
+
 var logger = new LoggerConfiguration()
         .MinimumLevel.Information()
         .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
         .MinimumLevel.Override("Microsoft.Hosting.Lifetime", LogEventLevel.Information)
         .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3} {ClientIp}] {Message:lj}{NewLine}{Exception}")
+        .WriteTo.LogstashHttp(builder.Configuration["Logstash:Url"])
         .CreateLogger();
-
-var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSerilog(logger);
 builder.Services.AddControllers();

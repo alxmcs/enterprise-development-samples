@@ -1,0 +1,81 @@
+version: '3.4'
+
+networks:
+    lecture-net:
+        driver: bridge
+
+volumes:
+    lecture-opensearch-vol:
+
+services:
+    lecture-opensearch:
+        container_name: lecture-opensearch
+        image: opensearchproject/opensearch:1.2.0
+        environment:
+            - cluster.name=opensearch-cluster
+            - node.name=lecture-opensearch
+            - discovery.seed_hosts=lecture-opensearch
+            - cluster.initial_master_nodes=lecture-opensearch
+            - plugins.security.ssl.http.enabled=false
+            - "OPENSEARCH_JAVA_OPTS=-Xms2048m -Xmx2048m"
+            - "DISABLE_INSTALL_DEMO_CONFIG=true"
+            - "DISABLE_SECURITY_PLUGIN=true"
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536 
+                hard: 262144
+        volumes:
+            - lecture-opensearch-vol:/usr/share/opensearch/data
+        ports:
+            - 9200:9200
+            - 9600:9600 
+        networks:
+            - lecture-net
+
+    lecture-opensearch-dashboards:
+        image: opensearchproject/opensearch-dashboards:1.2.0
+        container_name: lecture-opensearch-dashboards
+        depends_on:
+            - lecture-opensearch
+        ports:
+            - 5601:5601
+        expose:
+            - "5601"
+        environment:
+            - 'OPENSEARCH_HOSTS=["http://lecture-opensearch:9200"]'
+            - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"
+        networks:
+            - lecture-net    
+
+    lecture-opensearch-logstash:
+        image: opensearchproject/logstash-oss-with-opensearch-output-plugin:latest
+        container_name: lecture-opensearch-logstash
+        depends_on:
+            - lecture-opensearch
+        volumes:
+            - ./pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+            - ./logstash.conf:/etc/logstash/conf.d/logstash-opensearch.conf:ro
+        ports:
+            - "8000:8000"
+            - "5044:5044"
+        expose:
+            - "8000"
+        environment:
+            LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+        networks:
+            - lecture-net
+
+    lecture-postgres:
+        image: postgres:latest
+        container_name: lecture-postgres
+        ports:
+            - "55432:5432"
+        environment:
+            - "POSTGRES_DB=lecture"
+            - "POSTGRES_USER=postgres"
+            - "POSTGRES_PASSWORD=1"
+        networks:
+            - lecture-net        
