@@ -20,3 +20,7 @@
 |UI|[BookStore.RestApi.Client](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.RestApi.Client)|Web application|Blazor WASM приложение с Open API клиентом|
 |Presentation|[BookStore.Grpc.Host](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.Grpc.Host)|Web application|Содержит gRPC сервер|
 |UI|[BookStore.Grpc.Client](https://github.com/alxmcs/enterprise-development-samples/tree/main/BookStore.Grpc.Client)|Web application|Blazor WASM приложение с gRPC клиентом|
+
+## Пример записи логов в ELK-стек
+* [docker compose](https://github.com/alxmcs/enterprise-development-samples/blob/main/docker-compose.yml) конфигурация с использованием [opensearch](https://opensearch.org/), [logstash](https://opensearch.org/docs/latest/tools/logstash/index/), [opensearch dashboards](https://opensearch.org/docs/latest/dashboards/)
+* [конфигурирование serilog](https://github.com/alxmcs/enterprise-development-samples/blob/c10b0719c229e1ca30383ed526a07bca36cf4962/BookStore.RestApi.Host/Program.cs#L14) для пуша логов в logstash
