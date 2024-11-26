@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.RestApi.Client", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Grpc.Host", "BookStore.Grpc.Host\BookStore.Grpc.Host.csproj", "{831E24E6-69CD-4B17-80B9-D17A353B34F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Grpc.Client", "BookStore.Grpc.Client\BookStore.Grpc.Client.csproj", "{836A940B-816E-4FA9-A6BC-AEBC8183F3AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Grpc.Client", "BookStore.Grpc.Client\BookStore.Grpc.Client.csproj", "{836A940B-816E-4FA9-A6BC-AEBC8183F3AB}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F08BCF20-109F-49F0-B625-2406D68B3C91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{836A940B-816E-4FA9-A6BC-AEBC8183F3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{836A940B-816E-4FA9-A6BC-AEBC8183F3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{836A940B-816E-4FA9-A6BC-AEBC8183F3AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F08BCF20-109F-49F0-B625-2406D68B3C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F08BCF20-109F-49F0-B625-2406D68B3C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F08BCF20-109F-49F0-B625-2406D68B3C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F08BCF20-109F-49F0-B625-2406D68B3C91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
