@@ -4,16 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.EfCore;
 
-public class BookStoreDbContext : DbContext
+public class BookStoreDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<Book>? Books { get; set; }
     public DbSet<Author>? Authors { get; set; }
     public DbSet<BookAuthor>? BookAuthors { get; set; }
-
-    public BookStoreDbContext(DbContextOptions options) : base(options)
-    {
-        Database.EnsureCreated();
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
