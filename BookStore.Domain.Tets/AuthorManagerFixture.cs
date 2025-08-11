@@ -6,8 +6,7 @@
 public class AuthorManagerFixture
 {
     private readonly AuthorInMemoryRepository _authorRepository;
-    private readonly BookAuthorInMemoryRepository _bookAuthorRepository;
-    private readonly BookInMemoryRepository _bookRepository;
+
 
     public AuthorManager AuthorManager { get; init; }
 
@@ -27,9 +26,7 @@ public class AuthorManagerFixture
             a.BookAuthors = [.. bookAuthors.Where(ba => ba.AuthorId == a.Id)];
 
         _authorRepository = new(authors);
-        _bookAuthorRepository = new(bookAuthors);
-        _bookRepository = new(books);
 
-        AuthorManager = new(_authorRepository, _bookAuthorRepository, _bookRepository);
+        AuthorManager = new(_authorRepository);
     }
 }

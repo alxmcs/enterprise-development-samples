@@ -1,4 +1,5 @@
-﻿using BookStore.Domain.Model.Authors;
+﻿using BookStore.Domain;
+using BookStore.Domain.Model.Authors;
 
 namespace BookStore.Infrastructure.InMemory;
 

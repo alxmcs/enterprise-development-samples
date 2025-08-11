@@ -9,7 +9,9 @@ using BookStore.Domain;
 using BookStore.Domain.Model.Authors;
 using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
+using BookStore.Infrastructure.EfCore;
 using BookStore.Infrastructure.EfCore.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +23,9 @@ var mapperConfig = new MapperConfiguration(
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-builder.Services.AddSingleton<IRepository<Author, int>, AuthorEfCoreRepository>();
-builder.Services.AddSingleton<IRepository<Book, int>, BookEfCoreRepository>();
-builder.Services.AddSingleton<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Author, int>, AuthorEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Book, int>, BookEfCoreRepository>();
+builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
 
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IApplicationService<BookDto, BookCreateUpdateDto, int>, BookService>();
@@ -34,6 +36,9 @@ builder.Services.AddScoped<AuthorManager>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContextFactory<BookStoreDbContext>(options =>
+    options.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
 var app = builder.Build();
 
