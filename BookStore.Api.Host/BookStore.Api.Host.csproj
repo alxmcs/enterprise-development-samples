@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.Application.Contracts\BookStore.Application.Contracts.csproj" />
+    <ProjectReference Include="..\BookStore.Application\BookStore.Application.csproj" />
+    <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
+    <ProjectReference Include="..\BookStore.Infrastructure.InMemory\BookStore.Infrastructure.InMemory.csproj" />
+  </ItemGroup>
+
+</Project>
