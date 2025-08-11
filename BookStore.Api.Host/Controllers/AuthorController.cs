@@ -16,12 +16,12 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<List<BookDto>> GetLast5AuthorsBook(int id)
+    public async Task<ActionResult<List<BookDto>>> GetLast5AuthorsBook(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
         try
         {
-            var res = crudService.GetLast5AuthorsBook(id);
+            var res = await crudService.GetLast5AuthorsBook(id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Delete), GetType().Name);
             return res.Count > 0 ? Ok(res) : NoContent();
         }
@@ -40,12 +40,12 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<List<(string,int)>> GetTop5AuthorsByPageCount()
+    public async Task<ActionResult<List<(string, int)>>> GetTop5AuthorsByPageCount()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Get), GetType().Name);
         try
         {
-            var res = crudService.GetTop5AuthorsByPageCount();
+            var res = await crudService.GetTop5AuthorsByPageCount();
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Delete), GetType().Name);
             return res.Count > 0 ? Ok(res) : NoContent();
         }

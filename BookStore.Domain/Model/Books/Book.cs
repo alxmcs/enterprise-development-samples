@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BookStore.Domain.Model.BookAuthors;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Domain.Model.Books;
 
@@ -48,6 +49,11 @@ public class Book
     /// </summary>
     [RegularExpression(@"^(\d{3}-)?\d-(\d{5})-(\d{3})-\d$", ErrorMessage = "Некорректный ISBN")]
     public string? Isbn { get; set; }
+
+    /// <summary>
+    /// Список авторов
+    /// </summary>
+    public virtual List<BookAuthor>? BookAuthors { get; set; }
 
     /// <summary>
     /// Перегрузка метода, возвращающего строковое представление объекта

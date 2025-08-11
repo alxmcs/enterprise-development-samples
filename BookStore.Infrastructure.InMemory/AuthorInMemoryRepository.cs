@@ -1,44 +1,37 @@
-﻿using BookStore.Domain.Data;
-using BookStore.Domain.Model.Authors;
+﻿using BookStore.Domain.Model.Authors;
 
 namespace BookStore.Infrastructure.InMemory;
 
 /// <summary>
-/// Имплементация репозитория для авторов
+/// Имплементация инмемори репозитория для авторов
 /// </summary>
-public class AuthorInMemoryRepository : IRepository<Author,int>
+public class AuthorInMemoryRepository(List<Author> authors) : IRepository<Author, int>
 {
-    private List<Author> _authors;
-    public AuthorInMemoryRepository()
+    public Task<Author> Create(Author entity)
     {
-        _authors = DataSeeder.Authors;
+        authors.Add(entity);
+        return Task.FromResult(entity);
     }
 
-    public void Create(Author entity)
+    public Task<bool> Delete(int entityId)
     {
-        _authors.Add(entity);
+        var author = Read(entityId).Result;
+        if (author == null)
+            return Task.FromResult(false);
+        var res = authors.Remove(author);
+        return Task.FromResult(res);
     }
 
-    public void Delete(int entityId)
-    {
-        var author = Read(entityId);
-        if (author != null)
-            _authors.Remove(author);
-    }
+    public Task<Author?> Read(int entityId) =>
+        Task.FromResult(authors.FirstOrDefault(a => a.Id == entityId));
 
-    public Author Read(int entityId)
-    {
-        return _authors.First(a => a.Id == entityId);
-    }
+    public Task<IList<Author>> ReadAll() =>
+        Task.FromResult<IList<Author>>([.. authors]);
 
-    public List<Author> ReadAll()
-    {
-        return [.. _authors];
-    }
-
-    public void Update(Author entity)
+    public Task<Author> Update(Author entity)
     {
         Delete(entity.Id);
         Create(entity);
+        return Task.FromResult(entity);
     }
 }

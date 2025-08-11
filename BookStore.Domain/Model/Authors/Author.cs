@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Model.BookAuthors;
+using BookStore.Domain.Model.Books;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Domain.Model.Authors;
@@ -39,6 +40,11 @@ public class Author
     public string? Biography { get; set; }
 
     /// <summary>
+    /// Список работ
+    /// </summary>
+    public virtual List<BookAuthor>? BookAuthors { get; set; }
+
+    /// <summary>
     /// Перегрузка метода, возвращающего строковое представление объекта
     /// </summary>
     /// <returns>Имя автора</returns>
@@ -46,4 +52,16 @@ public class Author
         string.IsNullOrEmpty(Patronymic)
             ? $"{FirstName} {LastName}"
             : $"{LastName} {FirstName} {Patronymic}";
+
+    /// <summary>
+    /// Получает последние 5 книг автора
+    /// </summary>
+    /// <returns>Список книг</returns>
+    public List<Book> GetLast5AuthorsBook() => [.. BookAuthors?.Select(ba => ba.Book)?.OrderByDescending(b => b?.Year)?.Take(5) ?? []];
+
+    /// <summary>
+    /// Получает суммарное число изданных автором страниц
+    /// </summary>
+    /// <returns>Число страниц всех изданных книг</returns>
+    public int? GetPageCount() => BookAuthors?.Select(ba => ba.Book).Sum(b => b?.PageCount);
 }

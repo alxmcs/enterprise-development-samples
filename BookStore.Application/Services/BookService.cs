@@ -7,30 +7,27 @@ using BookStore.Infrastructure.InMemory;
 namespace BookStore.Application.Services;
 public class BookService(IRepository<Book, int> repository, IMapper mapper) : IApplicationService<BookDto, BookCreateUpdateDto, int>
 {
-    public BookDto Create(BookCreateUpdateDto dto)
+    public async Task<BookDto> Create(BookCreateUpdateDto dto)
     {
         var newBook = mapper.Map<Book>(dto);
-        newBook.Id = repository.ReadAll().OrderByDescending(a => a.Id).FirstOrDefault(new Book { Id = 1 }).Id + 1;
-        repository.Create(newBook);
-        return mapper.Map<BookDto>(newBook);
+        var res = await repository.Create(newBook);
+        return mapper.Map<BookDto>(res);
     }
 
-    public void Delete(int dtoId)
-    {
-        repository.Delete(dtoId);
-    }
+    public async Task<bool> Delete(int dtoId) =>
+        await repository.Delete(dtoId);
 
-    public BookDto Get(int dtoId) =>
-        mapper.Map<BookDto>(repository.Read(dtoId));
 
-    public List<BookDto> GetAll() =>   
-        mapper.Map<List<BookDto>>(repository.ReadAll());
-    
-    public BookDto Update(BookCreateUpdateDto dto, int dtoId)
+    public async Task<BookDto?> Get(int dtoId) =>
+        mapper.Map<BookDto>(await repository.Read(dtoId));
+
+    public async Task<IList<BookDto>> GetAll() =>
+        mapper.Map<List<BookDto>>(await repository.ReadAll());
+
+    public async Task<BookDto> Update(BookCreateUpdateDto dto, int dtoId)
     {
         var updBook = mapper.Map<Book>(dto);
-        updBook.Id = dtoId;
-        repository.Update(updBook);
-        return mapper.Map<BookDto>(updBook);
+        var res = await repository.Update(updBook);
+        return mapper.Map<BookDto>(res);
     }
 }

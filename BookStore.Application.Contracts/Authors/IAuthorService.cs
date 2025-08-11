@@ -12,11 +12,11 @@ public interface IAuthorService : IApplicationService<AuthorDto, AuthorCreateUpd
     /// </summary>
     /// <param name="dtoId">Идентификатор автора</param>
     /// <returns>Список книг</returns>
-    List<BookDto> GetLast5AuthorsBook(int dtoId);
+    Task<IList<BookDto>> GetLast5AuthorsBook(int dtoId);
 
     /// <summary>
     /// Получает топ 5 авторов по числу написанных страниц
     /// </summary>
     /// <returns>Список кортежей вида (имя автора, число страниц)</returns>
-    List<KeyValuePair<string,int?>> GetTop5AuthorsByPageCount();
+    Task<IList<KeyValuePair<string, int?>>> GetTop5AuthorsByPageCount();
 }

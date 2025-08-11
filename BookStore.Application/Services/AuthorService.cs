@@ -7,36 +7,32 @@ using BookStore.Infrastructure.InMemory;
 namespace BookStore.Application.Services;
 public class AuthorService(IRepository<Author, int> authorRepository, AuthorManager authorManager, IMapper mapper) : IAuthorService
 {
-    public AuthorDto Create(AuthorCreateUpdateDto dto)
+    public async Task<AuthorDto> Create(AuthorCreateUpdateDto dto)
     {
         var newAuthor = mapper.Map<Author>(dto);
-        newAuthor.Id = authorRepository.ReadAll().OrderByDescending(a => a.Id).FirstOrDefault(new Author { Id = 1 }).Id + 1;
-        authorRepository.Create(newAuthor);
-        return mapper.Map<AuthorDto>(newAuthor); 
+        var res = await authorRepository.Create(newAuthor);
+        return mapper.Map<AuthorDto>(res);
     }
 
-    public void Delete(int dtoId)
-    {
-        authorRepository.Delete(dtoId);
-    }
+    public async Task<bool> Delete(int dtoId) =>
+        await authorRepository.Delete(dtoId);
 
-    public AuthorDto Get(int dtoId) =>  
-        mapper.Map<AuthorDto>(authorRepository.Read(dtoId));
-    
-    public List<AuthorDto> GetAll() =>
-        mapper.Map<List<AuthorDto>>(authorRepository.ReadAll());
-    
-    public List<BookDto> GetLast5AuthorsBook(int dtoId) =>   
-        mapper.Map<List<BookDto>>(authorManager.GetLast5AuthorsBook(dtoId));
+    public async Task<AuthorDto?> Get(int dtoId) =>
+        mapper.Map<AuthorDto>(await authorRepository.Read(dtoId));
 
-    public List<KeyValuePair<string, int?>> GetTop5AuthorsByPageCount() =>
-        authorManager.GetTop5AuthorsByPageCount();
-    
-    public AuthorDto Update(AuthorCreateUpdateDto dto, int dtoId)
+    public async Task<IList<AuthorDto>> GetAll() =>
+        mapper.Map<List<AuthorDto>>(await authorRepository.ReadAll());
+
+    public async Task<IList<BookDto>> GetLast5AuthorsBook(int dtoId) =>
+        mapper.Map<List<BookDto>>(await authorManager.GetLast5AuthorsBook(dtoId));
+
+    public async Task<IList<KeyValuePair<string, int?>>> GetTop5AuthorsByPageCount() =>
+        await authorManager.GetTop5AuthorsByPageCount();
+
+    public async Task<AuthorDto> Update(AuthorCreateUpdateDto dto, int dtoId)
     {
         var updAuthor = mapper.Map<Author>(dto);
-        updAuthor.Id = dtoId;
-        authorRepository.Update(updAuthor);
-        return mapper.Map<AuthorDto>(updAuthor);
+        var res = await authorRepository.Update(updAuthor);
+        return mapper.Map<AuthorDto>(res);
     }
 }
