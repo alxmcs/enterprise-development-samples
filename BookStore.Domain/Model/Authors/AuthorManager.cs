@@ -31,18 +31,18 @@ public class AuthorManager(IRepository<Author,int> authors, IRepository<BookAuth
     /// Получает топ 5 авторов по числу написанных страниц
     /// </summary>
     /// <returns>Список кортежей вида (имя автора, число страниц)</returns>
-    public List<(string Name, int? Pages)> GetTop5AuthorsByPageCount()
+    public List<KeyValuePair<string, int?>> GetTop5AuthorsByPageCount()
     {
         var authorList = authors.ReadAll();
         var bookList = books.ReadAll();
         var baList = bookAuthors.ReadAll();
         var query = from author in authorList
                     join ba in baList on author.Id equals ba.AuthorId
-                    join book in bookList on ba.AuthorId equals book.Id
+                    join book in bookList on ba.BookId equals book.Id
                     select (author, book);
         return [.. query.GroupBy(q => q.author)
-            .Select(g => (Name: g.Key.ToString(), Pages: g.Sum(b => b.book.PageCount)))
-            .OrderByDescending( c => c.Pages)
+            .Select(g => new KeyValuePair<string, int?>(g.Key.ToString(), g.Sum(b => b.book.PageCount)))
+            .OrderByDescending( c => c.Value)
             .Take(5)];            
     }
 }

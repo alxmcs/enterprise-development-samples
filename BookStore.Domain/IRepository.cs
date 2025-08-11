@@ -16,11 +16,11 @@ public interface IRepository<TEntity, TKey>
     void Create(TEntity entity);
 
     /// <summary>
-    /// Полученеи сущности по идентифкатору
+    /// Получение сущности по идентификатору
     /// </summary>
-    /// <param name="entity">Идентификатор сущности</param>
+    /// <param name="entityId">Идентификатор сущности</param>
     /// <returns>Сущность</returns>
-    TEntity Read(TKey entity);
+    TEntity Read(TKey entityId);
 
     /// <summary>
     /// Получение всего списка сущностей
