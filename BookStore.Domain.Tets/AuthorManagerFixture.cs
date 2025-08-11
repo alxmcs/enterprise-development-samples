@@ -24,8 +24,8 @@ public class AuthorManagerFixture
         foreach (var b in books)
             b.BookAuthors = [.. bookAuthors.Where(ba => ba.BookId == b.Id)];
         foreach (var a in authors)
-            a.BookAuthors = [ ..bookAuthors.Where(ba => ba.AuthorId == a.Id)];
-        
+            a.BookAuthors = [.. bookAuthors.Where(ba => ba.AuthorId == a.Id)];
+
         _authorRepository = new(authors);
         _bookAuthorRepository = new(bookAuthors);
         _bookRepository = new(books);

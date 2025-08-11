@@ -1,6 +1,4 @@
-﻿using BookStore.Domain.Model.BookAuthors;
-using BookStore.Domain.Model.Books;
-using BookStore.Infrastructure.InMemory;
+﻿using BookStore.Domain.Model.Books;
 
 namespace BookStore.Domain.Model.Authors;
 
@@ -8,9 +6,7 @@ namespace BookStore.Domain.Model.Authors;
 /// Доменная служба для имплементации бизнес-логики, связанной с авторами
 /// </summary>
 /// <param name="authors">Репозиторий авторов</param>
-/// <param name="bookAuthors">Репозиторий связей</param>
-/// <param name="books">Репозиторий книг</param>
-public class AuthorManager(IRepository<Author, int> authors, IRepository<BookAuthor, int> bookAuthors, IRepository<Book, int> books)
+public class AuthorManager(IRepository<Author, int> authors)
 {
     /// <summary>
     /// Получает последние 5 книг выбранного автора

@@ -2,7 +2,6 @@
 using BookStore.Application.Contracts.Authors;
 using BookStore.Application.Contracts.Books;
 using BookStore.Domain.Model.Authors;
-using BookStore.Infrastructure.InMemory;
 
 namespace BookStore.Application.Services;
 public class AuthorService(IRepository<Author, int> authorRepository, AuthorManager authorManager, IMapper mapper) : IAuthorService

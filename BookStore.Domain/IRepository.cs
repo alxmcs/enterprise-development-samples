@@ -1,4 +1,4 @@
-﻿namespace BookStore.Infrastructure.InMemory;
+﻿namespace BookStore.Domain;
 
 /// <summary>
 /// Интерфейс репозитория для CRUD операций

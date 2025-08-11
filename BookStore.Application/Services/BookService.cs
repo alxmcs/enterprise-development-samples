@@ -2,7 +2,6 @@
 using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Books;
 using BookStore.Domain.Model.Books;
-using BookStore.Infrastructure.InMemory;
 
 namespace BookStore.Application.Services;
 public class BookService(IRepository<Book, int> repository, IMapper mapper) : IApplicationService<BookDto, BookCreateUpdateDto, int>
