@@ -37,8 +37,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContextFactory<BookStoreDbContext>(options =>
-    options.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
 
 var app = builder.Build();
 
@@ -46,6 +45,10 @@ app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<BookStoreDbContext>();
+    db.Database.Migrate();
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
