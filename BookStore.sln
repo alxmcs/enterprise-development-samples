@@ -25,6 +25,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.AppHost", "BookSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.ServiceDefaults", "BookStore.ServiceDefaults\BookStore.ServiceDefaults.csproj", "{ACE532B0-5E77-617B-88A9-DEB405E8CCF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Generator", "BookStore.Generator\BookStore.Generator.csproj", "{11A09EB4-7F25-4596-A876-912189868DB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Generator.RabbitMq.Host", "BookStore.Generator.RabbitMq.Host\BookStore.Generator.RabbitMq.Host.csproj", "{64A224EA-6436-109B-95A5-3E6748170373}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Infrastructure.RabbitMq", "BookStore.Infrastructure.RabbitMq\BookStore.Infrastructure.RabbitMq.csproj", "{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +73,18 @@ Global
 		{ACE532B0-5E77-617B-88A9-DEB405E8CCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACE532B0-5E77-617B-88A9-DEB405E8CCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACE532B0-5E77-617B-88A9-DEB405E8CCF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11A09EB4-7F25-4596-A876-912189868DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11A09EB4-7F25-4596-A876-912189868DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11A09EB4-7F25-4596-A876-912189868DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11A09EB4-7F25-4596-A876-912189868DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64A224EA-6436-109B-95A5-3E6748170373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64A224EA-6436-109B-95A5-3E6748170373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64A224EA-6436-109B-95A5-3E6748170373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64A224EA-6436-109B-95A5-3E6748170373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +99,9 @@ Global
 		{E48A1638-378C-431C-8AC6-96B900C0BC4C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{16748D90-ABFA-4433-A14C-472F1C464B29} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{ACE532B0-5E77-617B-88A9-DEB405E8CCF2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{11A09EB4-7F25-4596-A876-912189868DB5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{64A224EA-6436-109B-95A5-3E6748170373} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{DEEFF0FD-A04E-4DA5-91BF-68687B34E5BB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A27D398-62DD-4D9A-B23E-875FA681A708}

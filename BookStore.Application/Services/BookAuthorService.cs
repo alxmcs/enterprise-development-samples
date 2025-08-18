@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Domain;
 using BookStore.Domain.Model.BookAuthors;
 
 namespace BookStore.Application.Services;
-public class BookAuthorService(IRepository<BookAuthor, int> repository, IMapper mapper) : IApplicationService<BookAuthorDto, BookAuthorCreateUpdateDto, int>
+public class BookAuthorService(IRepository<BookAuthor, int> repository, IMapper mapper) : IBookAuthorService
 {
     public async Task<BookAuthorDto> Create(BookAuthorCreateUpdateDto dto)
     {
@@ -28,5 +27,12 @@ public class BookAuthorService(IRepository<BookAuthor, int> repository, IMapper 
         var updLink = mapper.Map<BookAuthor>(dto);
         var res = await repository.Update(updLink);
         return mapper.Map<BookAuthorDto>(res);
+    }
+
+    public async Task ReceiveContractList(IList<BookAuthorCreateUpdateDto> contracts)
+    {
+        var bookAuthors = mapper.Map<List<BookAuthor>>(contracts);
+        foreach (var newLink in bookAuthors)
+            await repository.Create(newLink);
     }
 }
