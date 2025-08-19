@@ -11,7 +11,8 @@ namespace BookStore.Generator.RabbitMq.Host;
 /// </summary>
 /// <param name="configuration">Конфигурация</param>
 /// <param name="rabbitMqConnection">Подключение к брокеру сообщений</param>
-public class RabbitMqProducer(IConfiguration configuration, IConnection rabbitMqConnection, ILogger<RabbitMqProducer> logger) : IProducerService
+/// <param name="logger">Логгер</param>
+public class BookStoreRabbitMqProducer(IConfiguration configuration, IConnection rabbitMqConnection, ILogger<BookStoreRabbitMqProducer> logger) : IProducerService
 {
     private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new ArgumentNullException("QueueName", "QueueName section of RabbitMq is missing");
 
@@ -31,7 +32,7 @@ public class RabbitMqProducer(IConfiguration configuration, IConnection rabbitMq
         }
         catch (Exception ex)
         {
-            logger.LogError("Exception occured during sending a batch of {count} contracts to {queue}/ Exception: {@ex}", batch.Count, _queueName, ex);
+            logger.LogError(ex, "Exception occured during sending a batch of {count} contracts to {queue}", batch.Count, _queueName);
             return Task.CompletedTask;
         }
     }

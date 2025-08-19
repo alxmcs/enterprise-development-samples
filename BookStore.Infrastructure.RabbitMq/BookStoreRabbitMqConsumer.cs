@@ -16,9 +16,11 @@ namespace BookStore.Infrastructure.RabbitMq;
 /// <param name="scopeFactory">Фабрика контекста</param>
 /// <param name="configuration">Конфигурация</param>
 /// <param name="logger">Логгер</param>
-public class RabbitMqConsumer(IConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<RabbitMqConsumer> logger) : BackgroundService
+public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreRabbitMqConsumer> logger) : BackgroundService
 {
     private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new ArgumentNullException("QueueName", "QueueName section of RabbitMq is missing");
+    
+    /// <inheritdoc/>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
         logger.LogInformation("Establishing channel to queue {queue}", _queueName);
@@ -55,7 +57,7 @@ public class RabbitMqConsumer(IConnection connection, IServiceScopeFactory scope
         }
         catch (Exception ex)
         {
-            logger.LogError("Exception occured during receiving contracts from {queue}/ Exception: {@ex}", _queueName, ex);
+            logger.LogError(ex,"Exception occured during receiving contracts from {queue}", _queueName);
         }
     }
 }

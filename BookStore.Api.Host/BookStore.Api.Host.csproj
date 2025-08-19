@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Confluent.Kafka" Version="9.4.1" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.4.0" />
     <PackageReference Include="Aspire.RabbitMQ.Client" Version="9.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
@@ -22,6 +23,7 @@
     <ProjectReference Include="..\BookStore.Application\BookStore.Application.csproj" />
     <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
     <ProjectReference Include="..\BookStore.Infrastructure.EfCore\BookStore.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\BookStore.Infrastructure.Kafka\BookStore.Infrastructure.Kafka.csproj" />
     <ProjectReference Include="..\BookStore.Infrastructure.RabbitMq\BookStore.Infrastructure.RabbitMq.csproj" />
     <ProjectReference Include="..\BookStore.ServiceDefaults\BookStore.ServiceDefaults.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 using AutoMapper;
+using BookStore.Api.Host;
 using BookStore.Application;
 using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Authors;
@@ -11,7 +12,6 @@ using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
 using BookStore.Infrastructure.EfCore;
 using BookStore.Infrastructure.EfCore.Repositories;
-using BookStore.Infrastructure.RabbitMq;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,7 +27,6 @@ builder.Services.AddSingleton(mapper);
 builder.Services.AddTransient<IRepository<Author, int>, AuthorEfCoreRepository>();
 builder.Services.AddTransient<IRepository<Book, int>, BookEfCoreRepository>();
 builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
-builder.Services.AddHostedService<RabbitMqConsumer>();
 //службы аппликейшен слоя
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IApplicationService<BookDto, BookCreateUpdateDto, int>, BookService>();
@@ -41,7 +40,7 @@ builder.Services.AddSwaggerGen();
 //контекст базы данных
 builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
 //клиент брокера сообщений
-builder.AddRabbitMQClient("book-store-rabbitmq");
+builder.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 

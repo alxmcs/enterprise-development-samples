@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddRabbitMQClient("book-store-rabbitmq");
-builder.Services.AddScoped<IProducerService, RabbitMqProducer>();
+builder.Services.AddScoped<IProducerService, BookStoreRabbitMqProducer>();
 builder.Services.AddHostedService<GeneratorService>();
 
 var app = builder.Build();

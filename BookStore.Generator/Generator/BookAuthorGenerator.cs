@@ -14,6 +14,10 @@ public static class BookAuthorGenerator
     /// </summary>
     /// <param name="count">Заданное число контрактов</param>
     /// <returns>Коллекция контрактов</returns>
+    /// <remarks>
+    /// Генерация контрактов для взятой в этом примере доменной области крайне неудачная, но деваться уже некуда
+    /// В вариантах лабораторной контракты выглядят гораздо более вменяемо, чем тут
+    /// </remarks>
     public static List<BookAuthorCreateUpdateDto> GenerateLinks(int count) =>
         new Faker<BookAuthorCreateUpdateDto>()
             .WithRecord()
