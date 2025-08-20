@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace BookStore.Infrastructure.Kafka;
 
 /// <summary>
-/// Имплементация для отправки контрактов через топик Kafka
+/// Служба для чтения данных из топика Kafka
 /// </summary>
 /// <param name="consumer">Kafka-консьюмер</param>
 /// <param name="scopeFactory">Фабрика контекста</param>
@@ -44,7 +44,6 @@ public class BookStoreKafkaConsumer(IConsumer<Guid, IList<BookAuthorCreateUpdate
                 var consumeResult = consumer.Consume(stoppingToken);
 
                 using var scope = scopeFactory.CreateScope();
-
                 var bookAuthorService = scope.ServiceProvider.GetRequiredService<IBookAuthorService>();
                 await bookAuthorService.ReceiveContractList(consumeResult.Message.Value);
 

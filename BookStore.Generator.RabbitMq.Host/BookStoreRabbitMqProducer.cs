@@ -1,7 +1,6 @@
 ﻿using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Generator.Services;
 using RabbitMQ.Client;
-using System.Text;
 using System.Text.Json;
 
 namespace BookStore.Generator.RabbitMq.Host;
@@ -22,8 +21,7 @@ public class BookStoreRabbitMqProducer(IConfiguration configuration, IConnection
         try
         {
             logger.LogInformation("Sending a batch of {count} contracts to {queue}", batch.Count, _queueName);
-            var json = JsonSerializer.Serialize(batch);
-            var payload = Encoding.UTF8.GetBytes(json);
+            var payload = JsonSerializer.SerializeToUtf8Bytes(batch);
 
             using var channel = rabbitMqConnection.CreateModel();
             channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false);

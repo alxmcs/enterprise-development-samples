@@ -31,7 +31,7 @@ public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFact
 
         logger.LogInformation("Began listening to queue {queue}", _queueName);
         var consumer = new EventingBasicConsumer(channel);
-        consumer.Received += async (_, ea) => await ReceiveMessage(ea, stoppingToken);
+        consumer.Received += async (_, ea) => await ReceiveMessage(ea, stoppingToken); 
         channel.BasicConsume(_queueName, true, consumer);
 
         return Task.CompletedTask;

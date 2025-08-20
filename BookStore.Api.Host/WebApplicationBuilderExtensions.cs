@@ -1,6 +1,7 @@
 ﻿using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Infrastructure.Kafka;
 using BookStore.Infrastructure.Kafka.Deserializers;
+using BookStore.Infrastructure.Nats;
 using BookStore.Infrastructure.RabbitMq;
 
 namespace BookStore.Api.Host;
@@ -73,6 +74,8 @@ internal static class WebApplicationBuilderExtensions
     /// <returns>Веб-билдер приложения с зареганными службами Nats</returns>
     private static WebApplicationBuilder AddNats(this WebApplicationBuilder builder)
     {
+        builder.Services.AddHostedService<BookStoreNatsConsumer>();
+        builder.AddNatsClient("book-store-nats");
         return builder;
     }
 }
