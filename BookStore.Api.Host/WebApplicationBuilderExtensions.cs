@@ -1,33 +1,38 @@
-﻿using BookStore.Application.Contracts.BookAuthors;
+﻿using BookStore.Api.Host.Grpc;
+using BookStore.Application.Contracts.BookAuthors;
+using BookStore.Application.Contracts.Protos;
 using BookStore.Infrastructure.Kafka;
 using BookStore.Infrastructure.Kafka.Deserializers;
 using BookStore.Infrastructure.Nats;
 using BookStore.Infrastructure.RabbitMq;
+using Grpc.Core;
+using Microsoft.Extensions.Options;
 
 namespace BookStore.Api.Host;
 /// <summary>
-/// Класс-расширение для регистрации в di-контейнере подходящего брокара сообщений
+/// Класс-расширение для регистрации в di-контейнере подходящего клиента для сервиса генерации
 /// </summary>
 internal static class WebApplicationBuilderExtensions
 {
     /// <summary>
-    /// Регистрирует клиент брокера сообщений и необходимые для его работы службы
+    /// Регистрирует клиент для взаимодейсвия с сервисом генерации данных
     /// </summary>
     /// <param name="builder">Веб-билдер приложения</param>
     /// <param name="configuration">Конфигурация</param>
     /// <returns>Веб-билдер приложения с зареганными службами</returns>
-    /// <exception cref="ArgumentNullException">Если параметр конфигурации MessageBroker не найден</exception>
-    /// <exception cref="FormatException">Если параметр конфигурации MessageBroker неизвестен</exception>
-    public static WebApplicationBuilder AddMessageBroker(this WebApplicationBuilder builder, IConfiguration configuration)
+    /// <exception cref="ArgumentNullException">Если параметр конфигурации Generator не найден</exception>
+    /// <exception cref="FormatException">Если параметр конфигурации Generator неизвестен</exception>
+    public static WebApplicationBuilder AddGeneratorService(this WebApplicationBuilder builder, IConfiguration configuration)
     {
-        if (!configuration.GetSection("MessageBroker").Exists()) throw new ArgumentNullException("MessageBroker", "MessageBroker section is missing");
+        if (!configuration.GetSection("Generator").Exists()) throw new ArgumentNullException("Generator", "Generator section is missing");
 
-        _ = configuration["MessageBroker"] switch
+        _ = configuration["Generator"] switch
         {
             "RabbitMq" => AddRabbitMq(builder),
             "Kafka" => AddKafka(builder),
             "Nats" => AddNats(builder),
-            _ => throw new FormatException("Unknown parameter in MessageBroker section")
+            "Grpc" => AddGrpc(builder),
+            _ => throw new FormatException("Unknown parameter in Generator section")
         };
         return builder;
     }
@@ -40,7 +45,7 @@ internal static class WebApplicationBuilderExtensions
     private static WebApplicationBuilder AddRabbitMq(this WebApplicationBuilder builder)
     {
         builder.Services.AddHostedService<BookStoreRabbitMqConsumer>();
-        builder.AddRabbitMQClient("book-store-rabbitmq");
+        builder.AddRabbitMQClient("bookstore-rabbitmq");
         return builder;
     }
 
@@ -52,7 +57,7 @@ internal static class WebApplicationBuilderExtensions
     private static WebApplicationBuilder AddKafka(this WebApplicationBuilder builder)
     {
         builder.Services.AddHostedService<BookStoreKafkaConsumer>();
-        builder.AddKafkaConsumer<Guid, IList<BookAuthorCreateUpdateDto>>("book-store-kafka",
+        builder.AddKafkaConsumer<Guid, IList<BookAuthorCreateUpdateDto>>("bookstore-kafka",
             configureBuilder: builder =>
             {
                 builder.SetKeyDeserializer(new BookStoreKeyDeserializer());
@@ -60,7 +65,7 @@ internal static class WebApplicationBuilderExtensions
             },
             configureSettings: settings =>
             { 
-                settings.Config.GroupId = "book-store-consumer";
+                settings.Config.GroupId = "bookstore-consumer";
                 settings.Config.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
             }
             );
@@ -75,7 +80,26 @@ internal static class WebApplicationBuilderExtensions
     private static WebApplicationBuilder AddNats(this WebApplicationBuilder builder)
     {
         builder.Services.AddHostedService<BookStoreNatsConsumer>();
-        builder.AddNatsClient("book-store-nats");
+        builder.AddNatsClient("bookstore-nats");
+        return builder;
+    }
+
+    /// <summary>
+    /// Регистрирует клиент gRPC и необходимые для его работы службы
+    /// </summary>
+    /// <param name="builder">Веб-билдер приложения</param>
+    /// <returns>Веб-билдер приложения с зареганным клиентом gRPC</returns>
+    private static WebApplicationBuilder AddGrpc(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddHostedService<BookStoreGrpcClient>();
+        builder.Services.AddGrpc(options => 
+        {
+            options.EnableDetailedErrors = builder.Environment.IsDevelopment();
+        });
+        builder.Services.AddGrpcClient<BookAuthorGrpcService.BookAuthorGrpcServiceClient>(options =>
+        {
+            options.Address = new Uri("https://bookstore-generator-grpc-host:5000");
+        });
         return builder;
     }
 }

@@ -4,15 +4,15 @@ var builder = DistributedApplication.CreateBuilder(args);
 
 var postgresPassword = builder.AddParameter("PostgresPassword");
 var postgresUserName = builder.AddParameter("PostgresLogin");
-var dbName = "book-store";
+var dbName = "bookstore";
 var bookStoreDb = builder
-    .AddPostgres("book-store-postgres", userName: postgresUserName, password: postgresPassword)
+    .AddPostgres("bookstore-postgres", userName: postgresUserName, password: postgresPassword)
     .AddDatabase(dbName);
 
 var apiHost = builder.AddProject<Projects.BookStore_Api_Host>("bookstore-api-host")
     .WithReference(bookStoreDb, "Database")
     .WaitFor(bookStoreDb)
-    .WithEnvironment("MessageBroker", builder.Environment.EnvironmentName);
+    .WithEnvironment("Generator", builder.Environment.EnvironmentName);
 
 var batchSize = builder.AddParameter("GeneratorBatchSize");
 var payloadLimit = builder.AddParameter("GeneratorPayloadLimit");
@@ -22,7 +22,7 @@ if (builder.Environment.IsRabbitMq())
 {
     var rabbitUserName = builder.AddParameter("RabbitMQLogin");
     var rabbitPassword = builder.AddParameter("RabbitMQPassword");
-    var rabbitMq = builder.AddRabbitMQ("book-store-rabbitmq", userName: rabbitUserName, password: rabbitPassword)
+    var rabbitMq = builder.AddRabbitMQ("bookstore-rabbitmq", userName: rabbitUserName, password: rabbitPassword)
         .WithManagementPlugin();
 
     var rabbiMqQueue = builder.AddParameter("RabbitMQQueue");
@@ -40,7 +40,7 @@ if (builder.Environment.IsRabbitMq())
 }
 if (builder.Environment.IsKafka())
 {
-    var kafka = builder.AddKafka("book-store-kafka")
+    var kafka = builder.AddKafka("bookstore-kafka")
         .WithKafkaUI();
 
     var kafkaTopic = builder.AddParameter("KafkaTopic");
@@ -60,12 +60,12 @@ if (builder.Environment.IsNats())
 {
     var natsUserName = builder.AddParameter("NatsLogin");
     var natsPassword = builder.AddParameter("NatsPassword");
-    var nats = builder.AddNats("book-store-nats", userName: natsUserName, password: natsPassword)
+    var nats = builder.AddNats("bookstore-nats", userName: natsUserName, password: natsPassword)
         .WithJetStream()
         .WithArgs("-m", "8222")
         .WithHttpEndpoint(port: 8222, targetPort: 8222);
 
-    builder.AddContainer("book-store-nui", "ghcr.io/nats-nui/nui")
+    builder.AddContainer("bookstore-nui", "ghcr.io/nats-nui/nui")
         .WaitFor(nats)
         .WithHttpEndpoint(port: 31311, targetPort: 31311);
 
@@ -85,5 +85,18 @@ if (builder.Environment.IsNats())
         .WithReference(nats)
         .WaitFor(nats);
 }
+if (builder.Environment.IsGrpc())
+{
+    var grpcServer = builder.AddProject<Projects.BookStore_Generator_Grpc_Host>("bookstore-generator-grpc-host")
+        .WithReference(apiHost)
+        .WithHttpsEndpoint(5000)
+        .WithEnvironment("Generator:BatchSize", batchSize)
+        .WithEnvironment("Generator:PayloadLimit", payloadLimit)
+        .WithEnvironment("Generator:WaitTime", waitTime);
+
+    apiHost.WithReference(grpcServer)
+        .WaitFor(grpcServer);
+}
+
 
 builder.Build().Run();

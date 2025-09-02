@@ -1,6 +1,5 @@
 using AutoMapper;
 using BookStore.Api.Host;
-using BookStore.Application;
 using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Authors;
 using BookStore.Application.Contracts.BookAuthors;
@@ -19,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 //автомаппер
 var mapperConfig = new MapperConfiguration(
-    config => config.AddProfile(new BookStoreProfile()),
+    config => config.AddMaps([typeof(Program).Assembly, typeof(AuthorService).Assembly]),
     LoggerFactory.Create(builder => builder.AddConsole()));
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -39,8 +38,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //контекст базы данных
 builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
-//клиент брокера сообщений
-builder.AddMessageBroker(builder.Configuration);
+//клиент сервиса генерации данных
+builder.AddGeneratorService(builder.Configuration);
 
 var app = builder.Build();
 

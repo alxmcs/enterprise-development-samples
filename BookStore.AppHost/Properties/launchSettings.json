@@ -36,6 +36,18 @@
         "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21174",
         "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22207"
       }
+    },
+    "Grpc": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:17237;http://localhost:15216",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Grpc",
+        "DOTNET_ENVIRONMENT": "Grpc",
+        "ASPIRE_DASHBOARD_OTLP_ENDPOINT_URL": "https://localhost:21174",
+        "ASPIRE_RESOURCE_SERVICE_ENDPOINT_URL": "https://localhost:22207"
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ using BookStore.Generator.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddNatsClient("book-store-nats");
+builder.AddNatsClient("bookstore-nats");
 builder.Services.AddScoped<IProducerService, BookStoreNatsProducer>();
 builder.Services.AddHostedService<GeneratorService>();
 

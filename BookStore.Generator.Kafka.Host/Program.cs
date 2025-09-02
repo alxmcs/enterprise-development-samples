@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddKafkaProducer<Guid, IList<BookAuthorCreateUpdateDto>>(
-    "book-store-kafka",
+    "bookstore-kafka",
     builder => 
     {
         builder.SetKeySerializer(new BookStoreKeySerializer());

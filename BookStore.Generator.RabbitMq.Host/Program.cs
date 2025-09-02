@@ -4,7 +4,7 @@ using BookStore.Generator.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddRabbitMQClient("book-store-rabbitmq");
+builder.AddRabbitMQClient("bookstore-rabbitmq");
 builder.Services.AddScoped<IProducerService, BookStoreRabbitMqProducer>();
 builder.Services.AddHostedService<GeneratorService>();
 

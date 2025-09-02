@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "BookStore.Application.Contracts.Protos";
+
+import "google/protobuf/empty.proto";
+
+service BookAuthorGrpcService
+{
+	rpc BookAuthorGetStream(google.protobuf.Empty) returns (stream BookAuthorListResponse);
+}
+
+message BookAuthorListResponse {
+	repeated BookAuthorResponse BookAuthors = 1;
+	bool IsFinal = 2;
+}
+
+message BookAuthorResponse {
+	int32 AuthorId = 1;
+	int32 BookId = 2;
+}
