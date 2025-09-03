@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Infrastructure.Na
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Generator.Grpc.Host", "BookStore.Generator.Grpc.Host\BookStore.Generator.Grpc.Host.csproj", "{4C1DA166-18A7-68A0-EA35-8EC6ED89FD8D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "client", "client", "{C53CD8C3-3616-480C-A5A8-49E5FAE9603A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Wasm", "BookStore.Wasm\BookStore.Wasm.csproj", "{29CEDD5B-2A27-7358-544B-CE51ACFDE791}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +125,10 @@ Global
 		{4C1DA166-18A7-68A0-EA35-8EC6ED89FD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C1DA166-18A7-68A0-EA35-8EC6ED89FD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C1DA166-18A7-68A0-EA35-8EC6ED89FD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29CEDD5B-2A27-7358-544B-CE51ACFDE791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CEDD5B-2A27-7358-544B-CE51ACFDE791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CEDD5B-2A27-7358-544B-CE51ACFDE791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CEDD5B-2A27-7358-544B-CE51ACFDE791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,6 +154,8 @@ Global
 		{21EB1276-0BC1-EB38-1025-EFFB695868FF} = {ED9F56A0-2965-4ADD-AF90-D2860C48B576}
 		{53980350-DBE5-45FE-93CC-7E94AAFD964C} = {95B70A8C-615D-455B-9074-CBA703ED97B3}
 		{4C1DA166-18A7-68A0-EA35-8EC6ED89FD8D} = {ED9F56A0-2965-4ADD-AF90-D2860C48B576}
+		{C53CD8C3-3616-480C-A5A8-49E5FAE9603A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{29CEDD5B-2A27-7358-544B-CE51ACFDE791} = {C53CD8C3-3616-480C-A5A8-49E5FAE9603A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A27D398-62DD-4D9A-B23E-875FA681A708}

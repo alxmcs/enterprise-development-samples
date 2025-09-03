@@ -1,0 +1,130 @@
+﻿@inject BookStoreApiWrapper BookStoreApi
+@inject NavigationManager NavManager
+
+<Card>
+    <CardHeader>
+        <Row Class="justify-content-between">
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <h4>Авторы</h4>
+            </Column>
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <Button Color="Color.Primary" Clicked="OpenCreateModal">
+                    Создать
+                </Button>
+                @if (IsNested)
+                {
+                    <Button Color="Color.Secondary" Clicked="OpenLinkModal">
+                        Привязать
+                    </Button>
+                }
+            </Column>
+        </Row>
+    </CardHeader>
+    <CardBody>
+        <DataGrid TItem="AuthorDto"
+                  Data="Authors"
+                  Responsive
+                  Striped>
+            <DataGridColumns>
+                <DataGridColumn Width="150px"
+                                TItem="AuthorDto"
+                                Field="@nameof(AuthorDto.Id)"
+                                Caption="Действия">
+                    <DisplayTemplate>
+                        <Dropdown>
+                            <DropdownToggle Color="Color.Primary">
+                                Действия
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem Clicked="() => OpenEditPageAsync(context)">
+                                    Редактировать
+                                </DropdownItem>
+                                <DropdownItem Clicked="() => DeleteAuthorAsync(context)">
+                                    Удалить
+                                </DropdownItem>
+                                @if (IsNested)
+                                {
+                                    <DropdownItem Clicked="() => UnlinkAuthorAsync(context)">
+                                        Отвязать
+                                    </DropdownItem>
+                                }
+                            </DropdownMenu>
+                        </Dropdown>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="AuthorDto"
+                                Field="@nameof(AuthorDto.LastName)"
+                                Caption="Фамилия">
+                </DataGridColumn>
+                <DataGridColumn TItem="AuthorDto"
+                                Field="@nameof(AuthorDto.FirstName)"
+                                Caption="Имя">
+                </DataGridColumn>
+                <DataGridColumn TItem="AuthorDto"
+                                Field="@nameof(AuthorDto.Patronymic)"
+                                Caption="Отчество">
+                </DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>
+
+<AuthorCreateModal @ref="AuthorCreateModal" IsNested="IsNested" BookId="BookId" OnAuthorAdded="@HandleAuthorAdded" />
+
+<AuthorLinkModal @ref="AuthorLinkModal" BookId="BookId" OnAuthorAdded="@HandleAuthorAdded" />
+
+@code {
+    [Parameter]
+    public bool IsNested { get; set; }
+    [Parameter]
+    public int? BookId { get; set; }
+    [Parameter]
+    public EventCallback OnDataChanged { get; set; }
+
+    private IList<AuthorDto> Authors { get; set; } = [];
+    private AuthorCreateModal AuthorCreateModal { get; set; } = new();
+    private AuthorLinkModal AuthorLinkModal { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshAuthorCollection();
+        await base.OnInitializedAsync();
+    }
+
+    private void OpenEditPageAsync(AuthorDto context)
+    {
+        NavManager.NavigateTo($"authors/{context.Id}");
+    }
+
+    private async Task UnlinkAuthorAsync(AuthorDto context)
+    {
+        var bookAuthors = (await BookStoreApi.GetAllBooksAuthors()).Where(ba => ba.AuthorId == context.Id);
+        foreach (var ba in bookAuthors)
+            await BookStoreApi.DeleteBookAuthor(ba.Id);
+        await RefreshAuthorCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task DeleteAuthorAsync(AuthorDto context)
+    {
+        await UnlinkAuthorAsync(context);
+        await BookStoreApi.DeleteAuthor(context.Id);
+        await RefreshAuthorCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task HandleAuthorAdded()
+    {
+        await RefreshAuthorCollection();
+        await OnDataChanged.InvokeAsync();
+    }
+
+    private async Task OpenCreateModal() => await AuthorCreateModal.Show();
+
+    private async Task OpenLinkModal() => await AuthorLinkModal.Show();
+
+    private async Task RefreshAuthorCollection() =>
+            Authors = IsNested
+            ? await BookStoreApi.GetBookAuthors(BookId!.Value)
+            : await BookStoreApi.GetAllAuthors();
+}

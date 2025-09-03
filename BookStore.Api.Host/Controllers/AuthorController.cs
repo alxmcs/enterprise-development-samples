@@ -16,7 +16,7 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<List<BookDto>>> GetLast5AuthorsBook(int id)
+    public async Task<ActionResult<IList<BookDto>>> GetLast5AuthorsBook(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
         try
@@ -40,7 +40,7 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<List<(string, int)>>> GetTop5AuthorsByPageCount()
+    public async Task<ActionResult<IList<KeyValuePair<string, int?>>>> GetTop5AuthorsByPageCount()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(Get), GetType().Name);
         try

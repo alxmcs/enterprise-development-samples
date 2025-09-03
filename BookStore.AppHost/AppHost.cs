@@ -14,6 +14,10 @@ var apiHost = builder.AddProject<Projects.BookStore_Api_Host>("bookstore-api-hos
     .WaitFor(bookStoreDb)
     .WithEnvironment("Generator", builder.Environment.EnvironmentName);
 
+var client = builder.AddProject<Projects.BookStore_Wasm>("bookstore-client")
+    .WithReference(apiHost)
+    .WaitFor(apiHost);
+
 var batchSize = builder.AddParameter("GeneratorBatchSize");
 var payloadLimit = builder.AddParameter("GeneratorPayloadLimit");
 var waitTime = builder.AddParameter("GeneratorWaitTime");
@@ -97,6 +101,5 @@ if (builder.Environment.IsGrpc())
     apiHost.WithReference(grpcServer)
         .WaitFor(grpcServer);
 }
-
 
 builder.Build().Run();

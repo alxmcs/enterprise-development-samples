@@ -41,6 +41,13 @@ builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOpt
 //клиент сервиса генерации данных
 builder.AddGeneratorService(builder.Configuration);
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+{
+    policy.AllowAnyOrigin();
+    policy.AllowAnyMethod();
+    policy.AllowAnyHeader();
+}));
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -58,6 +65,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapControllers();
 
