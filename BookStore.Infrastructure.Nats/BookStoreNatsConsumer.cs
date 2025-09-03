@@ -20,7 +20,7 @@ public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFact
 {
     private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new ArgumentNullException("StreamName", "StreamName section of Nats is missing");
     private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new ArgumentNullException("SubjectName", "SubjectName section of Nats is missing");
-    
+
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {

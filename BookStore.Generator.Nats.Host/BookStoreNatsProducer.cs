@@ -27,7 +27,7 @@ public class BookStoreNatsProducer(IConfiguration configuration, INatsConnection
             var stream = context.CreateOrUpdateStreamAsync(new NATS.Client.JetStream.Models.StreamConfig(_streamName, [_subjectName]));
             logger.LogInformation("Establishing a stream {stream} with subject {subject}", _streamName, _subjectName);
 
-            await context.PublishAsync(_subjectName, JsonSerializer.SerializeToUtf8Bytes(batch));                        
+            await context.PublishAsync(_subjectName, JsonSerializer.SerializeToUtf8Bytes(batch));
             logger.LogInformation("Sent a batch of {count} contracts to {subject} of {stream}", batch.Count, _subjectName, _streamName);
         }
         catch (Exception ex)
