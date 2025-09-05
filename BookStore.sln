@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{FCC47AD9-FCEE-4214-A985-23445304C005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Domain.Tets", "BookStore.Domain.Tets\BookStore.Domain.Tets.csproj", "{B1E8E11A-1010-43EB-B3FE-C5539ACBC820}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Domain.Tests", "BookStore.Domain.Tests\BookStore.Domain.Tests.csproj", "{B1E8E11A-1010-43EB-B3FE-C5539ACBC820}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Application", "BookStore.Application\BookStore.Application.csproj", "{0BF293E1-00D5-427C-94D0-A7901F79FBE2}"
 EndProject
