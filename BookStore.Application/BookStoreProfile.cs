@@ -7,6 +7,10 @@ using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
 
 namespace BookStore.Application;
+
+/// <summary>
+/// Конфигурация для маппинга контрактов и доменных сущностей
+/// </summary>
 public class BookStoreProfile : Profile
 {
     public BookStoreProfile()
