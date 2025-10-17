@@ -2,6 +2,7 @@
 using BookStore.Application.Contracts.Authors;
 using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Domain.Model.Authors;
+using BookStore.Domain.Model.BookAuthors;
 using BookStore.Infrastructure.InMemory;
 
 namespace BookStore.Application.Services;
@@ -12,7 +13,7 @@ namespace BookStore.Application.Services;
 /// <param name="authorRepository">Репозиторий авторов</param>
 /// <param name="bookAuthorRepository">Репозиторий связей</param>
 /// <param name="mapper">Профиль маппинга</param>
-public class AuthorService(IRepository<Author, int> authorRepository, IRepository<BookAuthorDto, int> bookAuthorRepository, IMapper mapper) : IAuthorService
+public class AuthorService(IRepository<Author, int> authorRepository, IRepository<BookAuthor, int> bookAuthorRepository, IMapper mapper) : IAuthorService
 {
     /// <inheritdoc/>
     public AuthorDto Create(AuthorCreateUpdateDto dto)
@@ -39,7 +40,7 @@ public class AuthorService(IRepository<Author, int> authorRepository, IRepositor
 
     /// <inheritdoc/>
     public List<BookAuthorDto> GetBookAuthors(int dtoId) =>
-        [.. bookAuthorRepository.ReadAll().Where(ba => ba.AuthorId == dtoId)];
+        mapper.Map<List<BookAuthorDto>>(bookAuthorRepository.ReadAll().Where(ba => ba.AuthorId == dtoId).ToList());
 
     /// <inheritdoc/>
     public AuthorDto Update(AuthorCreateUpdateDto dto, int dtoId)

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Application.Contracts.Books;
+using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
 using BookStore.Infrastructure.InMemory;
 
@@ -12,7 +13,7 @@ namespace BookStore.Application.Services;
 /// <param name="bookRepository">Репозиторий книг</param>
 /// <param name="bookAuthorRepository">Репозиторий связей</param>
 /// <param name="mapper">Профиль маппинга</param>
-public class BookService(IRepository<Book, int> bookRepository, IRepository<BookAuthorDto, int> bookAuthorRepository, IMapper mapper) : IBookService
+public class BookService(IRepository<Book, int> bookRepository, IRepository<BookAuthor, int> bookAuthorRepository, IMapper mapper) : IBookService
 {
     /// <inheritdoc/>
     public BookDto Create(BookCreateUpdateDto dto)
@@ -39,7 +40,7 @@ public class BookService(IRepository<Book, int> bookRepository, IRepository<Book
 
     ///<inheritdoc/>
     public List<BookAuthorDto> GetBookAuthors(int dtoId) =>
-        [.. bookAuthorRepository.ReadAll().Where(ba => ba.BookId == dtoId)];
+        mapper.Map<List<BookAuthorDto>>(bookAuthorRepository.ReadAll().Where(ba => ba.BookId == dtoId).ToList());
 
     /// <inheritdoc/>
     public BookDto Update(BookCreateUpdateDto dto, int dtoId)
