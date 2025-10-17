@@ -35,7 +35,7 @@ public class BookService(IRepository<Book, int> bookRepository, IRepository<Book
         mapper.Map<BookDto>(bookRepository.Read(dtoId));
 
     /// <inheritdoc/>
-    public List<BookDto> GetAll() =>   
+    public List<BookDto> GetAll() =>
         mapper.Map<List<BookDto>>(bookRepository.ReadAll());
 
     ///<inheritdoc/>

@@ -6,7 +6,7 @@ namespace BookStore.Infrastructure.InMemory;
 /// <summary>
 /// Имплементация репозитория для авторов
 /// </summary>
-public class AuthorInMemoryRepository : IRepository<Author,int>
+public class AuthorInMemoryRepository : IRepository<Author, int>
 {
     private List<Author> _authors;
 

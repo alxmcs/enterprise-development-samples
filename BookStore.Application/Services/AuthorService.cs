@@ -21,7 +21,7 @@ public class AuthorService(IRepository<Author, int> authorRepository, IRepositor
         var newAuthor = mapper.Map<Author>(dto);
         newAuthor.Id = authorRepository.ReadAll().OrderByDescending(a => a.Id).FirstOrDefault(new Author { Id = 1 }).Id + 1;
         authorRepository.Create(newAuthor);
-        return mapper.Map<AuthorDto>(newAuthor); 
+        return mapper.Map<AuthorDto>(newAuthor);
     }
 
     /// <inheritdoc/>
@@ -31,7 +31,7 @@ public class AuthorService(IRepository<Author, int> authorRepository, IRepositor
     }
 
     /// <inheritdoc/>
-    public AuthorDto Get(int dtoId) =>  
+    public AuthorDto Get(int dtoId) =>
         mapper.Map<AuthorDto>(authorRepository.Read(dtoId));
 
     /// <inheritdoc/>

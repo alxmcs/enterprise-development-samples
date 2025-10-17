@@ -56,7 +56,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
         logger.LogInformation("{method} method of {controller} is called with {key},{@dto} parameters", nameof(Edit), GetType().Name, id, newDto);
         try
         {
-            var res = appService.Update(newDto,id);
+            var res = appService.Update(newDto, id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Edit), GetType().Name);
             return Ok(res);
         }

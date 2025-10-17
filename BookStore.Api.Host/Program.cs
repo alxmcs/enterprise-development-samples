@@ -14,7 +14,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 var mapperConfig = new MapperConfiguration(
-    config => config.AddProfile(new BookStoreProfile()), 
+    config => config.AddProfile(new BookStoreProfile()),
     LoggerFactory.Create(builder => builder.AddConsole()));
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
@@ -34,7 +34,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-
     var assembly = Assembly.GetExecutingAssembly();
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{assembly.GetName().Name}.xml"));
     foreach (var refAssembly in assembly.GetReferencedAssemblies())
