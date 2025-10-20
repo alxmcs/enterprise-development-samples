@@ -6,14 +6,15 @@ import "google/protobuf/empty.proto";
 
 service ExampleService
 {
-	rpc GetSampleUnary(GetSampleByIdRequest) returns (Sample); //unary operation
-	rpc GetSamplesUnary (GetSampleCountRequest) returns (GetSamplesRepeatedResponse); //unary operation
-	rpc GetSamplesServerStream (GetSampleCountRequest) returns (stream Sample); //server streaming
-	rpc GetSamplesClientStream (stream GetSampleByIdRequest) returns (GetSamplesRepeatedResponse); //client streaming
-	rpc GetSamplesBidirectionalStream (stream GetSampleByIdRequest) returns (stream Sample); //bidirectional streaming
+	rpc GetSampleUnary(GetSampleByIdRequest) returns (Sample); 
+	rpc GetSamplesUnary (GetSampleCountRequest) returns (GetSamplesRepeatedResponse); 
+	rpc GetSamplesServerStream (GetSampleCountRequest) returns (stream Sample); 
+	rpc GetSamplesClientStream (stream GetSampleByIdRequest) returns (GetSamplesRepeatedResponse); 
+	rpc GetSamplesBidirectionalStream (stream GetSampleByIdRequest) returns (stream Sample);
 }
 
-message Sample{
+message Sample
+{
 	int32 SampleId = 1;
 	string SampleName = 2;
 	double SampleValue = 3;
@@ -31,5 +32,5 @@ message GetSampleCountRequest
 }
 
 message GetSamplesRepeatedResponse{
-	repeated Sample Samples =1;
+	repeated Sample Samples = 1;
 }

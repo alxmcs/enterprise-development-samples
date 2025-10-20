@@ -1,30 +1,41 @@
+using Grpc.Net.Client;
 using GrpcExample.Protos;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-
-// Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var grpcServiceUrl = "https://localhost:7133";
+    var httpHandler = new HttpClientHandler();
+
+    if (builder.Environment.IsDevelopment())
+    {
+        httpHandler.ServerCertificateCustomValidationCallback =
+            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+    }
+
+    var channel = GrpcChannel.ForAddress(grpcServiceUrl, new GrpcChannelOptions
+    {
+        HttpHandler = httpHandler,
+        DisposeHttpClient = true
+    });
+
+    return new ExampleService.ExampleServiceClient(channel);
+});
 
 var app = builder.Build();
-
 app.MapDefaultEndpoints();
-
-builder.Services.AddGrpc(options =>
+if (app.Environment.IsDevelopment())
 {
-    options.EnableDetailedErrors = builder.Environment.IsDevelopment();
-});
-builder.Services.AddGrpcClient<ExampleService.ExampleServiceClient>(options =>
-{
-    options.Address = new Uri("https://localhost:7133");
-});
-
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

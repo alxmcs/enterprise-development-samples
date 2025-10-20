@@ -1,17 +1,15 @@
+using GrpcExample.Server.Grpc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.Services.AddControllers();
-
-var app = builder.Build();
 builder.Services.AddGrpc(options =>
 {
     options.EnableDetailedErrors = builder.Environment.IsDevelopment();
 });
+
+var app = builder.Build();
 app.MapDefaultEndpoints();
-
 app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
-
+app.MapGrpcService<ExampleServer>();
 app.Run();

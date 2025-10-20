@@ -10,11 +10,11 @@ namespace GrpcExample.Server.Grpc;
 public class ExampleServer(ILogger<ExampleServer> logger) : ExampleService.ExampleServiceBase
 {
     /// <summary>
-    /// Пример унарного вызова, возвращающего контракт
+    /// Пример унарной ручки, возвращающего контракт
     /// </summary>
     /// <param name="request">Запрос</param>
     /// <param name="context">Контекст вызова</param>
-    /// <returns>Ответ</returns>
+    /// <returns>Один контракт</returns>
     public override async Task<Sample> GetSampleUnary(GetSampleByIdRequest request, ServerCallContext context)
     {
         try
@@ -35,11 +35,11 @@ public class ExampleServer(ILogger<ExampleServer> logger) : ExampleService.Examp
     }
 
     /// <summary>
-    /// Пример унарного вызова, возвращающего контракт с повторяющимся полем
+    /// Пример унарной ручки, возвращающего контракт с повторяющимся полем
     /// </summary>
     /// <param name="request">Запрос</param>
     /// <param name="context">Контекст вызова</param>
-    /// <returns>Ответ</returns>
+    /// <returns>Коллекция контрактов внутри единственного ответа</returns>
     public override async Task<GetSamplesRepeatedResponse> GetSamplesUnary(GetSampleCountRequest request, ServerCallContext context)
     {
         try
@@ -97,7 +97,7 @@ public class ExampleServer(ILogger<ExampleServer> logger) : ExampleService.Examp
     /// </summary>
     /// <param name="requestStream">Стрим запросов</param>
     /// <param name="context">Контекст вызова</param>
-    /// <returns>Ответ</returns>
+    /// <returns>Коллекция контрактов внутри единственного ответа</returns>
     public override async Task<GetSamplesRepeatedResponse> GetSamplesClientStream(IAsyncStreamReader<GetSampleByIdRequest> requestStream, ServerCallContext context)
     {
         try
@@ -133,7 +133,6 @@ public class ExampleServer(ILogger<ExampleServer> logger) : ExampleService.Examp
     /// <param name="requestStream">Стрим запросов</param>
     /// <param name="responseStream">Стрим с ответами</param>
     /// <param name="context">Контекст вызова</param>
-    /// <returns></returns>
     public override async Task GetSamplesBidirectionalStream(IAsyncStreamReader<GetSampleByIdRequest> requestStream, IServerStreamWriter<Sample> responseStream, ServerCallContext context)
     {
         try
