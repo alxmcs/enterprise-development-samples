@@ -1,3 +1,5 @@
+using GrpcExample.Protos;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
@@ -10,7 +12,14 @@ var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-// Configure the HTTP request pipeline.
+builder.Services.AddGrpc(options =>
+{
+    options.EnableDetailedErrors = builder.Environment.IsDevelopment();
+});
+builder.Services.AddGrpcClient<ExampleService.ExampleServiceClient>(options =>
+{
+    options.Address = new Uri("https://localhost:7133");
+});
 
 app.UseHttpsRedirection();
 
