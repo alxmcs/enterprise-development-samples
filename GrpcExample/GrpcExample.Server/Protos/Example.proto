@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcExample.Protos";
+
+import "google/protobuf/empty.proto";
+
+service ExampleService
+{
+	rpc GetSampleUnary(GetSampleByIdRequest) returns (Sample); //unary operation
+	rpc GetSamplesUnary (GetSampleCountRequest) returns (GetSamplesRepeatedResponse); //unary operation
+	rpc GetSamplesServerStream (GetSampleCountRequest) returns (stream Sample); //server streaming
+	rpc GetSamplesClientStream (stream GetSampleByIdRequest) returns (GetSamplesRepeatedResponse); //client streaming
+	rpc GetSamplesBidirectionalStream (stream GetSampleByIdRequest) returns (stream Sample); //bidirectional streaming
+}
+
+message Sample{
+	int32 SampleId = 1;
+	string SampleName = 2;
+	double SampleValue = 3;
+	bool SampleFlag = 4;
+}
+
+message GetSampleByIdRequest
+{
+	int32 SampleId = 1;
+}
+
+message GetSampleCountRequest
+{
+	int32 SampleCount = 1;
+}
+
+message GetSamplesRepeatedResponse{
+	repeated Sample Samples =1;
+}
