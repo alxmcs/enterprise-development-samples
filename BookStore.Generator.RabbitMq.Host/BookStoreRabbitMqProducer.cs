@@ -13,7 +13,7 @@ namespace BookStore.Generator.RabbitMq.Host;
 /// <param name="logger">Логгер</param>
 public class BookStoreRabbitMqProducer(IConfiguration configuration, IConnection rabbitMqConnection, ILogger<BookStoreRabbitMqProducer> logger) : IProducerService
 {
-    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new ArgumentNullException("QueueName", "QueueName section of RabbitMq is missing");
+    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new KeyNotFoundException("QueueName section of RabbitMq is missing");
 
     /// <inheritdoc/>
     public Task SendAsync(IList<BookAuthorCreateUpdateDto> batch)

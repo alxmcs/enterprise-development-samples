@@ -12,7 +12,7 @@ namespace BookStore.Generator.Kafka.Host;
 /// <param name="logger">Логгер</param>
 public class BookStoreKafkaProducer(IConfiguration configuration, IProducer<Guid, IList<BookAuthorCreateUpdateDto>> producer, ILogger<BookStoreKafkaProducer> logger) : IProducerService
 {
-    private readonly string _topicName = configuration.GetSection("Kafka")["TopicName"] ?? throw new ArgumentNullException("TopicName", "TopicName section of Kafka is missing");
+    private readonly string _topicName = configuration.GetSection("Kafka")["TopicName"] ?? throw new KeyNotFoundException("TopicName section of Kafka is missing");
 
     /// <inheritdoc/>
     public async Task SendAsync(IList<BookAuthorCreateUpdateDto> batch)

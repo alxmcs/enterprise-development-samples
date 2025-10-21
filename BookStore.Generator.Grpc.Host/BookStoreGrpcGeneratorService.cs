@@ -8,9 +8,9 @@ namespace BookStore.Generator.Grpc.Host;
 
 public class BookStoreGrpcGeneratorService(IConfiguration configuration, IMapper mapper, ILogger<BookStoreGrpcGeneratorService> logger) : BookAuthorGrpcService.BookAuthorGrpcServiceBase
 {
-    private readonly string _batchSize = configuration.GetSection("Generator")["BatchSize"] ?? throw new ArgumentNullException("BatchSize", "BatchSize section of Generator is missing");
-    private readonly string _payloadLimit = configuration.GetSection("Generator")["PayloadLimit"] ?? throw new ArgumentNullException("PayloadLimit", "PayloadLimit section of Generator is missing");
-    private readonly string _waitTime = configuration.GetSection("Generator")["WaitTime"] ?? throw new ArgumentNullException("WaitTime", "WaitTime section of Generator is missing");
+    private readonly string _batchSize = configuration.GetSection("Generator")["BatchSize"] ?? throw new KeyNotFoundException("BatchSize section of Generator is missing");
+    private readonly string _payloadLimit = configuration.GetSection("Generator")["PayloadLimit"] ?? throw new KeyNotFoundException("PayloadLimit section of Generator is missing");
+    private readonly string _waitTime = configuration.GetSection("Generator")["WaitTime"] ?? throw new KeyNotFoundException("WaitTime section of Generator is missing");
 
     public override async Task BookAuthorGetStream(Empty request, IServerStreamWriter<BookAuthorListResponse> responseStream, ServerCallContext context)
     {

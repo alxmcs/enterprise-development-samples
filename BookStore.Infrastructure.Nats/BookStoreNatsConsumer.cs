@@ -18,8 +18,8 @@ namespace BookStore.Infrastructure.Nats;
 /// <param name="logger">Логгер</param>
 public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreNatsConsumer> logger) : BackgroundService
 {
-    private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new ArgumentNullException("StreamName", "StreamName section of Nats is missing");
-    private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new ArgumentNullException("SubjectName", "SubjectName section of Nats is missing");
+    private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new KeyNotFoundException("StreamName section of Nats is missing");
+    private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new KeyNotFoundException("SubjectName section of Nats is missing");
     
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

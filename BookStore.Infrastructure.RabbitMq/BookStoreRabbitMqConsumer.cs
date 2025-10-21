@@ -18,7 +18,7 @@ namespace BookStore.Infrastructure.RabbitMq;
 /// <param name="logger">Логгер</param>
 public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreRabbitMqConsumer> logger) : BackgroundService
 {
-    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new ArgumentNullException("QueueName", "QueueName section of RabbitMq is missing");
+    private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new KeyNotFoundException("QueueName section of RabbitMq is missing");
     
     /// <inheritdoc/>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
