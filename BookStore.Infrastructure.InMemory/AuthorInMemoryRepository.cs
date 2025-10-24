@@ -6,19 +6,23 @@ namespace BookStore.Infrastructure.InMemory;
 /// <summary>
 /// Имплементация репозитория для авторов
 /// </summary>
-public class AuthorInMemoryRepository : IRepository<Author,int>
+public class AuthorInMemoryRepository : IRepository<Author, int>
 {
-    private List<Author> _authors;
+    private readonly List<Author> _authors;
+
+    /// <inheritdoc/>
     public AuthorInMemoryRepository()
     {
         _authors = DataSeeder.Authors;
     }
 
+    /// <inheritdoc/>
     public void Create(Author entity)
     {
         _authors.Add(entity);
     }
 
+    /// <inheritdoc/>
     public void Delete(int entityId)
     {
         var author = Read(entityId);
@@ -26,16 +30,19 @@ public class AuthorInMemoryRepository : IRepository<Author,int>
             _authors.Remove(author);
     }
 
+    /// <inheritdoc/>
     public Author Read(int entityId)
     {
         return _authors.First(a => a.Id == entityId);
     }
 
+    /// <inheritdoc/>
     public List<Author> ReadAll()
     {
         return [.. _authors];
     }
 
+    /// <inheritdoc/>
     public void Update(Author entity)
     {
         Delete(entity.Id);

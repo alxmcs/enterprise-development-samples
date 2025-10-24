@@ -1,5 +1,4 @@
-﻿using BookStore.Domain.Model.BookAuthors;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BookStore.Domain.Model.Authors;
 

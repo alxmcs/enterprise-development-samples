@@ -5,8 +5,8 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности, доступ к коллекции которых абстрагируем</typeparam>
 /// <typeparam name="TKey">Тип идентификатора сущности</typeparam>
-public interface IRepository<TEntity, TKey> 
-    where TEntity : class 
+public interface IRepository<TEntity, TKey>
+    where TEntity : class
     where TKey : struct
 {
     /// <summary>
@@ -16,11 +16,11 @@ public interface IRepository<TEntity, TKey>
     void Create(TEntity entity);
 
     /// <summary>
-    /// Полученеи сущности по идентифкатору
+    /// Получение сущности по идентификатору
     /// </summary>
-    /// <param name="entity">Идентификатор сущности</param>
+    /// <param name="entityId">Идентификатор сущности</param>
     /// <returns>Сущность</returns>
-    TEntity Read(TKey entity);
+    TEntity Read(TKey entityId);
 
     /// <summary>
     /// Получение всего списка сущностей
