@@ -8,7 +8,7 @@ namespace BookStore.Infrastructure.InMemory;
 /// </summary>
 public class AuthorInMemoryRepository : IRepository<Author, int>
 {
-    private List<Author> _authors;
+    private readonly List<Author> _authors;
 
     /// <inheritdoc/>
     public AuthorInMemoryRepository()

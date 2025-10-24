@@ -8,7 +8,7 @@ namespace BookStore.Infrastructure.InMemory;
 /// </summary>
 public class BookInMemoryRepository : IRepository<Book, int>
 {
-    private List<Book> _books;
+    private readonly List<Book> _books;
 
     /// <inheritdoc/>
     public BookInMemoryRepository()

@@ -8,7 +8,9 @@ namespace BookStore.Infrastructure.InMemory;
 /// </summary>
 public class BookAuthorInMemoryRepository : IRepository<BookAuthor, int>
 {
-    private List<BookAuthor> _bookAuthors;
+    private readonly List<BookAuthor> _bookAuthors;
+
+    /// <inheritdoc/>
     public BookAuthorInMemoryRepository()
     {
         _bookAuthors = DataSeeder.BookAuthors;
