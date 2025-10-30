@@ -13,30 +13,30 @@ public interface IRepository<TEntity, TKey>
     /// Создание новой сущности
     /// </summary>
     /// <param name="entity">Новая сущность</param>
-    Task<TEntity> Create(TEntity entity);
+    public Task<TEntity> Create(TEntity entity);
 
     /// <summary>
     /// Получение сущности по идентификатору
     /// </summary>
     /// <param name="entityId">Идентификатор сущности</param>
     /// <returns>Сущность</returns>
-    Task<TEntity?> Read(TKey entityId);
+    public Task<TEntity?> Read(TKey entityId);
 
     /// <summary>
     /// Получение всего списка сущностей
     /// </summary> 
     /// <returns></returns>
-    Task<IList<TEntity>> ReadAll();
+    public Task<IList<TEntity>> ReadAll();
 
     /// <summary>
     /// Обновление сущности в коллекции
     /// </summary>
     /// <param name="entity">Отредактированная сущность</param>
-    Task<TEntity> Update(TEntity entity);
+    public Task<TEntity> Update(TEntity entity);
 
     /// <summary>
     /// Удаление сущности из коллекции
     /// </summary>
     /// <param name="entityId">Идентификатор сущности</param>
-    Task<bool> Delete(TKey entityId);
+    public Task<bool> Delete(TKey entityId);
 }
