@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using BookStore.Application.Contracts.Authors;
-using BookStore.Application.Contracts.Books;
+using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Domain;
 using BookStore.Domain.Model.Authors;
+using BookStore.Domain.Model.BookAuthors;
 
 namespace BookStore.Application.Services;
 
@@ -35,18 +36,15 @@ public class AuthorService(IRepository<Author, int> authorRepository, IRepositor
         mapper.Map<List<AuthorDto>>(await authorRepository.ReadAll());
 
     /// <inheritdoc/>
-    public async Task<IList<BookDto>> GetLast5AuthorsBook(int dtoId) =>
-        mapper.Map<List<BookDto>>(await authorManager.GetLast5AuthorsBook(dtoId));
-
-    /// <inheritdoc/>
-    public async Task<IList<KeyValuePair<string, int?>>> GetTop5AuthorsByPageCount() =>
-        await authorManager.GetTop5AuthorsByPageCount();
-
-    /// <inheritdoc/>
     public async Task<AuthorDto> Update(AuthorCreateUpdateDto dto, int dtoId)
     {
         var updAuthor = mapper.Map<Author>(dto);
+        updAuthor.Id = dtoId;
         var res = await authorRepository.Update(updAuthor);
         return mapper.Map<AuthorDto>(res);
     }
+
+    /// <inheritdoc/>
+    public async Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId) =>
+        mapper.Map<IList<BookAuthorDto>>((await bookAuthorRepository.ReadAll()).Where(ba => ba.AuthorId == dtoId).ToList());
 }

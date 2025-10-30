@@ -37,6 +37,7 @@ public class BookAuthorService(IRepository<BookAuthor, int> repository, IMapper 
     public async Task<BookAuthorDto> Update(BookAuthorCreateUpdateDto dto, int dtoId)
     {
         var updLink = mapper.Map<BookAuthor>(dto);
+        updLink.Id = dtoId;
         var res = await repository.Update(updLink);
         return mapper.Map<BookAuthorDto>(res);
     }

@@ -33,7 +33,7 @@ builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IApplicationService<BookAuthorDto, BookAuthorCreateUpdateDto, int>, BookAuthorService>();
 
-builder.Services.AddScoped<AuthorManager>();
+builder.Services.AddScoped<IAuthorManager, AuthorManager>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

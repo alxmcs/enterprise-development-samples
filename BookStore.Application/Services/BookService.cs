@@ -10,10 +10,10 @@ namespace BookStore.Application.Services;
 /// <summary>
 /// Служба для CRUD-операций над книгами
 /// </summary>
-/// <param name="bookRepository">Репозиторий книг</param>
+/// <param name="repository">Репозиторий книг</param>
 /// <param name="bookAuthorRepository">Репозиторий связей</param>
 /// <param name="mapper">Профиль маппинга</param>
-public class BookService(IRepository<Book, int> bookRepository, IRepository<BookAuthor, int> bookAuthorRepository, IMapper mapper) : IBookService
+public class BookService(IRepository<Book, int> repository, IRepository<BookAuthor, int> bookAuthorRepository, IMapper mapper) : IBookService
 {
     /// <inheritdoc/>
     public async Task<BookDto> Create(BookCreateUpdateDto dto)
@@ -40,7 +40,12 @@ public class BookService(IRepository<Book, int> bookRepository, IRepository<Book
     public async Task<BookDto> Update(BookCreateUpdateDto dto, int dtoId)
     {
         var updBook = mapper.Map<Book>(dto);
+        updBook.Id = dtoId;
         var res = await repository.Update(updBook);
         return mapper.Map<BookDto>(res);
     }
+
+    /// <inheritdoc/>
+    public async Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId) =>
+        mapper.Map<IList<BookAuthorDto>>((await bookAuthorRepository.ReadAll()).Where(ba => ba.AuthorId == dtoId).ToList());
 }
