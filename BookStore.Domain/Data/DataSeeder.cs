@@ -13,6 +13,9 @@ namespace BookStore.Domain.Data;
 /// </remarks>
 public static class DataSeeder
 {
+    /// <summary>
+    /// Датасид книг
+    /// </summary>
     public static readonly List<Book> Books = [
             new Book
             {
@@ -84,7 +87,10 @@ public static class DataSeeder
                 " пограничника с Земли, но всяко лучше, чем сгинуть навсегда. Придется приспосабливаться. А там, глядишь, найдетс" +
                 "я способ вернуться домой к отцу и сестре. По крайней мере, он сделает для этого все возможное."
             }];
-
+    
+    /// <summary>
+    /// Датасид авторов
+    /// </summary>
     public static readonly List<Author> Authors = [
             new Author
             {
@@ -120,6 +126,9 @@ public static class DataSeeder
                     "вал в ликвидации последствий аварии на Чернобыльской АЭС"
             }];
 
+    /// <summary>
+    /// Датасид связей
+    /// </summary>
     public static readonly List<BookAuthor> BookAuthors = [
             new BookAuthor
             {

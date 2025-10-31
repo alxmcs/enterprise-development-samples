@@ -12,5 +12,5 @@ public interface IBookService : IApplicationService<BookDto, BookCreateUpdateDto
     /// </summary>
     /// <param name="dtoId">Идентификатор автора</param>
     /// <returns>Список связей</returns>
-    List<BookAuthorDto> GetBookAuthors(int dtoId);
+    public Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId);
 }

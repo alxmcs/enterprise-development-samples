@@ -16,9 +16,9 @@ public class AuthorTests(AuthorManagerFixture fixture) : IClassFixture<AuthorMan
     [InlineData(2, 1)]
     [InlineData(3, 1)]
     [InlineData(4, 2)]
-    public void GetLast5AuthorsBook_Success(int authorId, int expectedCount)
+    public async Task GetLast5AuthorsBook_Success(int authorId, int expectedCount)
     {
-        var books = fixture.AuthorManager.GetLast5AuthorsBook(authorId);
+        var books = await fixture.AuthorManager.GetLast5AuthorsBook(authorId);
         Assert.Equal(expectedCount, books.Count);
     }
 
@@ -26,9 +26,9 @@ public class AuthorTests(AuthorManagerFixture fixture) : IClassFixture<AuthorMan
     /// Непараметрический тест метода, выводящего топ 5 авторов по числу страниц
     /// </summary>
     [Fact]
-    public void GetTop5AuthorsByPageCount_Success()
+    public async Task GetTop5AuthorsByPageCount_Success()
     {
-        var authors = fixture.AuthorManager.GetTop5AuthorsByPageCount();
+        var authors = await fixture.AuthorManager.GetTop5AuthorsByPageCount();
         Assert.Equal(4, authors.Count);
     }
 }

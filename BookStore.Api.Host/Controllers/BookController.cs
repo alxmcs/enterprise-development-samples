@@ -20,12 +20,12 @@ public class BookController(IBookService crudService, ILogger<BookController> lo
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public ActionResult<IList<BookAuthorDto>> GetBookAuthors(int id)
+    public async Task<ActionResult<IList<BookAuthorDto>>> GetBookAuthors(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
         try
         {
-            var res = crudService.GetBookAuthors(id);
+            var res = await crudService.GetBookAuthors(id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
             return res != null ? Ok(res) : NoContent();
         }

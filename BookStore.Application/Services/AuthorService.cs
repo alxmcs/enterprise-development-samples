@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using BookStore.Application.Contracts.Authors;
 using BookStore.Application.Contracts.BookAuthors;
+using BookStore.Domain;
 using BookStore.Domain.Model.Authors;
 using BookStore.Domain.Model.BookAuthors;
-using BookStore.Infrastructure.InMemory;
 
 namespace BookStore.Application.Services;
 
@@ -16,38 +16,35 @@ namespace BookStore.Application.Services;
 public class AuthorService(IRepository<Author, int> authorRepository, IRepository<BookAuthor, int> bookAuthorRepository, IMapper mapper) : IAuthorService
 {
     /// <inheritdoc/>
-    public AuthorDto Create(AuthorCreateUpdateDto dto)
+    public async Task<AuthorDto> Create(AuthorCreateUpdateDto dto)
     {
         var newAuthor = mapper.Map<Author>(dto);
-        newAuthor.Id = authorRepository.ReadAll().OrderByDescending(a => a.Id).FirstOrDefault(new Author { Id = 1 }).Id + 1;
-        authorRepository.Create(newAuthor);
-        return mapper.Map<AuthorDto>(newAuthor);
+        var res = await authorRepository.Create(newAuthor);
+        return mapper.Map<AuthorDto>(res);
     }
 
     /// <inheritdoc/>
-    public void Delete(int dtoId)
-    {
-        authorRepository.Delete(dtoId);
-    }
+    public async Task<bool> Delete(int dtoId) =>
+        await authorRepository.Delete(dtoId);
 
     /// <inheritdoc/>
-    public AuthorDto Get(int dtoId) =>
-        mapper.Map<AuthorDto>(authorRepository.Read(dtoId));
+    public async Task<AuthorDto?> Get(int dtoId) =>
+        mapper.Map<AuthorDto>(await authorRepository.Read(dtoId));
 
     /// <inheritdoc/>
-    public List<AuthorDto> GetAll() =>
-        mapper.Map<List<AuthorDto>>(authorRepository.ReadAll());
+    public async Task<IList<AuthorDto>> GetAll() =>
+        mapper.Map<List<AuthorDto>>(await authorRepository.ReadAll());
 
     /// <inheritdoc/>
-    public List<BookAuthorDto> GetBookAuthors(int dtoId) =>
-        mapper.Map<List<BookAuthorDto>>(bookAuthorRepository.ReadAll().Where(ba => ba.AuthorId == dtoId).ToList());
-
-    /// <inheritdoc/>
-    public AuthorDto Update(AuthorCreateUpdateDto dto, int dtoId)
+    public async Task<AuthorDto> Update(AuthorCreateUpdateDto dto, int dtoId)
     {
         var updAuthor = mapper.Map<Author>(dto);
         updAuthor.Id = dtoId;
-        authorRepository.Update(updAuthor);
-        return mapper.Map<AuthorDto>(updAuthor);
+        var res = await authorRepository.Update(updAuthor);
+        return mapper.Map<AuthorDto>(res);
     }
+
+    /// <inheritdoc/>
+    public async Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId) =>
+        mapper.Map<IList<BookAuthorDto>>((await bookAuthorRepository.ReadAll()).Where(ba => ba.AuthorId == dtoId).ToList());
 }

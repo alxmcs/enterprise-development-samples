@@ -1,51 +1,43 @@
-﻿using BookStore.Domain.Data;
+﻿using BookStore.Domain;
 using BookStore.Domain.Model.Books;
 
 namespace BookStore.Infrastructure.InMemory;
 
 /// <summary>
-/// Имплементация репозитория для книг
+/// Имплементация инмемори репозитория для книг
 /// </summary>
-public class BookInMemoryRepository : IRepository<Book, int>
+public class BookInMemoryRepository(List<Book> books) : IRepository<Book, int>
 {
-    private readonly List<Book> _books;
-
     /// <inheritdoc/>
-    public BookInMemoryRepository()
+    public Task<Book> Create(Book entity)
     {
-        _books = DataSeeder.Books;
+        books.Add(entity);
+        return Task.FromResult(entity);
     }
 
     /// <inheritdoc/>
-    public void Create(Book entity)
+    public Task<bool> Delete(int entityId)
     {
-        _books.Add(entity);
+        var book = Read(entityId).Result;
+        if (book == null)
+            return Task.FromResult(false);
+        var res = books.Remove(book);
+        return Task.FromResult(res);
     }
 
     /// <inheritdoc/>
-    public void Delete(int entityId)
-    {
-        var author = Read(entityId);
-        if (author != null)
-            _books.Remove(author);
-    }
+    public Task<Book?> Read(int entityId) =>
+        Task.FromResult(books.FirstOrDefault(a => a.Id == entityId));
 
     /// <inheritdoc/>
-    public Book Read(int entityId)
-    {
-        return _books.First(b => b.Id == entityId);
-    }
+    public Task<IList<Book>> ReadAll() =>
+        Task.FromResult<IList<Book>>([.. books]);
 
     /// <inheritdoc/>
-    public List<Book> ReadAll()
-    {
-        return [.. _books];
-    }
-
-    /// <inheritdoc/>
-    public void Update(Book entity)
+    public Task<Book> Update(Book entity)
     {
         Delete(entity.Id);
         Create(entity);
+        return Task.FromResult(entity);
     }
 }

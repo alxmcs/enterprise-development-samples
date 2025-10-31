@@ -16,20 +16,20 @@ public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
     /// </summary>
     /// <param name="dto">DTO</param>
     /// <returns></returns>
-    TDto Create(TCreateUpdateDto dto);
+    public Task<TDto> Create(TCreateUpdateDto dto);
 
     /// <summary>
     /// Получение DTO по идентификатору
     /// </summary>
     /// <param name="dtoId">Идентификатор DTO</param>
     /// <returns></returns>
-    TDto Get(TKey dtoId);
+    public Task<TDto?> Get(TKey dtoId);
 
     /// <summary>
     /// Получение всего списка DTO
     /// </summary>
     /// <returns></returns>
-    List<TDto> GetAll();
+    public Task<IList<TDto>> GetAll();
 
     /// <summary>
     /// Обновление DTO
@@ -37,11 +37,11 @@ public interface IApplicationService<TDto, TCreateUpdateDto, TKey>
     /// <param name="dto">DTO</param>
     /// <param name="dtoId">Идентификатор DTO</param> 
     /// <returns></returns>
-    TDto Update(TCreateUpdateDto dto, TKey dtoId);
+    public Task<TDto> Update(TCreateUpdateDto dto, TKey dtoId);
 
     /// <summary>
     /// Удаление DTO
     /// </summary>
     /// <param name="dtoId">Идентификатор DTO</param>
-    void Delete(TKey dtoId);
+    public Task<bool> Delete(TKey dtoId);
 }

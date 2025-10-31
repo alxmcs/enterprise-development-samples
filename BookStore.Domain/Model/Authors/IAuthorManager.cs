@@ -1,17 +1,17 @@
-﻿using BookStore.Application.Contracts.Books;
+﻿using BookStore.Domain.Model.Books;
 
-namespace BookStore.Application.Contracts;
+namespace BookStore.Domain.Model.Authors;
 /// <summary>
-/// Служба для выполнения аналитических запросов
+/// Интерфейс для доменной службы
 /// </summary>
-public interface IAnalyticsService
+public  interface IAuthorManager
 {
     /// <summary>
     /// Получает последние 5 книг выбранного автора
     /// </summary>
-    /// <param name="dtoId">Идентификатор автора</param>
+    /// <param name="authorId">Идентификатор автора</param>
     /// <returns>Список книг</returns>
-    public Task<IList<BookDto>> GetLast5AuthorsBook(int dtoId);
+    public Task<IList<Book>> GetLast5AuthorsBook(int authorId);
 
     /// <summary>
     /// Получает топ 5 авторов по числу написанных страниц
