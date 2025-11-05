@@ -1,15 +1,15 @@
 namespace BookStore.Domain.Tets;
 
 /// <summary>
-/// Тесты бизнес-логики авторов
+/// РўРµСЃС‚С‹ Р±РёР·РЅРµСЃ-Р»РѕРіРёРєРё Р°РІС‚РѕСЂРѕРІ
 /// </summary>
-/// <param name="fixture">Фикстура доменной службы</param>
+/// <param name="fixture">Р¤РёРєСЃС‚СѓСЂР° РґРѕРјРµРЅРЅРѕР№ СЃР»СѓР¶Р±С‹</param>
 public class AuthorTests(AuthorManagerFixture fixture) : IClassFixture<AuthorManagerFixture>
 {
     /// <summary>
-    /// Параметризованный тест метода, возвращающего последние 5 книг автора
+    /// РџР°СЂР°РјРµС‚СЂРёР·РѕРІР°РЅРЅС‹Р№ С‚РµСЃС‚ РјРµС‚РѕРґР°, РІРѕР·РІСЂР°С‰Р°СЋС‰РµРіРѕ РїРѕСЃР»РµРґРЅРёРµ 5 РєРЅРёРі Р°РІС‚РѕСЂР°
     /// </summary>
-    /// <param name="authorId">Идентификатор автора</param>
+    /// <param name="authorId">РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р°РІС‚РѕСЂР°</param>
     /// <param name="expectedCount"></param>
     [Theory]
     [InlineData(1, 1)]
@@ -23,7 +23,7 @@ public class AuthorTests(AuthorManagerFixture fixture) : IClassFixture<AuthorMan
     }
 
     /// <summary>
-    /// Непараметрический тест метода, выводящего топ 5 авторов по числу страниц
+    /// РќРµРїР°СЂР°РјРµС‚СЂРёС‡РµСЃРєРёР№ С‚РµСЃС‚ РјРµС‚РѕРґР°, РІС‹РІРѕРґСЏС‰РµРіРѕ С‚РѕРї 5 Р°РІС‚РѕСЂРѕРІ РїРѕ С‡РёСЃР»Сѓ СЃС‚СЂР°РЅРёС†
     /// </summary>
     [Fact]
     public async Task GetTop5AuthorsByPageCount_Success()
