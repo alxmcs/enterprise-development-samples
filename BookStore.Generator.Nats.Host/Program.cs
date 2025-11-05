@@ -7,6 +7,17 @@ builder.AddServiceDefaults();
 builder.AddNatsClient("bookstore-nats");
 builder.Services.AddScoped<IProducerService, BookStoreNatsProducer>();
 builder.Services.AddHostedService<GeneratorService>();
+builder.Services.AddControllers();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.MapDefaultEndpoints();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 app.Run();

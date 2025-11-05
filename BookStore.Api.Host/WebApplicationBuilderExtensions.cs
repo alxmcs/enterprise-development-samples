@@ -5,8 +5,6 @@ using BookStore.Infrastructure.Kafka;
 using BookStore.Infrastructure.Kafka.Deserializers;
 using BookStore.Infrastructure.Nats;
 using BookStore.Infrastructure.RabbitMq;
-using Grpc.Core;
-using Microsoft.Extensions.Options;
 
 namespace BookStore.Api.Host;
 /// <summary>
