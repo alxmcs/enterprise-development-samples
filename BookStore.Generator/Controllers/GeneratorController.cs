@@ -1,4 +1,5 @@
-﻿using BookStore.Generator.Generator;
+﻿using BookStore.Application.Contracts.BookAuthors;
+using BookStore.Generator.Generator;
 using BookStore.Generator.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,22 +24,25 @@ public class GeneratorController(ILogger<GeneratorController> logger, IProducerS
     [HttpGet]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public async Task<IActionResult> Get([FromQuery] int batchSize, [FromQuery] int payloadLimit, [FromQuery] int waitTime)
+    public async Task<ActionResult<List<BookAuthorCreateUpdateDto>>> Get([FromQuery] int batchSize, [FromQuery] int payloadLimit, [FromQuery] int waitTime)
     {
         logger.LogInformation("Generating {limit} contracts via {batchSize} batches and {waitTime}s delay", payloadLimit, batchSize, waitTime);
         try
         {
+            var list = new List<BookAuthorCreateUpdateDto>(payloadLimit);
             var counter = 0;
             while (counter < payloadLimit)
             {
-                await producerService.SendAsync(BookAuthorGenerator.GenerateLinks(batchSize));
+                var batch = BookAuthorGenerator.GenerateLinks(batchSize);
+                await producerService.SendAsync(batch);
                 logger.LogInformation("Batch of {batchSize} items has been sent", batchSize);
                 await Task.Delay(waitTime * 1000);
                 counter += batchSize;
+                list.AddRange(batch);
             }
 
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
-            return Ok();
+            return Ok(list);
         }
         catch (Exception ex)
         {
