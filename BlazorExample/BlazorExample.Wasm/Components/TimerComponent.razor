@@ -1,0 +1,11 @@
+﻿<div class="card">
+	<div class="card-body">
+		<h5 class="card-title">@currentTime</h5>
+		<button class="btn btn-primary" @onclick="DisplayTime">Display time</button>
+	</div>
+</div>
+
+@code {
+	private DateTime currentTime = DateTime.Now;
+	private void DisplayTime() => currentTime = DateTime.Now;
+}
