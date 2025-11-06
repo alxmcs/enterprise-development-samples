@@ -25,7 +25,6 @@
     <ProjectReference Include="..\BookStore.Generator.Kafka.Host\BookStore.Generator.Kafka.Host.csproj" />
     <ProjectReference Include="..\BookStore.Generator.Nats.Host\BookStore.Generator.Nats.Host.csproj" />
     <ProjectReference Include="..\BookStore.Generator.RabbitMq.Host\BookStore.Generator.RabbitMq.Host.csproj" />
-    <ProjectReference Include="..\BookStore.Wasm\BookStore.Wasm.csproj" />
   </ItemGroup>
 
 </Project>
