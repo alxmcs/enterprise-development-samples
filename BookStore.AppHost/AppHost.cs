@@ -16,6 +16,10 @@ var batchSize = builder.AddParameter("GeneratorBatchSize");
 var payloadLimit = builder.AddParameter("GeneratorPayloadLimit");
 var waitTime = builder.AddParameter("GeneratorWaitTime");
 
+var client = builder.AddProject<Projects.BookStore_Wasm>("bookstore-client")
+    .WithReference(apiHost)
+    .WaitFor(apiHost);
+
 if (builder.Environment.EnvironmentName == "RabbitMq")
 {
     var rabbitUserName = builder.AddParameter("RabbitMQLogin");
