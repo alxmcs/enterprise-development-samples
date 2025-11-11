@@ -1,5 +1,5 @@
 using AutoMapper;
-using BookStore.Application;
+using BookStore.Api.Host;
 using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Authors;
 using BookStore.Application.Contracts.BookAuthors;
@@ -15,15 +15,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+//службы Aspire
 builder.AddServiceDefaults();
-
+//автомаппер
 var mapperConfig = new MapperConfiguration(
-    config => config.AddProfile(new BookStoreProfile()),
+    config => config.AddMaps([typeof(Program).Assembly, typeof(AuthorService).Assembly]),
     LoggerFactory.Create(builder => builder.AddConsole()));
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
+//службы инфраструктурного слоя
 builder.Services.AddTransient<IRepository<Author, int>, AuthorEfCoreRepository>();
 builder.Services.AddTransient<IRepository<Book, int>, BookEfCoreRepository>();
 builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
@@ -31,10 +31,10 @@ builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepo
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IApplicationService<BookAuthorDto, BookAuthorCreateUpdateDto, int>, BookAuthorService>();
-
+builder.Services.AddScoped<IBookAuthorService, BookAuthorService>();
+//службы доменного слоя
 builder.Services.AddScoped<IAuthorManager, AuthorManager>();
-
+//контроллеры презентационного слоя
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -53,6 +53,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
+//клиент сервиса генерации данных
+builder.AddGeneratorService(builder.Configuration);
 
 var app = builder.Build();
 

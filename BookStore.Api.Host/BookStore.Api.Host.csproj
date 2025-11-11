@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Confluent.Kafka" Version="9.4.1" />
+    <PackageReference Include="Aspire.NATS.Net" Version="9.4.1" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.4.0" />
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="9.4.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.71.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.71.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
@@ -22,7 +27,16 @@
     <ProjectReference Include="..\BookStore.Application\BookStore.Application.csproj" />
     <ProjectReference Include="..\BookStore.Domain\BookStore.Domain.csproj" />
     <ProjectReference Include="..\BookStore.Infrastructure.EfCore\BookStore.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\BookStore.Infrastructure.Kafka\BookStore.Infrastructure.Kafka.csproj" />
+    <ProjectReference Include="..\BookStore.Infrastructure.Nats\BookStore.Infrastructure.Nats.csproj" />
+    <ProjectReference Include="..\BookStore.Infrastructure.RabbitMq\BookStore.Infrastructure.RabbitMq.csproj" />
     <ProjectReference Include="..\BookStore.ServiceDefaults\BookStore.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\BookStore.Application.Contracts\Protos\BookAuthors.proto" GrpcServices="Client">
+      <Link>Protos\BookAuthors.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>
