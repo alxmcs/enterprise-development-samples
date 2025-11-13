@@ -5,15 +5,17 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Author/last5-books": {
+    "/last5-books": {
       "get": {
         "tags": [
-          "Author"
+          "Analytics"
         ],
+        "summary": "Получение последних 5 книг заданного автора",
         "parameters": [
           {
             "name": "id",
             "in": "query",
+            "description": "Идентификатор автора",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -59,11 +61,12 @@
         }
       }
     },
-    "/api/Author/top5-authors": {
+    "/top5-authors": {
       "get": {
         "tags": [
-          "Author"
+          "Analytics"
         ],
+        "summary": "Получение топ 5 авторов по числу изданных страниц",
         "responses": {
           "200": {
             "description": "OK",
@@ -103,12 +106,71 @@
         }
       }
     },
+    "/api/Author/{id}/BookAuthors": {
+      "get": {
+        "tags": [
+          "Author"
+        ],
+        "summary": "Получение коллекции связанных сущностей по идентифкатору",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/Author": {
       "post": {
         "tags": [
           "Author"
         ],
+        "summary": "Добавление новой записи",
         "requestBody": {
+          "description": "Новые данные",
           "content": {
             "application/json": {
               "schema": {
@@ -157,6 +219,7 @@
         "tags": [
           "Author"
         ],
+        "summary": "Получение списка всех данных",
         "responses": {
           "200": {
             "description": "OK",
@@ -198,10 +261,12 @@
         "tags": [
           "Author"
         ],
+        "summary": "Изменение имеющихся данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -210,6 +275,7 @@
           }
         ],
         "requestBody": {
+          "description": "Измененные данные",
           "content": {
             "application/json": {
               "schema": {
@@ -258,10 +324,12 @@
         "tags": [
           "Author"
         ],
+        "summary": "Удаление данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -285,10 +353,12 @@
         "tags": [
           "Author"
         ],
+        "summary": "Получение данных по идентификатору",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -326,12 +396,71 @@
         }
       }
     },
+    "/api/Book/{id}/BookAuthors": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "summary": "Получение коллекции связанных сущностей по идентифкатору",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Идентификатор",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookAuthorDto"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/Book": {
       "post": {
         "tags": [
           "Book"
         ],
+        "summary": "Добавление новой записи",
         "requestBody": {
+          "description": "Новые данные",
           "content": {
             "application/json": {
               "schema": {
@@ -380,6 +509,7 @@
         "tags": [
           "Book"
         ],
+        "summary": "Получение списка всех данных",
         "responses": {
           "200": {
             "description": "OK",
@@ -421,10 +551,12 @@
         "tags": [
           "Book"
         ],
+        "summary": "Изменение имеющихся данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -433,6 +565,7 @@
           }
         ],
         "requestBody": {
+          "description": "Измененные данные",
           "content": {
             "application/json": {
               "schema": {
@@ -481,10 +614,12 @@
         "tags": [
           "Book"
         ],
+        "summary": "Удаление данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -508,10 +643,12 @@
         "tags": [
           "Book"
         ],
+        "summary": "Получение данных по идентификатору",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -554,7 +691,9 @@
         "tags": [
           "BookAuthor"
         ],
+        "summary": "Добавление новой записи",
         "requestBody": {
+          "description": "Новые данные",
           "content": {
             "application/json": {
               "schema": {
@@ -603,6 +742,7 @@
         "tags": [
           "BookAuthor"
         ],
+        "summary": "Получение списка всех данных",
         "responses": {
           "200": {
             "description": "OK",
@@ -644,10 +784,12 @@
         "tags": [
           "BookAuthor"
         ],
+        "summary": "Изменение имеющихся данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -656,6 +798,7 @@
           }
         ],
         "requestBody": {
+          "description": "Измененные данные",
           "content": {
             "application/json": {
               "schema": {
@@ -704,10 +847,12 @@
         "tags": [
           "BookAuthor"
         ],
+        "summary": "Удаление данных",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -731,10 +876,12 @@
         "tags": [
           "BookAuthor"
         ],
+        "summary": "Получение данных по идентификатору",
         "parameters": [
           {
             "name": "id",
             "in": "path",
+            "description": "Идентификатор",
             "required": true,
             "schema": {
               "type": "integer",
@@ -780,148 +927,181 @@
         "properties": {
           "lastName": {
             "type": "string",
+            "description": "Имя автора",
             "nullable": true
           },
           "firstName": {
             "type": "string",
+            "description": "Фамилия автора",
             "nullable": true
           },
           "patronymic": {
             "type": "string",
+            "description": "Отчество автора",
             "nullable": true
           },
           "biography": {
             "type": "string",
+            "description": "Биография автора",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для POST/PUT запросов к авторам"
       },
       "AuthorDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
+            "description": "Идентификатор автора",
             "format": "int32"
           },
           "lastName": {
             "type": "string",
+            "description": "Имя автора",
             "nullable": true
           },
           "firstName": {
             "type": "string",
+            "description": "Фамилия автора",
             "nullable": true
           },
           "patronymic": {
             "type": "string",
+            "description": "Отчество автора",
             "nullable": true
           },
           "biography": {
             "type": "string",
+            "description": "Биография автора",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для GET запросов к авторам"
       },
       "BookAuthorCreateUpdateDto": {
         "type": "object",
         "properties": {
           "authorId": {
             "type": "integer",
+            "description": "Идентификатор автора",
             "format": "int32"
           },
           "bookId": {
             "type": "integer",
+            "description": "Идентификатор издания",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для POST/PUT запросов к связям авторов и книг"
       },
       "BookAuthorDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
+            "description": "Идентификатор связи",
             "format": "int32"
           },
           "authorId": {
             "type": "integer",
+            "description": "Идентификатор автора",
             "format": "int32"
           },
           "bookId": {
             "type": "integer",
+            "description": "Идентификатор издания",
             "format": "int32"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для GET запросов к связям авторов и книг"
       },
       "BookCreateUpdateDto": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
+            "description": "Название издания",
             "nullable": true
           },
           "annotation": {
             "type": "string",
+            "description": "Аннотация",
             "nullable": true
           },
           "pageCount": {
             "type": "integer",
+            "description": "Число страниц",
             "format": "int32",
             "nullable": true
           },
           "year": {
             "type": "integer",
+            "description": "Год издания",
             "format": "int32",
             "nullable": true
           },
           "publisher": {
             "type": "string",
+            "description": "Издательство",
             "nullable": true
           },
           "isbn": {
             "type": "string",
+            "description": "ISBN",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для POST/PUT запросов к книгам"
       },
       "BookDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
+            "description": "Идентификатор издания",
             "format": "int32"
           },
           "title": {
             "type": "string",
+            "description": "Название издания",
             "nullable": true
           },
           "annotation": {
             "type": "string",
+            "description": "Аннотация",
             "nullable": true
           },
           "pageCount": {
             "type": "integer",
+            "description": "Число страниц",
             "format": "int32",
             "nullable": true
           },
           "year": {
             "type": "integer",
+            "description": "Год издания",
             "format": "int32",
             "nullable": true
           },
           "publisher": {
             "type": "string",
+            "description": "Издательство",
             "nullable": true
           },
           "isbn": {
             "type": "string",
+            "description": "ISBN",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "DTO для GET запросов к книгам"
       },
       "StringInt32NullableKeyValuePair": {
         "type": "object",

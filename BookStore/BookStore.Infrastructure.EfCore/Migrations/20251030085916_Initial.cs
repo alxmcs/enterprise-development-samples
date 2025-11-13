@@ -14,68 +14,68 @@ namespace BookStore.Infrastructure.EfCore.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Authors",
+                name: "authors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    FirstName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    Patronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    Biography = table.Column<string>(type: "text", maxLength: 2147483647, nullable: true)
+                    last_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    first_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    patronymic = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    biography = table.Column<string>(type: "text", maxLength: 2147483647, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authors", x => x.Id);
+                    table.PrimaryKey("PK_authors", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Books",
+                name: "books",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
-                    Annotation = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: true),
-                    PageCount = table.Column<int>(type: "integer", nullable: true),
-                    Year = table.Column<int>(type: "integer", nullable: true),
-                    Publisher = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    Isbn = table.Column<string>(type: "text", nullable: true)
+                    title = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
+                    annotation = table.Column<string>(type: "character varying(10000)", maxLength: 10000, nullable: true),
+                    page_count = table.Column<int>(type: "integer", nullable: true),
+                    year = table.Column<int>(type: "integer", nullable: true),
+                    publisher = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    isbn = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Id);
+                    table.PrimaryKey("PK_books", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookAuthors",
+                name: "book_authors",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AuthorId = table.Column<int>(type: "integer", nullable: false),
-                    BookId = table.Column<int>(type: "integer", nullable: false)
+                    author_id = table.Column<int>(type: "integer", nullable: false),
+                    book_id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookAuthors", x => x.Id);
+                    table.PrimaryKey("PK_book_authors", x => x.id);
                     table.ForeignKey(
-                        name: "FK_BookAuthors_Authors_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Authors",
-                        principalColumn: "Id",
+                        name: "FK_book_authors_authors_author_id",
+                        column: x => x.author_id,
+                        principalTable: "authors",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookAuthors_Books_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "Id",
+                        name: "FK_book_authors_books_book_id",
+                        column: x => x.book_id,
+                        principalTable: "books",
+                        principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Authors",
-                columns: new[] { "Id", "Biography", "FirstName", "LastName", "Patronymic" },
+                table: "authors",
+                columns: new[] { "id", "biography", "first_name", "last_name", "patronymic" },
                 values: new object[,]
                 {
                     { 1, null, "Гаурав", "Арораа", null },
@@ -85,8 +85,8 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Books",
-                columns: new[] { "Id", "Annotation", "Isbn", "PageCount", "Publisher", "Title", "Year" },
+                table: "books",
+                columns: new[] { "id", "annotation", "isbn", "page_count", "publisher", "title", "year" },
                 values: new object[,]
                 {
                     { 1, "Паттерны проектирования — удобный прием программирования для решения рутинных задач разработки ПО.Грамотное использование паттернов позволяет добиться соответствия любым требованиям и снизить расходы. В этой книге описаны эффективные способы применения паттернов проектирования с учётом специфики языка C# и платформы .NET Core. Кроме знакомых паттернов проектирования из книги «Банды четырех» вы изучите основы объектно-ориентированного программирования и принципов SOLID. Затем узнаете о функциональных, реактивных и конкурентных паттернах, с помощью которых будете работать с потоками и корутинами. Заключительная часть содержит паттерны для работы с микросервисными, бессерверными и облачно-ориентированными приложениями. Вы также узнаете, как сделать выбор архитектуры, например микросервисной или MVC. Вы научитесь - Повышать гибкость кода, используя принципы SOLID. - Применять разработку через тестирование (TDD) в ваших проектах на .NET Core. - Выполнять эффективную миграцию баз данных, обеспечивать долговременное хранение данных и их тестирование. - Преобразовывать консольное приложение в веб-приложение с помощью подходящего MVP. - Писать асинхронный, многопоточный и параллельный код. - Использовать парадигму MVVM и работать с RxJS и AngularJS для управления изменениями в базах данных. - Откроете для себя возможности микросервисов, бессерверного программирования и облачных вычислений.", "978-5-4461-1523-5", 352, "Питер", "Паттерны проектирования для C# и платформы .NET Core", 2021 },
@@ -96,8 +96,8 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "BookAuthors",
-                columns: new[] { "Id", "AuthorId", "BookId" },
+                table: "book_authors",
+                columns: new[] { "id", "author_id", "book_id" },
                 values: new object[,]
                 {
                     { 1, 1, 1 },
@@ -108,27 +108,27 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookAuthors_AuthorId",
-                table: "BookAuthors",
-                column: "AuthorId");
+                name: "IX_book_authors_author_id",
+                table: "book_authors",
+                column: "author_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookAuthors_BookId",
-                table: "BookAuthors",
-                column: "BookId");
+                name: "IX_book_authors_book_id",
+                table: "book_authors",
+                column: "book_id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BookAuthors");
+                name: "book_authors");
 
             migrationBuilder.DropTable(
-                name: "Authors");
+                name: "authors");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "books");
         }
     }
 }

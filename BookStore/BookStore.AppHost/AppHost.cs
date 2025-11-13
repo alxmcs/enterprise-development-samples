@@ -1,5 +1,3 @@
-using BookStore.AppHost;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var postgresPassword = builder.AddParameter("PostgresPassword");
@@ -14,15 +12,15 @@ var apiHost = builder.AddProject<Projects.BookStore_Api_Host>("bookstore-api-hos
     .WaitFor(bookStoreDb)
     .WithEnvironment("Generator", builder.Environment.EnvironmentName);
 
-var client = builder.AddProject<Projects.BookStore_Wasm>("bookstore-client")
-    .WithReference(apiHost)
-    .WaitFor(apiHost);
-
 var batchSize = builder.AddParameter("GeneratorBatchSize");
 var payloadLimit = builder.AddParameter("GeneratorPayloadLimit");
 var waitTime = builder.AddParameter("GeneratorWaitTime");
 
-if (builder.Environment.IsRabbitMq())
+var client = builder.AddProject<Projects.BookStore_Wasm>("bookstore-client")
+    .WithReference(apiHost)
+    .WaitFor(apiHost);
+
+if (builder.Environment.EnvironmentName == "RabbitMq")
 {
     var rabbitUserName = builder.AddParameter("RabbitMQLogin");
     var rabbitPassword = builder.AddParameter("RabbitMQPassword");
@@ -42,7 +40,7 @@ if (builder.Environment.IsRabbitMq())
         .WithReference(rabbitMq)
         .WaitFor(rabbitMq);
 }
-if (builder.Environment.IsKafka())
+if (builder.Environment.EnvironmentName == "Kafka")
 {
     var kafka = builder.AddKafka("bookstore-kafka")
         .WithKafkaUI();
@@ -60,16 +58,17 @@ if (builder.Environment.IsKafka())
         .WithReference(kafka)
         .WaitFor(kafka);
 }
-if (builder.Environment.IsNats())
+if (builder.Environment.EnvironmentName == "Nats")
 {
     var natsUserName = builder.AddParameter("NatsLogin");
     var natsPassword = builder.AddParameter("NatsPassword");
-    var nats = builder.AddNats("bookstore-nats", userName: natsUserName, password: natsPassword)
+    var nats = builder.AddNats("bookstore-nats", userName: natsUserName, password: natsPassword, port: 4222)
         .WithJetStream()
         .WithArgs("-m", "8222")
         .WithHttpEndpoint(port: 8222, targetPort: 8222);
 
     builder.AddContainer("bookstore-nui", "ghcr.io/nats-nui/nui")
+        .WithReference(nats)
         .WaitFor(nats)
         .WithHttpEndpoint(port: 31311, targetPort: 31311);
 
@@ -89,7 +88,7 @@ if (builder.Environment.IsNats())
         .WithReference(nats)
         .WaitFor(nats);
 }
-if (builder.Environment.IsGrpc())
+if (builder.Environment.EnvironmentName == "Grpc")
 {
     var grpcServer = builder.AddProject<Projects.BookStore_Generator_Grpc_Host>("bookstore-generator-grpc-host")
         .WithReference(apiHost)

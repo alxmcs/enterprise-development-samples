@@ -8,6 +8,7 @@ namespace BookStore.Generator.Kafka.Host.Serializers;
 /// </summary>
 public class BookStoreKeySerializer : ISerializer<Guid>
 {
+    /// <inheritdoc/>
     public byte[] Serialize(Guid data, SerializationContext context) =>
        JsonSerializer.SerializeToUtf8Bytes(data);
 }

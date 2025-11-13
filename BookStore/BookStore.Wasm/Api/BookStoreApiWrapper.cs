@@ -33,22 +33,18 @@ public class BookStoreApiWrapper(IConfiguration configuration)
     }
     public async Task<IList<BookDto>> GetLast5Books(int id) => [.. await _client.Last5BooksAsync(id)];
 
-    public async Task<IList<AuthorDto>> GetBookAuthors(int bookId)
+    public async Task<IList<AuthorDto>> GetBookAuthors(int bookId) 
     {
-        var bookAuthors = await GetAllBooksAuthors();
         var authors = new List<AuthorDto>();
-        foreach (var ba in bookAuthors)
-            if (ba.BookId == bookId)
-                authors.Add(await GetAuthor(ba.AuthorId));
+        foreach (var item in await _client.BookAuthors2Async(bookId))
+            authors.Add(await GetAuthor(item.AuthorId));
         return authors;
     }
     public async Task<IList<BookDto>> GetAuthorBooks(int authorId)
     {
-        var bookAuthors = await GetAllBooksAuthors();
         var books = new List<BookDto>();
-        foreach (var ba in bookAuthors)
-            if (ba.AuthorId == authorId)
-                books.Add(await GetBook(ba.BookId));
+        foreach (var item in await _client.BookAuthors2Async(authorId))
+            books.Add(await GetBook(item.BookId));
         return books;
     }
 }
