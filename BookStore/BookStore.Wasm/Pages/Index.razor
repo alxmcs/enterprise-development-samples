@@ -1,0 +1,106 @@
+﻿@inject BookStoreApiWrapper BookStoreApi
+
+@page "/"
+@using System.Text
+
+<Card>
+	<CardBody>
+		<p>Использованная библиотка компонентов - <a href="https://blazorise.com/docs">Blazorise</a></p>
+		<p>Использованный css фреймворк - <a href="https://bootstrap5demo.blazorise.com/">Bootstrap 5</a></p>
+		<p>Аналогичные библиотеки компонентов:</p>
+		<ul>
+			<li><a href="https://mudblazor.com/">MudBlazor</a></li>
+			<li><a href="https://blazor.radzen.com/">Radzen</a></li>
+			<li><a href="https://antblazor.com/">Ant Design Blazor</a></li>
+			<li><a href="https://fluentui-blazor.net">Fluent UI Blazor</a></li>
+		</ul>
+	</CardBody>
+</Card>
+
+<Card>
+	<CardHeader>
+		<Row Class="justify-content-between">
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<h4>Пять наиболее продуктивных авторов по числу изданных страниц</h4>
+			</Column>
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<Button Color="Color.Primary" Clicked="GetTopAuthors">
+					Получить
+				</Button>
+			</Column>
+		</Row>
+	</CardHeader>
+	<CardBody>
+		<MemoEdit Text="@_topAuthors" AutoSize ReadOnly/>
+	</CardBody>
+</Card>
+
+<Card>
+	<CardHeader>
+		<Row Class="justify-content-between">
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<h4>Последние пять книг автора</h4>
+			</Column>
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<Select TValue="int" SelectedValue="@_selectedAuthorId" SelectedValueChanged="@(value=> _selectedAuthorId = value)">
+					@foreach (var author in _availableAuthors)
+					{
+						<SelectItem Value="@author.Id">@($"{author.FirstName} {author.LastName}")</SelectItem>
+					}
+				</Select>
+			</Column>
+			<Column ColumnSize="ColumnSize.IsAuto">
+				<Button Color="Color.Primary" Clicked="GetLastBooks">
+					Получить
+				</Button>
+			</Column>
+		</Row>
+	</CardHeader>
+	<CardBody>
+		<MemoEdit Text="@_lastBooks" AutoSize ReadOnly/>
+	</CardBody>
+</Card>
+
+
+@code{
+	private List<AuthorDto> _availableAuthors = new();
+	private string _topAuthors = "Запросите данные";
+	private string _lastBooks = "Запросите данные";
+	private int _selectedAuthorId;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_availableAuthors = [..await BookStoreApi.GetAllAuthors()];
+	}
+	private async Task GetTopAuthors()
+	{
+		var authors = await BookStoreApi.GetTop5Authors();
+		_topAuthors = DictionaryToCaption(authors);
+	}
+
+	private string DictionaryToCaption(Dictionary<string,int?> dict)
+	{
+		var builder = new StringBuilder();
+		if (!dict.Any())
+			return "Нет данных";
+		foreach (var pair in dict)
+			builder.AppendLine($"{pair.Key} : {(pair.Value ?? 0)} стр.");
+		return builder.ToString();
+	}
+
+	private async Task GetLastBooks()
+	{
+		var books = await BookStoreApi.GetLast5Books(_selectedAuthorId);
+		_lastBooks = BookDtosToCaption(books);
+	}
+
+	private string BookDtosToCaption(IList<BookDto> books)
+	{
+		var builder = new StringBuilder();
+		if (!books.Any())
+			return "Нет данных";
+		foreach (var book in books)
+			builder.AppendLine($"{book.Title}.— {book.Publisher}. — {book.Year}. — {book.PageCount} C.");
+		return builder.ToString();
+	}
+}

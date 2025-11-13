@@ -1,0 +1,65 @@
+﻿@inject BookStoreApiWrapper BookStoreApi
+
+<Modal @ref="AuthorModal">
+    <ModalContent Centered>
+        <Form>
+            <ModalHeader>
+                <ModalTitle>Добавить соавтора в издание</ModalTitle>
+                <CloseButton Clicked="CloseAuthorModalAsync" />
+            </ModalHeader>
+
+            <ModalBody>
+                <Field>
+                    <FieldLabel>Соавтор</FieldLabel>
+                    <DropdownList TItem="AuthorDto"
+                                  TValue="int"
+                                  Data="@AuthorsToSelect"
+                                  TextField="@((item)=>CreateCaptionForAuthor(item))"
+                                  ValueField="@((item)=>item.Id)"
+                                  @bind-SelectedValue="@SelectedDropValue">
+                        Выбрать соавтора
+                    </DropdownList>
+                </Field>
+            </ModalBody>
+
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="CloseAuthorModalAsync">Отмена</Button>
+                <Button Color="Color.Primary" Clicked="LinkAuthorAsync">Привязать</Button>
+            </ModalFooter>
+
+        </Form>
+    </ModalContent>
+</Modal>
+
+@code {
+    [Parameter]
+    public int? BookId { get; set; }
+    [Parameter]
+    public EventCallback OnAuthorAdded { get; set; }
+
+    private Modal AuthorModal { get; set; } = new();
+    private int SelectedDropValue { get; set; }
+    private IList<AuthorDto> AuthorsToSelect { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthorsToSelect = await BookStoreApi.GetAllAuthors();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task Show() => await AuthorModal.Show();
+
+    private async Task LinkAuthorAsync()
+    {
+        await BookStoreApi.CreateBookAuthor(new() { BookId = BookId.Value, AuthorId = SelectedDropValue });
+        await CloseAuthorModalAsync();
+        await OnAuthorAdded.InvokeAsync();
+    }
+
+    private async Task CloseAuthorModalAsync() => await AuthorModal.Hide();
+
+    private string CreateCaptionForAuthor(AuthorDto author) =>
+        string.IsNullOrEmpty(author.Patronymic)
+        ? $"{author.FirstName} {author.LastName}"
+        : $"{author.LastName} {author.FirstName} {author.Patronymic}";
+}

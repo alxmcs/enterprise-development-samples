@@ -1,0 +1,60 @@
+﻿@inject BookStoreApiWrapper BookStoreApi
+
+<Modal @ref="BookModal">
+    <ModalContent Centered>
+        <Form>
+            <ModalHeader>
+                <ModalTitle>Добавить книгу автору</ModalTitle>
+                <CloseButton Clicked="CloseBookModalAsync" />
+            </ModalHeader>
+
+            <ModalBody>
+                <Field>
+                    <FieldLabel>Соавтор</FieldLabel>
+                    <DropdownList TItem="BookDto"
+                                  TValue="int"
+                                  Data="@BooksToSelect"
+                                  TextField="@((item)=>item.Title)"
+                                  ValueField="@((item)=>item.Id)"
+                                  @bind-SelectedValue="@SelectedDropValue">
+                        Выбрать издание
+                    </DropdownList>
+                </Field>
+            </ModalBody>
+
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="CloseBookModalAsync">Отмена</Button>
+                <Button Color="Color.Primary" Clicked="LinkBookAsync">Привязать</Button>
+            </ModalFooter>
+
+        </Form>
+    </ModalContent>
+</Modal>
+
+@code {
+    [Parameter]
+    public int? AuthorId { get; set; }
+    [Parameter]
+    public EventCallback OnBookAdded { get; set; }
+
+    private Modal BookModal { get; set; } = new();
+    private int SelectedDropValue { get; set; }
+    private IList<BookDto> BooksToSelect { get; set; } = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        BooksToSelect = await BookStoreApi.GetAllBooks();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task Show() => await BookModal.Show();
+
+    private async Task LinkBookAsync()
+    {
+        await BookStoreApi.CreateBookAuthor(new() { BookId = SelectedDropValue, AuthorId = AuthorId.Value });
+        await CloseBookModalAsync();
+        await OnBookAdded.InvokeAsync();
+    }
+
+    private async Task CloseBookModalAsync() => await BookModal.Hide();
+}
