@@ -1,4 +1,4 @@
-﻿using BookStore.Application.Contracts;
+using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Books;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +43,7 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AuthorContro
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<List<KeyValuePair<string, int?>>>> GetTop5AuthorsByPageCount()
+    public async Task<ActionResult<List<KeyValuePair<string, int?>>>>  GetTop5AuthorsByPageCount()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetTop5AuthorsByPageCount), GetType().Name);
         try
