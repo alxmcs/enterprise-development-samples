@@ -5,8 +5,16 @@ using Grpc.Core;
 
 namespace BookStore.Api.Host.Grpc;
 
+/// <summary>
+/// Клиентская gRPC-служба для приема контрактов
+/// </summary>
+/// <param name="client">gRPC клиент</param>
+/// <param name="scopeFactory">Фабрика контекста</param>
+/// <param name="mapper">Профиль автомаппера</param>
+/// <param name="logger">Логгер</param>
 public class BookStoreGrpcClient(BookAuthorGrpcService.BookAuthorGrpcServiceClient client, IServiceScopeFactory scopeFactory, IMapper mapper, ILogger<BookStoreGrpcClient> logger) : BackgroundService
 {
+    /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var ctx = new CancellationTokenSource();
