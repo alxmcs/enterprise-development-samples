@@ -28,11 +28,11 @@ builder.Services.AddTransient<IRepository<Book, int>, BookEfCoreRepository>();
 builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
 //службы аппликейшен слоя
 builder.Services.AddScoped<IAuthorService, AuthorService>();
-builder.Services.AddScoped<IApplicationService<BookDto, BookCreateUpdateDto, int>, BookService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookAuthorService, BookAuthorService>();
-//������ ��������� ����
-builder.Services.AddScoped<AuthorManager>();
-//����������� ���������������� ����
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+//доменные службы
+builder.Services.AddScoped<IAuthorManager, AuthorManager>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
