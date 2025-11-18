@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.1" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>80d53eea-7043-4fb1-a20c-d0ec64b3bceb</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.Kafka" Version="9.4.1" />
+    <PackageReference Include="Aspire.Hosting.Nats" Version="9.4.1" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.4.0" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.4.1" />
+    <PackageReference Include="Aspire.NATS.Net" Version="9.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookStore.Api.Host\BookStore.Api.Host.csproj" />
+    <ProjectReference Include="..\BookStore.Generator.Grpc.Host\BookStore.Generator.Grpc.Host.csproj" />
+    <ProjectReference Include="..\BookStore.Generator.Kafka.Host\BookStore.Generator.Kafka.Host.csproj" />
+    <ProjectReference Include="..\BookStore.Generator.Nats.Host\BookStore.Generator.Nats.Host.csproj" />
+    <ProjectReference Include="..\BookStore.Generator.RabbitMq.Host\BookStore.Generator.RabbitMq.Host.csproj" />
+    <ProjectReference Include="..\BookStore.Wasm\BookStore.Wasm.csproj" />
+  </ItemGroup>
+
+</Project>

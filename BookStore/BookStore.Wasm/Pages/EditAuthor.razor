@@ -1,0 +1,84 @@
+﻿@page "/authors/{Id}"
+
+@inject BookStoreApiWrapper BookStoreApi
+@inject IJSRuntime JsRuntime
+
+<Card>
+	<CardHeader>
+        <Row Class="justify-content-between">
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <h4>Изменить автора</h4>
+            </Column>
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <Button Color="Color.Primary" Clicked="UpdateAuthorAsync">
+                    Сохранить
+                </Button>
+                <Button Color="Color.Danger" Clicked="DeleteAuthorAsync">
+                    Удалить
+                </Button>
+                <Button Color="Color.Secondary" onclick="history.back();">
+                    Закрыть
+                </Button>
+            </Column>
+        </Row>
+	</CardHeader>
+
+    <CardBody>
+        <Field>
+            <FieldLabel>Фамилия</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedAuthor.LastName" />
+        </Field>
+        <Field>
+            <FieldLabel>Имя</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedAuthor.FirstName" />
+        </Field>
+        <Field>
+            <FieldLabel>Отчество</FieldLabel>
+            <TextEdit @bind-Text="@UpdatedAuthor.Patronymic" />
+        </Field>
+        <Field>
+            <FieldLabel>Биография</FieldLabel>
+            <MemoEdit @bind-Text="@UpdatedAuthor.Biography" />
+        </Field>
+    </CardBody>
+</Card>
+
+<BookDataGrid IsNested="true" AuthorId="@AuthorId" />
+
+@code {
+    [Parameter] 
+    public string Id { get; set; } = "";
+
+    private int AuthorId { get; set; }
+    private AuthorDto UpdatedAuthor { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!int.TryParse(Id, out var id))
+            throw new Exception("Некорректный идентификатор автора");
+        AuthorId = id;
+        UpdatedAuthor = await BookStoreApi.GetAuthor(AuthorId);
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteAuthorAsync()
+    {
+        await BookStoreApi.DeleteAuthor(AuthorId);
+        var bookAuthors = (await BookStoreApi.GetAllBooksAuthors()).Where(ba => ba.AuthorId == AuthorId);
+        foreach (var ba in bookAuthors)
+            await BookStoreApi.DeleteBookAuthor(ba.Id);
+        await JsRuntime.InvokeVoidAsync("history.back()");
+    }
+
+    private async Task UpdateAuthorAsync()
+    {
+        var EditedAuthor = new AuthorCreateUpdateDto
+            {
+                FirstName = UpdatedAuthor.FirstName,
+                LastName = UpdatedAuthor.LastName,
+                Patronymic = UpdatedAuthor.Patronymic,
+                Biography = UpdatedAuthor.Biography
+            };
+        UpdatedAuthor = await BookStoreApi.UpdateAuthor(AuthorId, EditedAuthor);
+    }
+}
