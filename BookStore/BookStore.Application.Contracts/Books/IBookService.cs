@@ -1,11 +1,11 @@
 ﻿using BookStore.Application.Contracts.BookAuthors;
 
-namespace BookStore.Application.Contracts.Authors;
+namespace BookStore.Application.Contracts.Books;
 
 /// <summary>
-/// Наследник аппликейшен службы для авторов
+/// Наследник аппликейшен службы для книг
 /// </summary>
-public interface IAuthorService : IApplicationService<AuthorDto, AuthorCreateUpdateDto, int>
+public interface IBookService : IApplicationService<BookDto, BookCreateUpdateDto, int>
 {
     /// <summary>
     /// Получает коллекцию связанных сущностей

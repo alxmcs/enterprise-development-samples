@@ -1,0 +1,32 @@
+name: BookStore Domain Unit Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'BookStore/**'
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore ./BookStore/BookStore.sln
+      
+    - name: Build
+      run: dotnet build ./BookStore/BookStore.sln --no-restore
+      
+    - name: Test
+      run: dotnet test ./BookStore/BookStore.sln --no-build --verbosity normal
+      

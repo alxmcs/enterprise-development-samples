@@ -16,7 +16,7 @@ namespace BookStore.Infrastructure.Kafka;
 /// <param name="logger">Логгер</param>
 public class BookStoreKafkaConsumer(IConsumer<Guid, IList<BookAuthorCreateUpdateDto>> consumer, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreKafkaConsumer> logger) : BackgroundService
 {
-    private readonly string _topicName = configuration.GetSection("Kafka")["TopicName"] ?? throw new ArgumentNullException("TopicName", "TopicName section of Kafka is missing");
+    private readonly string _topicName = configuration.GetSection("Kafka")["TopicName"] ?? throw new KeyNotFoundException("TopicName section of Kafka is missing");
 
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

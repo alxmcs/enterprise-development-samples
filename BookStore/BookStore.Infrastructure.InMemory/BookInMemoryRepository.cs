@@ -8,12 +8,14 @@ namespace BookStore.Infrastructure.InMemory;
 /// </summary>
 public class BookInMemoryRepository(List<Book> books) : IRepository<Book, int>
 {
+    /// <inheritdoc/>
     public Task<Book> Create(Book entity)
     {
         books.Add(entity);
         return Task.FromResult(entity);
     }
 
+    /// <inheritdoc/>
     public Task<bool> Delete(int entityId)
     {
         var book = Read(entityId).Result;
@@ -23,12 +25,15 @@ public class BookInMemoryRepository(List<Book> books) : IRepository<Book, int>
         return Task.FromResult(res);
     }
 
+    /// <inheritdoc/>
     public Task<Book?> Read(int entityId) =>
         Task.FromResult(books.FirstOrDefault(a => a.Id == entityId));
 
+    /// <inheritdoc/>
     public Task<IList<Book>> ReadAll() =>
         Task.FromResult<IList<Book>>([.. books]);
 
+    /// <inheritdoc/>
     public Task<Book> Update(Book entity)
     {
         Delete(entity.Id);

@@ -14,9 +14,9 @@ namespace BookStore.Generator.Services;
 /// <param name="logger">Логгер</param>
 public class GeneratorService(IConfiguration configuration, IServiceScopeFactory scopeFactory, ILogger<GeneratorService> logger) : BackgroundService
 {
-    private readonly string _batchSize = configuration.GetSection("Generator")["BatchSize"] ?? throw new ArgumentNullException("BatchSize", "BatchSize section of Generator is missing");
-    private readonly string _payloadLimit = configuration.GetSection("Generator")["PayloadLimit"] ?? throw new ArgumentNullException("PayloadLimit", "PayloadLimit section of Generator is missing");
-    private readonly string _waitTime = configuration.GetSection("Generator")["WaitTime"] ?? throw new ArgumentNullException("WaitTime", "WaitTime section of Generator is missing");
+    private readonly string _batchSize = configuration.GetSection("Generator")["BatchSize"] ?? throw new KeyNotFoundException("BatchSize section of Generator is missing");
+    private readonly string _payloadLimit = configuration.GetSection("Generator")["PayloadLimit"] ?? throw new KeyNotFoundException("PayloadLimit section of Generator is missing");
+    private readonly string _waitTime = configuration.GetSection("Generator")["WaitTime"] ?? throw new KeyNotFoundException("WaitTime section of Generator is missing");
 
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
