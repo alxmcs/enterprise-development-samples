@@ -14,40 +14,38 @@ using BookStore.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-//службы Aspire
+//СЃР»СѓР¶Р±С‹ Aspire
 builder.AddServiceDefaults();
-//автомаппер
+//Р°РІС‚РѕРјР°РїРїРµСЂ
 var mapperConfig = new MapperConfiguration(
     config => config.AddMaps([typeof(Program).Assembly, typeof(AuthorService).Assembly]),
     LoggerFactory.Create(builder => builder.AddConsole()));
 IMapper? mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
-//службы инфраструктурного слоя
+//СЃР»СѓР¶Р±С‹ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂРЅРѕРіРѕ СЃР»РѕСЏ
 builder.Services.AddTransient<IRepository<Author, int>, AuthorEfCoreRepository>();
 builder.Services.AddTransient<IRepository<Book, int>, BookEfCoreRepository>();
 builder.Services.AddTransient<IRepository<BookAuthor, int>, BookAuthorEfCoreRepository>();
-//службы аппликейшен слоя
+//СЃР»СѓР¶Р±С‹ Р°РїРїР»РёРєРµР№С€РµРЅ СЃР»РѕСЏ
 builder.Services.AddScoped<IAuthorService, AuthorService>();
-builder.Services.AddScoped<IApplicationService<BookDto, BookCreateUpdateDto, int>, BookService>();
+builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IBookAuthorService, BookAuthorService>();
-//службы доменного слоя
-builder.Services.AddScoped<AuthorManager>();
-//контроллеры презентационного слоя
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+//РґРѕРјРµРЅРЅС‹Рµ СЃР»СѓР¶Р±С‹
+builder.Services.AddScoped<IAuthorManager, AuthorManager>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//контекст базы данных
+//РєРѕРЅС‚РµРєСЃС‚ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
-//клиент сервиса генерации данных
+//РєР»РёРµРЅС‚ СЃРµСЂРІРёСЃР° РіРµРЅРµСЂР°С†РёРё РґР°РЅРЅС‹С…
 builder.AddGeneratorService(builder.Configuration);
-
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
 {
     policy.AllowAnyOrigin();
     policy.AllowAnyMethod();
     policy.AllowAnyHeader();
 }));
-
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -63,11 +61,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.UseCors();
-
 app.MapControllers();
-
 app.Run();

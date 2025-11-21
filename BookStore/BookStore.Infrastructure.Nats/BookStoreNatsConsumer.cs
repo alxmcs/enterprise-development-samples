@@ -6,11 +6,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NATS.Client.Core;
 using NATS.Net;
+using NATS.Client.JetStream.Models;
 
 namespace BookStore.Infrastructure.Nats;
 
 /// <summary>
-/// Служба для чтения данных из сабжекта Nats
+/// Служба для чтения данных из сабжекта Nats при помощи push-консьюмера
 /// </summary>
 /// <param name="connection">Подключение к Nats</param>
 /// <param name="scopeFactory">Фабрика контекста</param>
@@ -18,9 +19,9 @@ namespace BookStore.Infrastructure.Nats;
 /// <param name="logger">Логгер</param>
 public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreNatsConsumer> logger) : BackgroundService
 {
-    private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new ArgumentNullException("StreamName", "StreamName section of Nats is missing");
-    private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new ArgumentNullException("SubjectName", "SubjectName section of Nats is missing");
-
+    private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new KeyNotFoundException("StreamName section of Nats is missing");
+    private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new KeyNotFoundException("SubjectName section of Nats is missing");
+    
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -28,7 +29,13 @@ public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFact
         {
             await connection.ConnectAsync();
             var context = connection.CreateJetStreamContext();
-            var consumer = await context.CreateConsumerAsync(_streamName, new NATS.Client.JetStream.Models.ConsumerConfig(), stoppingToken);
+            var consumer = await context.CreateConsumerAsync(_streamName, 
+                new ConsumerConfig 
+                { 
+                    DeliverPolicy = ConsumerConfigDeliverPolicy.All,
+                    AckPolicy = ConsumerConfigAckPolicy.Explicit             
+                }, 
+                stoppingToken);
             logger.LogInformation("Creating consumer for a stream {stream}", _streamName);
 
             while (!stoppingToken.IsCancellationRequested)

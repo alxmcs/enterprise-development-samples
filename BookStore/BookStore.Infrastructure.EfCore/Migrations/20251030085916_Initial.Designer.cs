@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BookStore.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(BookStoreDbContext))]
-    [Migration("20250811185833_Initial")]
+    [Migration("20251030085916_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,29 +32,34 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Biography")
                         .HasMaxLength(2147483647)
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("biography");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("first_name");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("last_name");
 
                     b.Property<string>("Patronymic")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("patronymic");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors");
+                    b.ToTable("authors");
 
                     b.HasData(
                         new
@@ -89,15 +94,18 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AuthorId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("author_id");
 
                     b.Property<int>("BookId")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("book_id");
 
                     b.HasKey("Id");
 
@@ -105,7 +113,7 @@ namespace BookStore.Infrastructure.EfCore.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("book_authors");
 
                     b.HasData(
                         new
@@ -144,34 +152,41 @@ namespace BookStore.Infrastructure.EfCore.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Annotation")
                         .HasMaxLength(10000)
-                        .HasColumnType("character varying(10000)");
+                        .HasColumnType("character varying(10000)")
+                        .HasColumnName("annotation");
 
                     b.Property<string>("Isbn")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("isbn");
 
                     b.Property<int?>("PageCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("page_count");
 
                     b.Property<string>("Publisher")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("publisher");
 
                     b.Property<string>("Title")
                         .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
+                        .HasColumnType("character varying(250)")
+                        .HasColumnName("title");
 
                     b.Property<int?>("Year")
-                        .HasColumnType("integer");
+                        .HasColumnType("integer")
+                        .HasColumnName("year");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Books");
+                    b.ToTable("books");
 
                     b.HasData(
                         new

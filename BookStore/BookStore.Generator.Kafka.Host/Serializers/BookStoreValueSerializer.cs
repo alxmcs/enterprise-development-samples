@@ -9,6 +9,7 @@ namespace BookStore.Generator.Kafka.Host.Serializers;
 /// </summary>
 public class BookStoreValueSerializer : ISerializer<IList<BookAuthorCreateUpdateDto>>
 {
+    /// <inheritdoc/>
     public byte[] Serialize(IList<BookAuthorCreateUpdateDto> data, SerializationContext context) =>
         JsonSerializer.SerializeToUtf8Bytes(data);
 }

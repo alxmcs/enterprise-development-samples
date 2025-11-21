@@ -37,7 +37,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Create), GetType().Name);
+            logger.LogError(ex,"An exception happened during {method} method of {controller}", nameof(Create), GetType().Name);
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
@@ -62,7 +62,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Edit), GetType().Name);
+            logger.LogError(ex,"An exception happened during {method} method of {controller}", nameof(Edit), GetType().Name);
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }

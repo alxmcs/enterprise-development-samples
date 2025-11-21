@@ -1,42 +1,49 @@
 ﻿using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookStore.Domain.Model.Authors;
 
 /// <summary>
 /// Автор
 /// </summary>
+[Table("authors")]
 public class Author
 {
     /// <summary>
     /// Идентификатор автора
     /// </summary>
     [Key]
+    [Column("id")]
     public required int Id { get; set; }
 
     /// <summary>
     /// Имя автора
     /// </summary>
     [StringLength(100, ErrorMessage = "Имя автора не должно превышать 100 символов")]
+    [Column("last_name")]
     public string? LastName { get; set; }
 
     /// <summary>
     /// Фамилия автора
     /// </summary>
     [StringLength(100, ErrorMessage = "Фамилия автора не должна превышать 100 символов")]
+    [Column("first_name")]
     public string? FirstName { get; set; }
 
     /// <summary>
     /// Отчество автора
     /// </summary>
     [StringLength(100, ErrorMessage = "Отчество автора не должно превышать 100 символов")]
+    [Column("patronymic")]
     public string? Patronymic { get; set; }
 
     /// <summary>
     /// Биография автора
     /// </summary>
     [StringLength(int.MaxValue)]
+    [Column("biography")]
     public string? Biography { get; set; }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using BookStore.Application.Contracts.Books;
+﻿using BookStore.Application.Contracts.BookAuthors;
 
 namespace BookStore.Application.Contracts.Authors;
 
@@ -8,15 +8,9 @@ namespace BookStore.Application.Contracts.Authors;
 public interface IAuthorService : IApplicationService<AuthorDto, AuthorCreateUpdateDto, int>
 {
     /// <summary>
-    /// Получает последние 5 книг выбранного автора
+    /// Получает коллекцию связанных сущностей
     /// </summary>
     /// <param name="dtoId">Идентификатор автора</param>
-    /// <returns>Список книг</returns>
-    Task<IList<BookDto>> GetLast5AuthorsBook(int dtoId);
-
-    /// <summary>
-    /// Получает топ 5 авторов по числу написанных страниц
-    /// </summary>
-    /// <returns>Список кортежей вида (имя автора, число страниц)</returns>
-    Task<IList<KeyValuePair<string, int?>>> GetTop5AuthorsByPageCount();
+    /// <returns>Список связей</returns>
+    public Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId);
 }
