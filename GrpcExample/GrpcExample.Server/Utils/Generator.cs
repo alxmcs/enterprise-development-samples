@@ -9,7 +9,7 @@ public static class Generator
         new Faker<Sample>()
             .RuleFor(s => s.SampleId, f => id)
             .RuleFor(s => s.SampleName, f => f.Commerce.ProductName())
-            .RuleFor(s => s.SampleValue, f=>f.Random.Double(-100,500))
+            .RuleFor(s => s.SampleValue, f => f.Random.Double(-100, 500))
             .RuleFor(s => s.SampleFlag, f => f.Random.Bool())
             .Generate();
 

@@ -11,7 +11,7 @@ namespace GrpcExample.Client.Controller;
 /// <param name="logger">Логгер</param>
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class ExampleClientController(ExampleService.ExampleServiceClient client, ILogger<ExampleClientController> logger): ControllerBase
+public class ExampleClientController(ExampleService.ExampleServiceClient client, ILogger<ExampleClientController> logger) : ControllerBase
 {
     /// <summary>
     /// Вызов унарной ручки, возвращающей единственный контракт
@@ -75,7 +75,7 @@ public class ExampleClientController(ExampleService.ExampleServiceClient client,
             var samples = new List<Sample>(count);
             using var call = client.GetSamplesServerStream(new GetSampleCountRequest { SampleCount = count });
             await foreach (var sample in call.ResponseStream.ReadAllAsync())
-            {     
+            {
                 samples.Add(sample);
                 logger.LogInformation("Received sample {count} from server stream with id {id}", samples.Count, sample.SampleId);
             }
@@ -107,7 +107,7 @@ public class ExampleClientController(ExampleService.ExampleServiceClient client,
             {
                 var sample = new GetSampleByIdRequest { SampleId = rand.Next(1, count) };
                 await call.RequestStream.WriteAsync(sample);
-                logger.LogInformation("Wrote request {count} to client stream with id {id}", i+1, sample.SampleId);
+                logger.LogInformation("Wrote request {count} to client stream with id {id}", i + 1, sample.SampleId);
             }
             await call.RequestStream.CompleteAsync();
             var response = await call.ResponseAsync;
