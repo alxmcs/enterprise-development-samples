@@ -49,14 +49,14 @@ public class BookStoreApiWrapper(IConfiguration configuration)
     public async Task<IList<AuthorDto>> GetBookAuthors(int bookId) 
     {
         var authors = new List<AuthorDto>();
-        foreach (var item in await _client.BookAuthors2Async(bookId))
+        foreach (var item in await _client.AuthorsAsync(bookId))
             authors.Add(await GetAuthor(item.AuthorId));
         return authors;
     }
     public async Task<IList<BookDto>> GetAuthorBooks(int authorId)
     {
         var books = new List<BookDto>();
-        foreach (var item in await _client.BookAuthors2Async(authorId))
+        foreach (var item in await _client.BooksAsync(authorId))
             books.Add(await GetBook(item.BookId));
         return books;
     }

@@ -47,5 +47,5 @@ public class BookService(IRepository<Book, int> repository, IRepository<BookAuth
 
     /// <inheritdoc/>
     public async Task<IList<BookAuthorDto>> GetBookAuthors(int dtoId) =>
-        mapper.Map<IList<BookAuthorDto>>((await bookAuthorRepository.ReadAll()).Where(ba => ba.AuthorId == dtoId).ToList());
+        mapper.Map<IList<BookAuthorDto>>((await bookAuthorRepository.ReadAll()).Where(ba => ba.BookId == dtoId).ToList());
 }
