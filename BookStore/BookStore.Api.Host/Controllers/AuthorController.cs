@@ -14,18 +14,18 @@ public class AuthorController(IAuthorService crudService, ILogger<AuthorControll
     /// <summary>
     /// Получение коллекции связанных сущностей по идентифкатору
     /// </summary>
-    /// <param name="id">Идентификатор</param>
+    /// <param name="authorId">Идентификатор</param>
     /// <returns>Данные</returns>
-    [HttpGet("{id}/BookAuthors")]
+    [HttpGet("{authorId}/Books")]
     [ProducesResponseType(200)]
     [ProducesResponseType(204)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<IList<BookAuthorDto>>> GetBookAuthors(int id)
+    public async Task<ActionResult<IList<BookAuthorDto>>> GetBookAuthors(int authorId)
     {
-        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
+        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, authorId);
         try
         {
-            var res = await crudService.GetBookAuthors(id);
+            var res = await crudService.GetBookAuthors(authorId);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
             return res != null ? Ok(res) : NoContent();
         }

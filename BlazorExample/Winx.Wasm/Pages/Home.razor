@@ -1,0 +1,39 @@
+﻿@page "/"
+@using Winx.Wasm.Components
+@using Winx.Wasm.Domain
+@using Winx.Wasm.Services
+
+@inject FairyService Service
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Стань феей винкс</PageTitle>
+@if (_showcard)
+{
+    <WinxCard Fairy="@_fairy"/>
+}
+@if (!_showcard)
+{
+	<center><h5>Нажми на кнопку, чтобы</h5></center>
+}
+<center><button @onclick="GetFairy">@(!_showcard ? "Стать феей" : "Стать другой феей")</button></center>
+@if (_showcard)
+{
+	<center><button @onclick="GetHelp">Обратиться за помощью</button></center>
+}
+
+@code{
+
+	private bool _showcard = false;
+	private Fairy _fairy = new();
+
+	private void GetFairy()
+	{
+		_showcard = true;
+		_fairy = Service.GetRandomFairy();
+	}
+
+	private async Task GetHelp()
+	{
+		await JsRuntime.InvokeVoidAsync("open", "https://vuzopedia.ru/articles/5390", "_blank");
+	}
+}

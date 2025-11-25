@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<table>
+	<tr>
+		<th>No interactivity</th>
+		<th>InteractiveServer</th>
+		<th>InteractiveWebAssembly</th>
+	</tr>
+	<tr>
+		<td><TimerComponent /></td>
+		<td><TimerComponent @rendermode="InteractiveServer" /></td>
+		<td><TimerComponent @rendermode="InteractiveWebAssembly" /></td>
+	</tr>
+</table>
