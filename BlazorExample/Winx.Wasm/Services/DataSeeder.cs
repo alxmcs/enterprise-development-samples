@@ -17,37 +17,37 @@ public static class DataSeeder
             {
                 Id = 1,
                 Name = "Муза",
-                PhotoUrl = new Uri("images/musa.jpg")
+                PhotoUrl = "images/musa.jpg"
             },
             new Fairy
             {
                 Id = 2,
                 Name = "Стелла",
-                PhotoUrl = new Uri("images/stella.jpg")
+                PhotoUrl = "images/stella.jpg"
             },
             new Fairy
             {
                 Id = 3,
                 Name = "Блум",
-                PhotoUrl = new Uri("images/bloom.jpg")
+                PhotoUrl = "images/bloom.jpg"
             },
             new Fairy
             {
                 Id = 4,
                 Name = "Флора",
-                PhotoUrl = new Uri("images/flora.jpg")
+                PhotoUrl = "images/flora.jpg"
             },
             new Fairy
             {
                 Id = 5,
                 Name = "Техна",
-                PhotoUrl = new Uri("images/techna.jpg")
+                PhotoUrl = "images/techna.jpg"
             },
             new Fairy
             {
                 Id = 6,
                 Name = "Лейла",
-                PhotoUrl = new Uri("images/layla.jpg")
+                PhotoUrl = "images/layla.jpg"
             }
         ];
 }

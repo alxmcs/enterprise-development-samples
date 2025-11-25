@@ -18,5 +18,5 @@ public class Fairy
     /// <summary>
     /// Ссылка на изображение феи винкс
     /// </summary>
-    public Uri? PhotoUrl { get; set; }
+    public string? PhotoUrl { get; set; }
 }
