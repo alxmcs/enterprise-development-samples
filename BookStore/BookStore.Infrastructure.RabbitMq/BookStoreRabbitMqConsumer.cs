@@ -19,7 +19,7 @@ namespace BookStore.Infrastructure.RabbitMq;
 public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFactory scopeFactory, IConfiguration configuration, ILogger<BookStoreRabbitMqConsumer> logger) : BackgroundService
 {
     private readonly string _queueName = configuration.GetSection("RabbitMq")["QueueName"] ?? throw new KeyNotFoundException("QueueName section of RabbitMq is missing");
-    
+
     /// <inheritdoc/>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -31,7 +31,7 @@ public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFact
 
         logger.LogInformation("Began listening to queue {queue}", _queueName);
         var consumer = new EventingBasicConsumer(channel);
-        consumer.Received += async (_, ea) => await ReceiveMessage(ea, stoppingToken); 
+        consumer.Received += async (_, ea) => await ReceiveMessage(ea, stoppingToken);
         channel.BasicConsume(_queueName, true, consumer);
 
         return Task.CompletedTask;
@@ -49,7 +49,7 @@ public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFact
         try
         {
             stoppingToken.ThrowIfCancellationRequested();
-            var contracts = JsonSerializer.Deserialize<List<BookAuthorCreateUpdateDto>>(new MemoryStream(args.Body.ToArray())) 
+            var contracts = JsonSerializer.Deserialize<List<BookAuthorCreateUpdateDto>>(new MemoryStream(args.Body.ToArray()))
                 ?? throw new FormatException("Unable to parse contracts from message body"); ;
             using var scope = scopeFactory.CreateScope();
             var bookAuthorService = scope.ServiceProvider.GetRequiredService<IBookAuthorService>();
@@ -57,7 +57,7 @@ public class BookStoreRabbitMqConsumer(IConnection connection, IServiceScopeFact
         }
         catch (Exception ex)
         {
-            logger.LogError(ex,"Exception occured during receiving contracts from {queue}", _queueName);
+            logger.LogError(ex, "Exception occured during receiving contracts from {queue}", _queueName);
         }
     }
 }

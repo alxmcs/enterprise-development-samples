@@ -11,7 +11,7 @@ public class BookStoreValueDeserializer : IDeserializer<IList<BookAuthorCreateUp
 {
     public IList<BookAuthorCreateUpdateDto> Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
     {
-        if (isNull)  return [];
+        if (isNull) return [];
         return JsonSerializer.Deserialize<IList<BookAuthorCreateUpdateDto>>(data) ?? [];
     }
 }

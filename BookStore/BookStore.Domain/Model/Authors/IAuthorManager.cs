@@ -4,7 +4,7 @@ namespace BookStore.Domain.Model.Authors;
 /// <summary>
 /// Интерфейс для доменной службы
 /// </summary>
-public  interface IAuthorManager
+public interface IAuthorManager
 {
     /// <summary>
     /// Получает последние 5 книг выбранного автора

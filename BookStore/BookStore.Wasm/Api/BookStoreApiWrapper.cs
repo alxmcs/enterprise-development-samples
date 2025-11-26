@@ -46,7 +46,7 @@ public class BookStoreApiWrapper(IConfiguration configuration)
     #endregion
 
     #region Nested Collections Requests
-    public async Task<IList<AuthorDto>> GetBookAuthors(int bookId) 
+    public async Task<IList<AuthorDto>> GetBookAuthors(int bookId)
     {
         var authors = new List<AuthorDto>();
         foreach (var item in await _client.AuthorsAsync(bookId))

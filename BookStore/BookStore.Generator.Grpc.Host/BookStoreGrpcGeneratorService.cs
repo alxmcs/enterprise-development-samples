@@ -42,11 +42,11 @@ public class BookStoreGrpcGeneratorService(IConfiguration configuration, IMapper
                 var batch = BookAuthorGenerator.GenerateLinks(batchSize);
                 var payload = new BookAuthorListResponse();
                 payload.BookAuthors.AddRange(mapper.Map<IList<BookAuthorResponse>>(batch));
-                payload.IsFinal = counter>=payloadLimit;
+                payload.IsFinal = counter >= payloadLimit;
                 await responseStream.WriteAsync(payload);
-                await Task.Delay(waitTime * 1000, context.CancellationToken);        
+                await Task.Delay(waitTime * 1000, context.CancellationToken);
             }
-            catch(TaskCanceledException c)
+            catch (TaskCanceledException c)
             {
                 logger.LogWarning(c, "Cancellation requested from client {peer}", context.Peer);
                 break;
