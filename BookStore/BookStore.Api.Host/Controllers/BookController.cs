@@ -22,16 +22,16 @@ public class BookController(IBookService crudService, ILogger<BookController> lo
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<BookAuthorDto>>> GetBookAuthors(int bookId)
     {
-        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, bookId);
+        logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(GetBookAuthors), GetType().Name, bookId);
         try
         {
             var res = await crudService.GetBookAuthors(bookId);
-            logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
+            logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetBookAuthors), GetType().Name);
             return res != null ? Ok(res) : NoContent();
         }
         catch (Exception ex)
         {
-            logger.LogError("An exception happened during {method} method of {controller}: {@exception}", nameof(Get), GetType().Name, ex);
+            logger.LogError("An exception happened during {method} method of {controller}: {@exception}", nameof(GetBookAuthors), GetType().Name, ex);
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }

@@ -41,6 +41,7 @@ public class BookAuthorService(IRepository<BookAuthor, int> repository, IMapper 
         return mapper.Map<BookAuthorDto>(res);
     }
 
+    /// <inheritdoc/>
     public async Task ReceiveContractList(IList<BookAuthorCreateUpdateDto> contracts)
     {
         var bookAuthors = mapper.Map<List<BookAuthor>>(contracts);

@@ -1,4 +1,7 @@
 ﻿namespace BookStore.Application.Contracts.BookAuthors;
+/// <summary>
+/// Наследник аппликейшен службы для связи авторов и книг
+/// </summary>
 public interface IBookAuthorService : IApplicationService<BookAuthorDto, BookAuthorCreateUpdateDto, int>
 {
     /// <summary>

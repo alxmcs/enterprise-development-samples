@@ -6,7 +6,7 @@ namespace BookStore.Domain.Model.Authors;
 /// Доменная служба для имплементации бизнес-логики, связанной с авторами
 /// </summary>
 /// <param name="authors">Репозиторий авторов</param>
-public class AuthorManager(IRepository<Author, int> authors): IAuthorManager
+public class AuthorManager(IRepository<Author, int> authors) : IAuthorManager
 {
     ///<inheritdoc/>
     public async Task<IList<Book>> GetLast5AuthorsBook(int authorId)

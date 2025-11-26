@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NATS.Client.Core;
-using NATS.Net;
 using NATS.Client.JetStream.Models;
+using NATS.Net;
 
 namespace BookStore.Infrastructure.Nats;
 
@@ -21,7 +21,7 @@ public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFact
 {
     private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new KeyNotFoundException("StreamName section of Nats is missing");
     private readonly string _subjectName = configuration.GetSection("Nats")["SubjectName"] ?? throw new KeyNotFoundException("SubjectName section of Nats is missing");
-    
+
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -29,12 +29,12 @@ public class BookStoreNatsConsumer(INatsConnection connection, IServiceScopeFact
         {
             await connection.ConnectAsync();
             var context = connection.CreateJetStreamContext();
-            var consumer = await context.CreateConsumerAsync(_streamName, 
-                new ConsumerConfig 
-                { 
+            var consumer = await context.CreateConsumerAsync(_streamName,
+                new ConsumerConfig
+                {
                     DeliverPolicy = ConsumerConfigDeliverPolicy.All,
-                    AckPolicy = ConsumerConfigAckPolicy.Explicit             
-                }, 
+                    AckPolicy = ConsumerConfigAckPolicy.Explicit
+                },
                 stoppingToken);
             logger.LogInformation("Creating consumer for a stream {stream}", _streamName);
 

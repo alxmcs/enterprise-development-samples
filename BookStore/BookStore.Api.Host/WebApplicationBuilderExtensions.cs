@@ -62,7 +62,7 @@ internal static class WebApplicationBuilderExtensions
                 builder.SetValueDeserializer(new BookStoreValueDeserializer());
             },
             configureSettings: settings =>
-            { 
+            {
                 settings.Config.GroupId = "bookstore-consumer";
                 settings.Config.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
             }
@@ -90,7 +90,7 @@ internal static class WebApplicationBuilderExtensions
     private static WebApplicationBuilder AddGrpc(this WebApplicationBuilder builder)
     {
         builder.Services.AddHostedService<BookStoreGrpcClient>();
-        builder.Services.AddGrpc(options => 
+        builder.Services.AddGrpc(options =>
         {
             options.EnableDetailedErrors = builder.Environment.IsDevelopment();
         });

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Application.Contracts.Books;
-using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain;
+using BookStore.Domain.Model.BookAuthors;
 using BookStore.Domain.Model.Books;
 
 namespace BookStore.Application.Services;

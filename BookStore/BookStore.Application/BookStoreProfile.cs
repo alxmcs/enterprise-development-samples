@@ -13,6 +13,7 @@ namespace BookStore.Application;
 /// </summary>
 public class BookStoreProfile : Profile
 {
+    /// <inheritdoc/>
     public BookStoreProfile()
     {
         CreateMap<Author, AuthorDto>();
