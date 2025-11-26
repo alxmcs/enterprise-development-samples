@@ -51,7 +51,7 @@
 
     private async Task LinkBookAsync()
     {
-        await BookStoreApi.CreateBookAuthor(new() { BookId = SelectedDropValue, AuthorId = AuthorId.Value });
+        await BookStoreApi.CreateBookAuthor(new() { BookId = SelectedDropValue, AuthorId = AuthorId!.Value });
         await CloseBookModalAsync();
         await OnBookAdded.InvokeAsync();
     }

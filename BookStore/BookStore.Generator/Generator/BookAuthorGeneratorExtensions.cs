@@ -13,6 +13,6 @@ public static class BookAuthorGeneratorExtensions
     /// <typeparam name="T">Параметр типа генерируемых данных</typeparam>
     /// <param name="faker">Генератор данных</param>
     public static Faker<T> WithRecord<T>(this Faker<T> faker) where T : class =>
-        faker.CustomInstantiator(_ => RuntimeHelpers.GetUninitializedObject(typeof(T)) as T);
+        faker.CustomInstantiator(_ => (RuntimeHelpers.GetUninitializedObject(typeof(T)) as T)!);
 
 }
