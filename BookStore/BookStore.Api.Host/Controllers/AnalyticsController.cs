@@ -8,7 +8,9 @@ namespace BookStore.Api.Host.Controllers;
 /// </summary>
 /// <param name="service">Аналитическая служба</param>
 /// <param name="logger">Логгер</param>
-public class AnalyticsController(IAnalyticsService service, ILogger<AuthorController> logger) : Controller
+[Route("api/[controller]")]
+[ApiController]
+public class AnalyticsController(IAnalyticsService service, ILogger<AuthorController> logger) : ControllerBase
 {
     /// <summary>
     /// Получение последних 5 книг заданного автора
