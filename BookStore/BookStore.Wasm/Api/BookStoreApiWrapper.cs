@@ -5,9 +5,9 @@ public class BookStoreApiWrapper(IConfiguration configuration)
     public readonly BookStoreClient _client = new(configuration["OpenApi:ServerUrl"], new HttpClient());
 
     #region Create Requests
-    public async Task<AuthorDto> CreateAuthor(AuthorCreateUpdateDto newAuhtor) => await _client.AuthorPOSTAsync(newAuhtor);
+    public async Task<AuthorDto> CreateAuthor(AuthorCreateUpdateDto newAuthor) => await _client.AuthorPOSTAsync(newAuthor);
     public async Task<BookDto> CreateBook(BookCreateUpdateDto newBook) => await _client.BookPOSTAsync(newBook);
-    public async Task<BookAuthorDto> CreateBookAuthor(BookAuthorCreateUpdateDto newBookAuhtor) => await _client.BookAuthorPOSTAsync(newBookAuhtor);
+    public async Task<BookAuthorDto> CreateBookAuthor(BookAuthorCreateUpdateDto newBookAuthor) => await _client.BookAuthorPOSTAsync(newBookAuthor);
     #endregion
 
     #region Get Requests
@@ -17,9 +17,9 @@ public class BookStoreApiWrapper(IConfiguration configuration)
     #endregion
 
     #region Update Requests
-    public async Task<AuthorDto> UpdateAuthor(int id, AuthorCreateUpdateDto newAuhtor) => await _client.AuthorPUTAsync(id, newAuhtor);
+    public async Task<AuthorDto> UpdateAuthor(int id, AuthorCreateUpdateDto newAuthor) => await _client.AuthorPUTAsync(id, newAuthor);
     public async Task<BookDto> UpdateBook(int id, BookCreateUpdateDto newBook) => await _client.BookPUTAsync(id, newBook);
-    public async Task<BookAuthorDto> UpdateBookAuthor(int id, BookAuthorCreateUpdateDto newBookAuhtor) => await _client.BookAuthorPUTAsync(id, newBookAuhtor);
+    public async Task<BookAuthorDto> UpdateBookAuthor(int id, BookAuthorCreateUpdateDto newBookAuthor) => await _client.BookAuthorPUTAsync(id, newBookAuthor);
     #endregion
 
     #region Delete Requests

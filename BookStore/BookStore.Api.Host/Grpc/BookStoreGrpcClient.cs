@@ -50,7 +50,7 @@ public class BookStoreGrpcClient(BookAuthorGrpcService.BookAuthorGrpcServiceClie
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Unexpected exception occured during receiving contracts from gRPC stream");
+                logger.LogError(ex, "Unexpected exception occurred during receiving contracts from gRPC stream");
                 break;
             }
         }
