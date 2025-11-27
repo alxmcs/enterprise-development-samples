@@ -1,6 +1,7 @@
 ﻿using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Generator.Generator;
 using BookStore.Generator.Services;
+using BookStore.ServiceDefaults.Metrics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +14,7 @@ namespace BookStore.Generator.Controllers;
 /// <param name="producerService"></param>
 [Route("api/[controller]")]
 [ApiController]
-public class GeneratorController(ILogger<GeneratorController> logger, IProducerService producerService) : ControllerBase
+public class GeneratorController(ILogger<GeneratorController> logger, IApiMeter meter, IProducerService producerService) : ControllerBase
 {
     /// <summary>
     /// Метод для отправки сообщений через брокер
@@ -42,11 +43,21 @@ public class GeneratorController(ILogger<GeneratorController> logger, IProducerS
             }
 
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                "200");
             return Ok(list);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Get), GetType().Name);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                "500");
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
