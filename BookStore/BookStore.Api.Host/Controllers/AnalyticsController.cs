@@ -12,7 +12,7 @@ namespace BookStore.Api.Host.Controllers;
 /// <param name="logger">Логгер</param>
 [Route("api/[controller]")]
 [ApiController]
-public class AnalyticsController(IAnalyticsService service, IApiMeter meter, ILogger<AuthorController> logger) : ControllerBase
+public class AnalyticsController(IAnalyticsService service, IApiMeter meter, ILogger<AnalyticsController> logger) : ControllerBase
 {
     /// <summary>
     /// Получение последних 5 книг заданного автора
