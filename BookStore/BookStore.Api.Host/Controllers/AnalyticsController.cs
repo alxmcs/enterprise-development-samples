@@ -8,6 +8,7 @@ namespace BookStore.Api.Host.Controllers;
 /// Контроллер аналитических запросов
 /// </summary>
 /// <param name="service">Аналитическая служба</param>
+/// <param name="meter">Метрика использования контроллера</param>
 /// <param name="logger">Логгер</param>
 [Route("api/[controller]")]
 [ApiController]

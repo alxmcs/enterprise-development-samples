@@ -8,6 +8,7 @@ namespace BookStore.Api.Host.Controllers;
 /// Контроллер для CRUD-операций над книгами
 /// </summary>
 /// <param name="crudService">Аппликейшен служба книг</param>
+/// <param name="meter">Метрика использования контроллера</param>
 /// <param name="logger">Логгер</param>
 public class BookController(IBookService crudService, IApiMeter meter, ILogger<BookController> logger)
     : CrudControllerBase<BookDto, BookCreateUpdateDto, int>(crudService, meter, logger)

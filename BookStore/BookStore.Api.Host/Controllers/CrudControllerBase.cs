@@ -10,6 +10,7 @@ namespace BookStore.Api.Host.Controllers;
 /// <typeparam name="TCreateUpdateDto">DTO для Post/Put-запросов</typeparam>
 /// <typeparam name="TKey">Тип идентификатора DTO</typeparam>
 /// <param name="appService">Служба для манипуляции DTO</param>
+/// <param name="meter">Метрика использования контроллера</param> 
 /// <param name="logger">Логгер</param>
 [Route("api/[controller]")]
 [ApiController]

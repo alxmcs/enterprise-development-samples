@@ -8,6 +8,7 @@ namespace BookStore.Api.Host.Controllers;
 /// Контроллер для CRUD-операций над авторами
 /// </summary>
 /// <param name="crudService">Аппликейшен служба авторов</param>
+/// <param name="meter">Метрика использования контроллера</param>
 /// <param name="logger">Логгер</param>
 public class AuthorController(IAuthorService crudService, IApiMeter meter, ILogger<AuthorController> logger)
     : CrudControllerBase<AuthorDto, AuthorCreateUpdateDto, int>(crudService, meter, logger)

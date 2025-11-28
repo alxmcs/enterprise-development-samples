@@ -10,8 +10,9 @@ namespace BookStore.Generator.Controllers;
 /// <summary>
 /// Контроллер для запуска информационного обмена через брокер сообщений
 /// </summary>
-/// <param name="logger"></param>
-/// <param name="producerService"></param>
+/// <param name="logger">Логгер</param>
+/// <param name="meter">Метрика использования контроллера</param>
+/// <param name="producerService">Служба отправки сообщений</param>
 [Route("api/[controller]")]
 [ApiController]
 public class GeneratorController(ILogger<GeneratorController> logger, IApiMeter meter, IProducerService producerService) : ControllerBase
