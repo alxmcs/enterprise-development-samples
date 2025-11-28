@@ -1,3 +1,4 @@
+using BookStore.ServiceDefaults.Metrics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,7 +57,8 @@ public static class Extensions
             {
                 metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation();
+                    .AddRuntimeInstrumentation()
+                    .AddMeter(nameof(BookStoreApiMeter));
             })
             .WithTracing(tracing =>
             {
@@ -71,7 +73,7 @@ public static class Extensions
                     //.AddGrpcClientInstrumentation()
                     .AddHttpClientInstrumentation();
             });
-
+        builder.Services.AddSingleton<IApiMeter, BookStoreApiMeter>();
         builder.AddOpenTelemetryExporters();
 
         return builder;

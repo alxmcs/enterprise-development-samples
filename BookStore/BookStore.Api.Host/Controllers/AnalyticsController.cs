@@ -1,5 +1,6 @@
 using BookStore.Application.Contracts;
 using BookStore.Application.Contracts.Books;
+using BookStore.ServiceDefaults.Metrics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Api.Host.Controllers;
@@ -7,10 +8,11 @@ namespace BookStore.Api.Host.Controllers;
 /// Контроллер аналитических запросов
 /// </summary>
 /// <param name="service">Аналитическая служба</param>
+/// <param name="meter">Метрика использования контроллера</param>
 /// <param name="logger">Логгер</param>
 [Route("api/[controller]")]
 [ApiController]
-public class AnalyticsController(IAnalyticsService service, ILogger<AuthorController> logger) : ControllerBase
+public class AnalyticsController(IAnalyticsService service, IApiMeter meter, ILogger<AnalyticsController> logger) : ControllerBase
 {
     /// <summary>
     /// Получение последних 5 книг заданного автора
@@ -28,11 +30,21 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AuthorContro
         {
             var res = await service.GetLast5AuthorsBook(id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetLast5AuthorsBook), GetType().Name);
-            return res.Count > 0 ? Ok(res) : NoContent();
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                res != null ? "200" : "204");
+            return res != null ? Ok(res) : NoContent();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}", nameof(GetLast5AuthorsBook), GetType().Name, ex);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                "500");
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
@@ -52,11 +64,21 @@ public class AnalyticsController(IAnalyticsService service, ILogger<AuthorContro
         {
             var res = await service.GetTop5AuthorsByPageCount();
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetTop5AuthorsByPageCount), GetType().Name);
-            return res.Count > 0 ? Ok(res) : NoContent();
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                res != null ? "200" : "204");
+            return res != null ? Ok(res) : NoContent();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}", nameof(GetTop5AuthorsByPageCount), GetType().Name, ex);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                "500");
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }

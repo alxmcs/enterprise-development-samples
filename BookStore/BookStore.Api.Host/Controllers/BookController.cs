@@ -1,5 +1,6 @@
 ﻿using BookStore.Application.Contracts.BookAuthors;
 using BookStore.Application.Contracts.Books;
+using BookStore.ServiceDefaults.Metrics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookStore.Api.Host.Controllers;
@@ -7,9 +8,10 @@ namespace BookStore.Api.Host.Controllers;
 /// Контроллер для CRUD-операций над книгами
 /// </summary>
 /// <param name="crudService">Аппликейшен служба книг</param>
+/// <param name="meter">Метрика использования контроллера</param>
 /// <param name="logger">Логгер</param>
-public class BookController(IBookService crudService, ILogger<BookController> logger)
-    : CrudControllerBase<BookDto, BookCreateUpdateDto, int>(crudService, logger)
+public class BookController(IBookService crudService, IApiMeter meter, ILogger<BookController> logger)
+    : CrudControllerBase<BookDto, BookCreateUpdateDto, int>(crudService, meter, logger)
 {
     /// <summary>
     /// Получение коллекции связанных сущностей по идентифкатору
@@ -27,11 +29,21 @@ public class BookController(IBookService crudService, ILogger<BookController> lo
         {
             var res = await crudService.GetBookAuthors(bookId);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetBookAuthors), GetType().Name);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                res != null ? "200" : "204");
             return res != null ? Ok(res) : NoContent();
         }
         catch (Exception ex)
         {
             logger.LogError("An exception happened during {method} method of {controller}: {@exception}", nameof(GetBookAuthors), GetType().Name, ex);
+            meter.RecordCall(
+                ControllerContext.ActionDescriptor.ControllerName,
+                ControllerContext.ActionDescriptor.MethodInfo.Name,
+                ControllerContext.HttpContext.Request.Method,
+                "500");
             return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
         }
     }
