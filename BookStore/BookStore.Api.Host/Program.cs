@@ -35,7 +35,20 @@ builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IAuthorManager, AuthorManager>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var assembly = Assembly.GetExecutingAssembly();
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{assembly.GetName().Name}.xml"));
+    foreach (var refAssembly in assembly.GetReferencedAssemblies())
+    {
+        if (refAssembly.Name!.StartsWith("System.") || refAssembly.Name.StartsWith("Microsoft."))
+            continue;
+
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{refAssembly.Name}.xml");
+        if (File.Exists(xmlPath))
+            options.IncludeXmlComments(xmlPath);
+    }
+});
 //контекст базы данных
 builder.AddNpgsqlDbContext<BookStoreDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
 //клиент сервиса генерации данных
