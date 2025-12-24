@@ -12,6 +12,7 @@ using BookStore.Domain.Model.Books;
 using BookStore.Infrastructure.EfCore;
 using BookStore.Infrastructure.EfCore.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 //службы Aspire
