@@ -1,10 +1,11 @@
-﻿using TattooParlor.Domain.Model.Customers;
+﻿using TattooParlor.Domain.Data;
+using TattooParlor.Domain.Model.Customers;
 using TattooParlor.Domain.Model.TattooSessions;
 using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
 
-public class CustomerRepository : ICustomerManager
+public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
 {
     public Customer Create(Customer entity)
     {
@@ -31,14 +32,23 @@ public class CustomerRepository : ICustomerManager
         throw new NotImplementedException();
     }
 
-    public IList<Customer> ShowCustomersWithStyle(TattooStyle style)
-    {
-        throw new NotImplementedException();
-    }
-
+    public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
+         [.. data.TattooSessions.Where(s => s.Style.Style == style).Select(s => s.CustomerId)];
+    
     public IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
     {
-        throw new NotImplementedException();
+        var start = startDate.ToDateTime(TimeOnly.MinValue);
+        var end = endDate.ToDateTime(TimeOnly.MaxValue);
+
+        if (start > end)
+            throw new ArgumentException("Start date must be less than or equal to end date");
+
+        return [..data.TattooSessions
+            .Where(s => s.SessionDate >= start && s.SessionDate <= end)
+            .GroupBy(s => s.CustomerId)
+            .Select(g => (Customer:g.Key, Visits:g.Count()))
+            .OrderByDescending(x => x.Visits)
+            .Take(5)];
     }
 
     public Customer Update(Customer entity)

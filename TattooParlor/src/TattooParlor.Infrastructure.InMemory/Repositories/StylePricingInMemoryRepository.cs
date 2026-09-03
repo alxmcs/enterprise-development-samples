@@ -3,29 +3,25 @@ using TattooParlor.Domain.Model.References;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
 
-public class BodyZonePricingRepository : IСrudRepository<BodyZonePricing, int>
+public class StylePricingInMemoryRepository : IСrudRepository<StylePricing, int>
 {
-    public BodyZonePricing Create(BodyZonePricing entity)
+    public StylePricing Create(StylePricing entity)
     {
         throw new NotImplementedException();
     }
-
     public bool Delete(int entityId)
     {
         throw new NotImplementedException();
     }
-
-    public BodyZonePricing? Read(int entityId)
+    public StylePricing? Read(int entityId)
     {
         throw new NotImplementedException();
     }
-
-    public IList<BodyZonePricing> ReadAll()
+    public IList<StylePricing> ReadAll()
     {
         throw new NotImplementedException();
     }
-
-    public BodyZonePricing Update(BodyZonePricing entity)
+    public StylePricing Update(StylePricing entity)
     {
         throw new NotImplementedException();
     }

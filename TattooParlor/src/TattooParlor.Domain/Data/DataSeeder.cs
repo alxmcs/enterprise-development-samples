@@ -6,15 +6,15 @@ using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Domain.Data;
 
-public static class DataSeeder
+public class DataSeeder
 {
-    public static readonly List<Customer> Customers;
-    public static readonly List<TattooArtist> TattooArtists;
-    public static readonly List<TattooSession> TattooSessions;
-    public static readonly List<StylePricing> StylePricings;
-    public static readonly List<BodyZonePricing> BodyZonePricings;
+    public List<Customer> Customers { get; set; }
+    public List<TattooArtist> TattooArtists { get; set; }
+    public List<TattooSession> TattooSessions { get; set; }
+    public List<StylePricing> StylePricings { get; set; }
+    public List<BodyZonePricing> BodyZonePricings { get; set; }
 
-    static DataSeeder()
+    public DataSeeder()
     {
         StylePricings =
         [
@@ -187,9 +187,9 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[0], 
                 TattooArtistId = TattooArtists[0],
-                SessionDate = new DateTime(2024, 1, 10, 14, 0, 0),
+                SessionDate = new DateTime(2026, 1, 10, 14, 0, 0),
                 BodyZone = BodyZonePricings[0], 
-                Style = StylePricings[0],
+                Style = StylePricings[1],
                 HeightInCm = 10, 
                 WidthInCm = 8, 
             },
@@ -198,7 +198,7 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[1], 
                 TattooArtistId = TattooArtists[1],
-                SessionDate = new DateTime(2024, 2, 5, 11, 30, 0),
+                SessionDate = new DateTime(2026, 2, 5, 11, 30, 0),
                 BodyZone = BodyZonePricings[3], 
                 Style = StylePricings[1],
                 HeightInCm = 15, 
@@ -209,7 +209,7 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[2], 
                 TattooArtistId = TattooArtists[2],
-                SessionDate = new DateTime(2024, 2, 20, 16, 0, 0),
+                SessionDate = new DateTime(2026, 2, 20, 16, 0, 0),
                 BodyZone = BodyZonePricings[9],
                 Style = StylePricings[2],
                 HeightInCm = 20, 
@@ -220,7 +220,7 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[3], 
                 TattooArtistId = TattooArtists[3],
-                SessionDate = new DateTime(2024, 3, 1, 13, 0, 0),
+                SessionDate = new DateTime(2026, 3, 1, 13, 0, 0),
                 BodyZone = BodyZonePricings[6], 
                 Style = StylePricings[3],
                 HeightInCm = 8, 
@@ -231,7 +231,7 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[4], 
                 TattooArtistId = TattooArtists[4],
-                SessionDate = new DateTime(2024, 3, 15, 10, 0, 0),
+                SessionDate = new DateTime(2026, 3, 15, 10, 0, 0),
                 BodyZone = BodyZonePricings[1], 
                 Style = StylePricings[3],
                 HeightInCm = 12, 
@@ -242,32 +242,32 @@ public static class DataSeeder
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[0], 
                 TattooArtistId = TattooArtists[1],
-                SessionDate = new DateTime(2024, 4, 2, 15, 0, 0),
+                SessionDate = new DateTime(2026, 4, 2, 15, 0, 0),
                 BodyZone = BodyZonePricings[4], 
                 Style = StylePricings[1],
                 HeightInCm = 18, 
                 WidthInCm = 14, 
                 IsMulticolor = true,
-                CancelDate = new DateTime(2024, 3, 25, 9, 0, 0)
+                CancelDate = new DateTime(2026, 3, 25, 9, 0, 0)
             },
             new TattooSession
             {
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[5], 
                 TattooArtistId = TattooArtists[2],
-                SessionDate = new DateTime(2024, 4, 20, 12, 0, 0),
+                SessionDate = new DateTime(2026, 4, 20, 12, 0, 0),
                 BodyZone = BodyZonePricings[7], 
-                Style = StylePricings[2],
+                Style = StylePricings[6],
                 HeightInCm = 6, 
                 WidthInCm = 5, 
-                CancelDate = new DateTime(2024, 4, 19, 18, 0, 0)
+                CancelDate = new DateTime(2026, 4, 19, 18, 0, 0)
             },
             new TattooSession
             {
                 Id = Guid.NewGuid(), 
                 CustomerId = Customers[2], 
                 TattooArtistId = TattooArtists[0],
-                SessionDate = new DateTime(2024, 5, 5, 17, 0, 0),
+                SessionDate = new DateTime(2026, 5, 5, 17, 0, 0),
                 BodyZone = BodyZonePricings[0], 
                 Style = StylePricings[0],
                 HeightInCm = 25, 
