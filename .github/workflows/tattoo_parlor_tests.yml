@@ -1,0 +1,30 @@
+name: TattooPalor Domain Unit Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'TattooPalor/**'
+  
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v7
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: '10.0.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore ./TattooPalor/TattooPalor.sln
+      
+    - name: Build
+      run: dotnet build ./TattooPalor/TattooPalor.sln --no-restore
+      
+    - name: Test
+      run: dotnet test ./TattooPalor/TattooPalor.sln --no-build --verbosity normal
