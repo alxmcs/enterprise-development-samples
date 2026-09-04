@@ -4,7 +4,7 @@ using TattooParlor.Infrastructure.InMemory.Repositories;
 
 namespace TattooParlor.Domain.Tests;
 
-public class TatooSessionManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
+public class TattooSessionManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
 {
 
     [Fact]

@@ -4,7 +4,7 @@ using TattooParlor.Infrastructure.InMemory.Repositories;
 
 namespace TattooParlor.Domain.Tests;
 
-public class TatooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
+public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
 {
     [Theory]
     [InlineData(TattooStyle.Realistic, 1)]

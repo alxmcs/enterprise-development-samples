@@ -20,7 +20,7 @@ public class TattooSession
         * Style.PricePerSqCm
         * BodyZone.Multiplier
         * (IsMulticolor ? Style.MulticolorMultiplier ?? 1m : 1m)
-        * (TattooArtist.FavoriteStyle.HasValue ? (TattooArtist.FavoriteStyle == Style.Style ? 0.7m : 1m) : 1m);
+        * (TattooArtist.FavoriteStyle == Style.Style ? 0.7m : 1m);
     public decimal Prepayment => Price * 0.3m;
     public bool IsPrepaymentNonRefundable => CancelDate.HasValue && CancelDate.Value >= SessionDate.AddDays(-3);
 }
