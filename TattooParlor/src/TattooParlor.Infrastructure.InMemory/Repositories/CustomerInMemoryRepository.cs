@@ -33,7 +33,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     }
 
     public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
-         [.. data.TattooSessions.Where(s => s.Style.Style == style).Select(s => s.CustomerId)];
+         [.. data.TattooSessions.Where(s => s.Style.Style == style).Select(s => s.Customer).Distinct()];
 
     public IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
     {
@@ -45,7 +45,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
 
         return [..data.TattooSessions
             .Where(s => s.SessionDate >= start && s.SessionDate <= end)
-            .GroupBy(s => s.CustomerId)
+            .GroupBy(s => s.Customer)
             .Select(g => (Customer:g.Key, Visits:g.Count()))
             .OrderByDescending(x => x.Visits)
             .Take(5)];

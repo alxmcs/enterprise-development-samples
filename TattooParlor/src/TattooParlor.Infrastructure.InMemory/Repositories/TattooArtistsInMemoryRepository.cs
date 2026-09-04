@@ -45,7 +45,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
 
         return [..data.TattooSessions
             .Where(s => s.SessionDate >= start && s.SessionDate <= end)
-            .GroupBy(s => s.TattooArtistId)
+            .GroupBy(s => s.TattooArtist)
             .Select(g => (Artist: g.Key, Money: g.Sum(s => s.Price)))
             .OrderByDescending(x => x.Money)
             .Take(5)];

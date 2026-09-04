@@ -7,8 +7,8 @@ namespace TattooParlor.Domain.Model.TattooSessions;
 public class TattooSession
 {
     public required Guid Id { get; set; }
-    public required Customer CustomerId { get; set; }
-    public required TattooArtist TattooArtistId { get; set; }
+    public required Customer Customer { get; set; }
+    public required TattooArtist TattooArtist { get; set; }
     public required DateTime SessionDate { get; set; }
     public required BodyZonePricing BodyZone { get; set; }
     public required StylePricing Style { get; set; }
@@ -19,8 +19,8 @@ public class TattooSession
     public decimal Price => (decimal)(HeightInCm * WidthInCm)
         * Style.PricePerCm
         * BodyZone.Multiplier
-        * (IsMulticolor ? Style.MulticolorMultipilier ?? 1m : 1m)
-        * (TattooArtistId.FavoriteStyle.HasValue ? (TattooArtistId.FavoriteStyle == Style.Style ? 0.7m : 1m) : 1m);
+        * (IsMulticolor ? Style.MulticolorMultiplier ?? 1m : 1m)
+        * (TattooArtist.FavoriteStyle.HasValue ? (TattooArtist.FavoriteStyle == Style.Style ? 0.7m : 1m) : 1m);
     public decimal Prepayment => Price * 0.3m;
-    public bool IsPrepaymentRefundable => CancelDate.HasValue && CancelDate.Value < SessionDate.AddDays(-3);
+    public bool IsPrepaymentNonRefundable => CancelDate.HasValue && CancelDate.Value >= SessionDate.AddDays(-3);
 }

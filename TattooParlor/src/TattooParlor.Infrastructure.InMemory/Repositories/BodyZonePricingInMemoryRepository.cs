@@ -3,7 +3,7 @@ using TattooParlor.Domain.Model.References;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
 
-public class BodyZonePricingInMemoryRepository : IСrudRepository<BodyZonePricing, int>
+public class BodyZonePricingInMemoryRepository : ICrudRepository<BodyZonePricing, int>
 {
     public BodyZonePricing Create(BodyZonePricing entity)
     {

@@ -3,7 +3,7 @@ using TattooParlor.Domain.Model.References;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
 
-public class StylePricingInMemoryRepository : IСrudRepository<StylePricing, int>
+public class StylePricingInMemoryRepository : ICrudRepository<StylePricing, int>
 {
     public StylePricing Create(StylePricing entity)
     {

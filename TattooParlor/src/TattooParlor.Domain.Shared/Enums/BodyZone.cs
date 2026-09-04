@@ -3,7 +3,7 @@
 public enum BodyZone
 {
     Forearm = 0,
-    Sholuder = 1,
+    Shoulder = 1,
     Arm = 2,
     Chest = 3,
     Belly = 4,

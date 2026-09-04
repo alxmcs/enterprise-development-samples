@@ -27,7 +27,7 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     }
 
     public IList<TattooSession> ShowAllNonRefundable() =>
-        [.. data.TattooSessions.Where(s => !s.IsPrepaymentRefundable)];
+        [.. data.TattooSessions.Where(s => s.IsPrepaymentNonRefundable)];
 
     public (decimal MinCost, decimal MaxCost, decimal AverageCost) ShowCostRange(TattooStyle style) =>
         data.TattooSessions
@@ -41,6 +41,7 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
             }, acc =>
             {
                 var count = data.TattooSessions.Count(s => s.Style.Style == style);
+                if (count == 0) return (0, 0, 0);
                 acc.AverageCost /= count;
                 return acc;
             });

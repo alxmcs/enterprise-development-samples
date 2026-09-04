@@ -5,7 +5,7 @@
 /// </summary>
 /// <typeparam name="TEntity">Тип сущности, доступ к коллекции которых абстрагируем</typeparam>
 /// <typeparam name="TKey">Тип идентификатора сущности</typeparam>
-public interface IСrudRepository<TEntity, TKey>
+public interface ICrudRepository<TEntity, TKey>
     where TEntity : class
     where TKey : struct
 {

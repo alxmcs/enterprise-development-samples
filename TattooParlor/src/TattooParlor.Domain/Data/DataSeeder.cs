@@ -18,11 +18,11 @@ public class DataSeeder
     {
         StylePricings =
         [
-            new StylePricing { Id = 1, Style = TattooStyle.Realistic, PricePerCm = 25m, MulticolorMultipilier = 1.5m },
-            new StylePricing { Id = 2, Style = TattooStyle.Watercolor, PricePerCm = 30m, MulticolorMultipilier = 1.8m },
+            new StylePricing { Id = 1, Style = TattooStyle.Realistic, PricePerCm = 25m, MulticolorMultiplier = 1.5m },
+            new StylePricing { Id = 2, Style = TattooStyle.Watercolor, PricePerCm = 30m, MulticolorMultiplier = 1.8m },
             new StylePricing { Id = 3, Style = TattooStyle.Blackwork, PricePerCm = 20m },
             new StylePricing { Id = 4, Style = TattooStyle.Geometric, PricePerCm = 22m },
-            new StylePricing { Id = 5, Style = TattooStyle.OldSchool, PricePerCm = 18m, MulticolorMultipilier = 1.3m },
+            new StylePricing { Id = 5, Style = TattooStyle.OldSchool, PricePerCm = 18m, MulticolorMultiplier = 1.3m },
             new StylePricing { Id = 6, Style = TattooStyle.Minimalism, PricePerCm = 15m },
             new StylePricing { Id = 7, Style = TattooStyle.Tribal, PricePerCm = 19m }
         ];
@@ -30,7 +30,7 @@ public class DataSeeder
         BodyZonePricings =
         [
             new BodyZonePricing { Id = 1, BodyZone = BodyZone.Forearm, Multiplier = 1.0m },
-            new BodyZonePricing { Id = 2, BodyZone = BodyZone.Sholuder, Multiplier = 1.1m },
+            new BodyZonePricing { Id = 2, BodyZone = BodyZone.Shoulder, Multiplier = 1.1m },
             new BodyZonePricing { Id = 3, BodyZone = BodyZone.Arm, Multiplier = 1.0m },
             new BodyZonePricing { Id = 4, BodyZone = BodyZone.Chest, Multiplier = 1.3m },
             new BodyZonePricing { Id = 5, BodyZone = BodyZone.Belly, Multiplier = 1.2m },
@@ -38,7 +38,8 @@ public class DataSeeder
             new BodyZonePricing { Id = 7, BodyZone = BodyZone.Thigh, Multiplier = 1.1m },
             new BodyZonePricing { Id = 8, BodyZone = BodyZone.Calf, Multiplier = 1.0m },
             new BodyZonePricing { Id = 9, BodyZone = BodyZone.Face, Multiplier = 2.0m },
-            new BodyZonePricing { Id = 10, BodyZone = BodyZone.Back, Multiplier = 1.4m }
+            new BodyZonePricing { Id = 10, BodyZone = BodyZone.Back, Multiplier = 1.4m },
+            new BodyZonePricing { Id = 10, BodyZone = BodyZone.Shin, Multiplier = 1.0m }
         ];
 
         TattooArtists =
@@ -185,8 +186,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[0],
-                TattooArtistId = TattooArtists[0],
+                Customer = Customers[0],
+                TattooArtist = TattooArtists[0],
                 SessionDate = new DateTime(2026, 1, 10, 14, 0, 0),
                 BodyZone = BodyZonePricings[0],
                 Style = StylePricings[1],
@@ -196,8 +197,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[1],
-                TattooArtistId = TattooArtists[1],
+                Customer = Customers[1],
+                TattooArtist = TattooArtists[1],
                 SessionDate = new DateTime(2026, 2, 5, 11, 30, 0),
                 BodyZone = BodyZonePricings[3],
                 Style = StylePricings[1],
@@ -207,8 +208,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[2],
-                TattooArtistId = TattooArtists[2],
+                Customer = Customers[2],
+                TattooArtist = TattooArtists[2],
                 SessionDate = new DateTime(2026, 2, 20, 16, 0, 0),
                 BodyZone = BodyZonePricings[9],
                 Style = StylePricings[2],
@@ -218,8 +219,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[3],
-                TattooArtistId = TattooArtists[3],
+                Customer = Customers[3],
+                TattooArtist = TattooArtists[3],
                 SessionDate = new DateTime(2026, 3, 1, 13, 0, 0),
                 BodyZone = BodyZonePricings[6],
                 Style = StylePricings[3],
@@ -229,8 +230,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[4],
-                TattooArtistId = TattooArtists[4],
+                Customer = Customers[4],
+                TattooArtist = TattooArtists[4],
                 SessionDate = new DateTime(2026, 3, 15, 10, 0, 0),
                 BodyZone = BodyZonePricings[1],
                 Style = StylePricings[3],
@@ -240,8 +241,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[0],
-                TattooArtistId = TattooArtists[1],
+                Customer = Customers[0],
+                TattooArtist = TattooArtists[1],
                 SessionDate = new DateTime(2026, 4, 2, 15, 0, 0),
                 BodyZone = BodyZonePricings[4],
                 Style = StylePricings[1],
@@ -253,8 +254,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[5],
-                TattooArtistId = TattooArtists[2],
+                Customer = Customers[5],
+                TattooArtist = TattooArtists[2],
                 SessionDate = new DateTime(2026, 4, 20, 12, 0, 0),
                 BodyZone = BodyZonePricings[7],
                 Style = StylePricings[6],
@@ -265,8 +266,8 @@ public class DataSeeder
             new TattooSession
             {
                 Id = Guid.NewGuid(),
-                CustomerId = Customers[2],
-                TattooArtistId = TattooArtists[0],
+                Customer = Customers[2],
+                TattooArtist = TattooArtists[0],
                 SessionDate = new DateTime(2026, 5, 5, 17, 0, 0),
                 BodyZone = BodyZonePricings[0],
                 Style = StylePricings[0],
