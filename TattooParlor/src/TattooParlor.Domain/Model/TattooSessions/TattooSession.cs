@@ -16,7 +16,7 @@ public class TattooSession
     public required double WidthInCm { get; set; }
     public bool IsMulticolor { get; set; }
     public DateTime? CancelDate { get; set; }
-    public decimal Price => (decimal)(HeightInCm * WidthInCm)
+    public decimal Price => (decimal)HeightInCm * (decimal)WidthInCm
         * Style.PricePerSqCm
         * BodyZone.Multiplier
         * (IsMulticolor ? Style.MulticolorMultiplier ?? 1m : 1m)
