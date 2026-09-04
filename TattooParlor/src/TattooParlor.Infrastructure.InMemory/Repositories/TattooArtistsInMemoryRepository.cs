@@ -32,15 +32,15 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
         throw new NotImplementedException();
     }
 
-    public IList<TattooArtist> ShowArtistsByFavoriteStyle(TattooStyle style) => 
-        [..data.TattooArtists.Where(a => a.FavoriteStyle == style)];
+    public IList<TattooArtist> ShowArtistsByFavoriteStyle(TattooStyle style) =>
+        [.. data.TattooArtists.Where(a => a.FavoriteStyle == style)];
 
-    public IList<(TattooArtist Artist, decimal Money)> ShowTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate) 
+    public IList<(TattooArtist Artist, decimal Money)> ShowTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate)
     {
         var start = startDate.ToDateTime(TimeOnly.MinValue);
         var end = endDate.ToDateTime(TimeOnly.MaxValue);
 
-        if (start > end) 
+        if (start > end)
             throw new ArgumentException("Start date must be less than or equal to end date");
 
         return [..data.TattooSessions
@@ -48,7 +48,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
             .GroupBy(s => s.TattooArtistId)
             .Select(g => (Artist: g.Key, Money: g.Sum(s => s.Price)))
             .OrderByDescending(x => x.Money)
-            .Take(5)] ;
+            .Take(5)];
     }
     public TattooArtist Update(TattooArtist entity)
     {

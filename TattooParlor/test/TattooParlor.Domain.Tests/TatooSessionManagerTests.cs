@@ -18,9 +18,9 @@ public class TatooSessionManagerTests(DataSeeder data) : IClassFixture<DataSeede
     }
 
     [Theory]
-    [InlineData(TattooStyle.Realistic,11812.5, 11812.5, 11812.5)]
-    [InlineData(TattooStyle.Watercolor,2400,11430.72,6248.24)]
-    [InlineData(TattooStyle.Blackwork,7840, 7840, 7840)]
+    [InlineData(TattooStyle.Realistic, 11812.5, 11812.5, 11812.5)]
+    [InlineData(TattooStyle.Watercolor, 2400, 11430.72, 6248.24)]
+    [InlineData(TattooStyle.Blackwork, 7840, 7840, 7840)]
     public void ShowCostRange_StyleExistsInSessions_ReturnsValues(TattooStyle style, decimal expectedMin, decimal expectedMax, decimal expectedAverage)
     {
         var repo = new TattooSessionsInMemoryRepository(data);

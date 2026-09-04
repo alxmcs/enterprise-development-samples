@@ -34,7 +34,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
 
     public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
          [.. data.TattooSessions.Where(s => s.Style.Style == style).Select(s => s.CustomerId)];
-    
+
     public IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
     {
         var start = startDate.ToDateTime(TimeOnly.MinValue);

@@ -45,62 +45,62 @@ public class DataSeeder
         [
             new TattooArtist
             {
-                Id = 1, 
-                FirstName = "Igor", 
+                Id = 1,
+                FirstName = "Igor",
                 LastName = "Volkov",
-                DateOfBirth = new DateOnly(1988, 3, 14), 
+                DateOfBirth = new DateOnly(1988, 3, 14),
                 PhoneNumber = "+79261234567",
-                Email = "igor.volkov@tattooparlor.com", 
+                Email = "igor.volkov@tattooparlor.com",
                 WorkStartDate = new DateOnly(2012, 6, 1),
-                Rating = 4.8, 
+                Rating = 4.8,
                 FavoriteStyle = TattooStyle.Realistic
             },
             new TattooArtist
             {
-                Id = 2, 
-                FirstName = "Marina", 
+                Id = 2,
+                FirstName = "Marina",
                 LastName = "Sokolova",
-                DateOfBirth = new DateOnly(1992, 7, 22), 
+                DateOfBirth = new DateOnly(1992, 7, 22),
                 PhoneNumber = "+79261234568",
-                Email = "marina.sokolova@tattooparlor.com", 
+                Email = "marina.sokolova@tattooparlor.com",
                 WorkStartDate = new DateOnly(2016, 2, 15),
-                Rating = 4.6, 
+                Rating = 4.6,
                 FavoriteStyle = TattooStyle.Watercolor
             },
             new TattooArtist
             {
-                Id = 3, 
-                FirstName = "Denis", 
+                Id = 3,
+                FirstName = "Denis",
                 LastName = "Orlov",
-                DateOfBirth = new DateOnly(1985, 11, 3), 
+                DateOfBirth = new DateOnly(1985, 11, 3),
                 PhoneNumber = "+79261234569",
-                Email = "denis.orlov@tattooparlor.com", 
+                Email = "denis.orlov@tattooparlor.com",
                 WorkStartDate = new DateOnly(2009, 9, 10),
-                Rating = 4.9, 
+                Rating = 4.9,
                 FavoriteStyle = TattooStyle.Blackwork
             },
             new TattooArtist
             {
-                Id = 4, 
-                FirstName = "Anna", 
+                Id = 4,
+                FirstName = "Anna",
                 LastName = "Belova",
-                DateOfBirth = new DateOnly(1995, 1, 30), 
+                DateOfBirth = new DateOnly(1995, 1, 30),
                 PhoneNumber = "+79261234570",
-                Email = "anna.belova@tattooparlor.com", 
+                Email = "anna.belova@tattooparlor.com",
                 WorkStartDate = new DateOnly(2020, 4, 5),
-                Rating = 4.3, 
+                Rating = 4.3,
                 FavoriteStyle = null
             },
             new TattooArtist
             {
-                Id = 5, 
-                FirstName = "Pavel", 
+                Id = 5,
+                FirstName = "Pavel",
                 LastName = "Kuznetsov",
-                DateOfBirth = new DateOnly(1990, 5, 18), 
+                DateOfBirth = new DateOnly(1990, 5, 18),
                 PhoneNumber = "+79261234571",
-                Email = "pavel.kuznetsov@tattooparlor.com", 
+                Email = "pavel.kuznetsov@tattooparlor.com",
                 WorkStartDate = new DateOnly(2014, 8, 20),
-                Rating = 4.7, 
+                Rating = 4.7,
                 FavoriteStyle = TattooStyle.Geometric
             }
         ];
@@ -109,72 +109,72 @@ public class DataSeeder
         [
             new Customer
             {
-                Id = 1, 
-                FirstName = "Alexey", 
+                Id = 1,
+                FirstName = "Alexey",
                 LastName = "Petrov",
-                DateOfBirth = new DateOnly(1990, 2, 10), 
+                DateOfBirth = new DateOnly(1990, 2, 10),
                 PhoneNumber = "+79161112233",
-                Email = "alexey.petrov@mail.com", 
+                Email = "alexey.petrov@mail.com",
                 FirstVisitDate = new DateOnly(2021, 5, 3),
-                VisitCount = 4, 
+                VisitCount = 4,
                 HasAllergies = false
             },
             new Customer
             {
-                Id = 2, 
-                FirstName = "Olga", 
+                Id = 2,
+                FirstName = "Olga",
                 LastName = "Ivanova",
-                DateOfBirth = new DateOnly(1994, 8, 25), 
+                DateOfBirth = new DateOnly(1994, 8, 25),
                 PhoneNumber = "+79161112234",
-                Email = "olga.ivanova@mail.com", 
+                Email = "olga.ivanova@mail.com",
                 FirstVisitDate = new DateOnly(2022, 1, 17),
-                VisitCount = 2, 
+                VisitCount = 2,
                 HasAllergies = true
             },
             new Customer
             {
-                Id = 3, 
-                FirstName = "Sergey", 
+                Id = 3,
+                FirstName = "Sergey",
                 LastName = "Smirnov",
-                DateOfBirth = new DateOnly(1987, 12, 1), 
+                DateOfBirth = new DateOnly(1987, 12, 1),
                 PhoneNumber = "+79161112235",
-                Email = "sergey.smirnov@mail.com", 
+                Email = "sergey.smirnov@mail.com",
                 FirstVisitDate = new DateOnly(2020, 9, 12),
-                VisitCount = 7, 
+                VisitCount = 7,
                 HasAllergies = false
             },
             new Customer
             {
-                Id = 4, 
-                FirstName = "Ekaterina", 
+                Id = 4,
+                FirstName = "Ekaterina",
                 LastName = "Novikova",
-                DateOfBirth = new DateOnly(1998, 4, 6), 
+                DateOfBirth = new DateOnly(1998, 4, 6),
                 PhoneNumber = "+79161112236",
-                Email = "ekaterina.novikova@mail.com", 
+                Email = "ekaterina.novikova@mail.com",
                 FirstVisitDate = new DateOnly(2023, 3, 21),
-                VisitCount = 1, 
+                VisitCount = 1,
                 HasAllergies = false
             },
             new Customer
             {
-                Id = 5, 
-                FirstName = "Dmitry", 
+                Id = 5,
+                FirstName = "Dmitry",
                 LastName = "Fedorov",
-                DateOfBirth = new DateOnly(1983, 6, 19), 
+                DateOfBirth = new DateOnly(1983, 6, 19),
                 PhoneNumber = "+79161112237",
-                Email = "dmitry.fedorov@mail.com", 
+                Email = "dmitry.fedorov@mail.com",
                 FirstVisitDate = new DateOnly(2019, 11, 30),
-                VisitCount = 10, 
+                VisitCount = 10,
                 HasAllergies = true
             },
             new Customer
             {
-                Id = 6, 
-                FirstName = "Yulia", 
+                Id = 6,
+                FirstName = "Yulia",
                 LastName = "Morozova",
-                DateOfBirth = new DateOnly(2000, 9, 9), 
+                DateOfBirth = new DateOnly(2000, 9, 9),
                 PhoneNumber = "+79161112238",
-                Email = "yulia.morozova@mail.com", 
+                Email = "yulia.morozova@mail.com",
                 FirstVisitDate = new DateOnly(2023, 7, 8),
                 VisitCount = 1
             }
@@ -184,94 +184,94 @@ public class DataSeeder
         [
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[0], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[0],
                 TattooArtistId = TattooArtists[0],
                 SessionDate = new DateTime(2026, 1, 10, 14, 0, 0),
-                BodyZone = BodyZonePricings[0], 
+                BodyZone = BodyZonePricings[0],
                 Style = StylePricings[1],
-                HeightInCm = 10, 
-                WidthInCm = 8, 
+                HeightInCm = 10,
+                WidthInCm = 8,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[1], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[1],
                 TattooArtistId = TattooArtists[1],
                 SessionDate = new DateTime(2026, 2, 5, 11, 30, 0),
-                BodyZone = BodyZonePricings[3], 
+                BodyZone = BodyZonePricings[3],
                 Style = StylePricings[1],
-                HeightInCm = 15, 
-                WidthInCm = 12, 
+                HeightInCm = 15,
+                WidthInCm = 12,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[2], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[2],
                 TattooArtistId = TattooArtists[2],
                 SessionDate = new DateTime(2026, 2, 20, 16, 0, 0),
                 BodyZone = BodyZonePricings[9],
                 Style = StylePricings[2],
-                HeightInCm = 20, 
+                HeightInCm = 20,
                 WidthInCm = 20
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[3], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[3],
                 TattooArtistId = TattooArtists[3],
                 SessionDate = new DateTime(2026, 3, 1, 13, 0, 0),
-                BodyZone = BodyZonePricings[6], 
+                BodyZone = BodyZonePricings[6],
                 Style = StylePricings[3],
-                HeightInCm = 8, 
-                WidthInCm = 6, 
+                HeightInCm = 8,
+                WidthInCm = 6,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[4], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[4],
                 TattooArtistId = TattooArtists[4],
                 SessionDate = new DateTime(2026, 3, 15, 10, 0, 0),
-                BodyZone = BodyZonePricings[1], 
+                BodyZone = BodyZonePricings[1],
                 Style = StylePricings[3],
-                HeightInCm = 12, 
-                WidthInCm = 9, 
+                HeightInCm = 12,
+                WidthInCm = 9,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[0], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[0],
                 TattooArtistId = TattooArtists[1],
                 SessionDate = new DateTime(2026, 4, 2, 15, 0, 0),
-                BodyZone = BodyZonePricings[4], 
+                BodyZone = BodyZonePricings[4],
                 Style = StylePricings[1],
-                HeightInCm = 18, 
-                WidthInCm = 14, 
+                HeightInCm = 18,
+                WidthInCm = 14,
                 IsMulticolor = true,
                 CancelDate = new DateTime(2026, 3, 25, 9, 0, 0)
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[5], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[5],
                 TattooArtistId = TattooArtists[2],
                 SessionDate = new DateTime(2026, 4, 20, 12, 0, 0),
-                BodyZone = BodyZonePricings[7], 
+                BodyZone = BodyZonePricings[7],
                 Style = StylePricings[6],
-                HeightInCm = 6, 
-                WidthInCm = 5, 
+                HeightInCm = 6,
+                WidthInCm = 5,
                 CancelDate = new DateTime(2026, 4, 19, 18, 0, 0)
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(), 
-                CustomerId = Customers[2], 
+                Id = Guid.NewGuid(),
+                CustomerId = Customers[2],
                 TattooArtistId = TattooArtists[0],
                 SessionDate = new DateTime(2026, 5, 5, 17, 0, 0),
-                BodyZone = BodyZonePricings[0], 
+                BodyZone = BodyZonePricings[0],
                 Style = StylePricings[0],
-                HeightInCm = 25, 
-                WidthInCm = 18, 
+                HeightInCm = 25,
+                WidthInCm = 18,
                 IsMulticolor = true
             }
         ];

@@ -8,7 +8,7 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
 {
     [Theory]
     [InlineData(TattooStyle.Blackwork, 1)]
-    [InlineData(TattooStyle.Geometric, 2)]  
+    [InlineData(TattooStyle.Geometric, 2)]
     [InlineData(TattooStyle.Watercolor, 3)]
     public void ShowCustomersWithStyle_StyleExistsInSessions_ReturnsCustomers(TattooStyle style, int expectedCount)
     {

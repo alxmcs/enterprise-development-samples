@@ -2,7 +2,7 @@
 
 namespace TattooParlor.Domain.Model.Common;
 
-public interface IHasSessions<TEntity> 
+public interface IHasSessions<TEntity>
 {
     IList<TattooSession> Sessions(TEntity entity);
 }
