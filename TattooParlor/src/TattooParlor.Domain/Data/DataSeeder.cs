@@ -18,13 +18,13 @@ public class DataSeeder
     {
         StylePricings =
         [
-            new StylePricing { Id = 1, Style = TattooStyle.Realistic, PricePerCm = 25m, MulticolorMultiplier = 1.5m },
-            new StylePricing { Id = 2, Style = TattooStyle.Watercolor, PricePerCm = 30m, MulticolorMultiplier = 1.8m },
-            new StylePricing { Id = 3, Style = TattooStyle.Blackwork, PricePerCm = 20m },
-            new StylePricing { Id = 4, Style = TattooStyle.Geometric, PricePerCm = 22m },
-            new StylePricing { Id = 5, Style = TattooStyle.OldSchool, PricePerCm = 18m, MulticolorMultiplier = 1.3m },
-            new StylePricing { Id = 6, Style = TattooStyle.Minimalism, PricePerCm = 15m },
-            new StylePricing { Id = 7, Style = TattooStyle.Tribal, PricePerCm = 19m }
+            new StylePricing { Id = 1, Style = TattooStyle.Realistic, PricePerSqCm = 25m, MulticolorMultiplier = 1.5m },
+            new StylePricing { Id = 2, Style = TattooStyle.Watercolor, PricePerSqCm = 30m, MulticolorMultiplier = 1.8m },
+            new StylePricing { Id = 3, Style = TattooStyle.Blackwork, PricePerSqCm = 20m },
+            new StylePricing { Id = 4, Style = TattooStyle.Geometric, PricePerSqCm = 22m },
+            new StylePricing { Id = 5, Style = TattooStyle.OldSchool, PricePerSqCm = 18m, MulticolorMultiplier = 1.3m },
+            new StylePricing { Id = 6, Style = TattooStyle.Minimalism, PricePerSqCm = 15m },
+            new StylePricing { Id = 7, Style = TattooStyle.Tribal, PricePerSqCm = 19m }
         ];
 
         BodyZonePricings =
@@ -39,7 +39,7 @@ public class DataSeeder
             new BodyZonePricing { Id = 8, BodyZone = BodyZone.Calf, Multiplier = 1.0m },
             new BodyZonePricing { Id = 9, BodyZone = BodyZone.Face, Multiplier = 2.0m },
             new BodyZonePricing { Id = 10, BodyZone = BodyZone.Back, Multiplier = 1.4m },
-            new BodyZonePricing { Id = 10, BodyZone = BodyZone.Shin, Multiplier = 1.0m }
+            new BodyZonePricing { Id = 11, BodyZone = BodyZone.Shin, Multiplier = 1.0m }
         ];
 
         TattooArtists =

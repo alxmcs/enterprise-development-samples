@@ -30,9 +30,9 @@ public class TatooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeede
     }
 
     [Theory]
-    [InlineData("2026-01-01", "2026-12-31", 5, 16344.72)]
+    [InlineData("2026-01-01", "2026-12-31", 5, 14212.5)]
     [InlineData("2026-01-01", "2026-02-10", 2, 4914.00)]
-    [InlineData("2026-03-01", "2026-04-20", 4, 11430.72)]
+    [InlineData("2026-03-01", "2026-04-20", 2, 1829.52)]
     public void ShowTop5ArtistsByRevenue_CorrectDates_ReturnsArtists(string startDate, string endDate, int expectedCount, decimal expectedRevenue)
     {
         var repo = new TattooArtistsInMemoryRepository(data);

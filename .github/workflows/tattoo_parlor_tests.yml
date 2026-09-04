@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - './TattooParlor/**'
+      - 'TattooParlor/**'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,4 +26,4 @@ jobs:
       run: dotnet build ./TattooParlor/TattooParlor.slnx --no-restore
       
     - name: Test
-      run: dotnet test ./TattooParlor/TattooParlor.slnx --no-build --verbosity normal
+      run: dotnet run --project ./test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --output Detailed

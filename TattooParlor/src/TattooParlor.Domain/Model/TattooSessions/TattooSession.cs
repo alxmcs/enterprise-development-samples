@@ -17,7 +17,7 @@ public class TattooSession
     public bool IsMulticolor { get; set; }
     public DateTime? CancelDate { get; set; }
     public decimal Price => (decimal)(HeightInCm * WidthInCm)
-        * Style.PricePerCm
+        * Style.PricePerSqCm
         * BodyZone.Multiplier
         * (IsMulticolor ? Style.MulticolorMultiplier ?? 1m : 1m)
         * (TattooArtist.FavoriteStyle.HasValue ? (TattooArtist.FavoriteStyle == Style.Style ? 0.7m : 1m) : 1m);

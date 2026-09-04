@@ -9,7 +9,7 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
     [Theory]
     [InlineData(TattooStyle.Blackwork, 1)]
     [InlineData(TattooStyle.Geometric, 2)]
-    [InlineData(TattooStyle.Watercolor, 3)]
+    [InlineData(TattooStyle.Watercolor, 2)]
     public void ShowCustomersWithStyle_StyleExistsInSessions_ReturnsCustomers(TattooStyle style, int expectedCount)
     {
         var repo = new CustomerInMemoryRepository(data);
@@ -32,7 +32,7 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
     [Theory]
     [InlineData("2026-01-01", "2026-12-31", 5)]
     [InlineData("2026-01-01", "2026-02-10", 2)]
-    [InlineData("2026-03-01", "2026-04-20", 4)]
+    [InlineData("2026-03-01", "2026-04-20", 2)]
     public void ShowTop5CustomersByVisits_CorrectDates_ReturnsCustomers(string startDate, string endDate, int expectedCount)
     {
         var repo = new CustomerInMemoryRepository(data);

@@ -33,7 +33,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     }
 
     public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
-         [.. data.TattooSessions.Where(s => s.Style.Style == style).Select(s => s.Customer).Distinct()];
+         [.. data.TattooSessions.Where(s => s.Style.Style == style && s.CancelDate == null).Select(s => s.Customer).Distinct()];
 
     public IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
     {
@@ -44,7 +44,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
             throw new ArgumentException("Start date must be less than or equal to end date");
 
         return [..data.TattooSessions
-            .Where(s => s.SessionDate >= start && s.SessionDate <= end)
+            .Where(s => s.SessionDate >= start && s.SessionDate <= end && s.CancelDate == null)
             .GroupBy(s => s.Customer)
             .Select(g => (Customer:g.Key, Visits:g.Count()))
             .OrderByDescending(x => x.Visits)

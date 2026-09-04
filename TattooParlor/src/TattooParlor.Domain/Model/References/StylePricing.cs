@@ -6,6 +6,6 @@ public class StylePricing
 {
     public required int Id { get; set; }
     public required TattooStyle Style { get; set; }
-    public required decimal PricePerCm { get; set; }
+    public required decimal PricePerSqCm { get; set; }
     public decimal? MulticolorMultiplier { get; set; }
 }

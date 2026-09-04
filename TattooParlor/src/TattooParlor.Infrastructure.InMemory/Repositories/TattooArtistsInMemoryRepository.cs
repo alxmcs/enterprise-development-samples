@@ -44,7 +44,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
             throw new ArgumentException("Start date must be less than or equal to end date");
 
         return [..data.TattooSessions
-            .Where(s => s.SessionDate >= start && s.SessionDate <= end)
+            .Where(s => s.SessionDate >= start && s.SessionDate <= end && s.CancelDate == null)
             .GroupBy(s => s.TattooArtist)
             .Select(g => (Artist: g.Key, Money: g.Sum(s => s.Price)))
             .OrderByDescending(x => x.Money)
