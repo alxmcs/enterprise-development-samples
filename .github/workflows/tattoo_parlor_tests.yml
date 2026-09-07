@@ -1,4 +1,4 @@
-name: TattooPalor Domain Unit Tests
+name: TattooParlor Domain Unit Tests
 
 on:
   push:
@@ -24,6 +24,5 @@ jobs:
       
     - name: Build
       run: dotnet build ./TattooParlor/TattooParlor.slnx --no-restore
-      
     - name: Test
-      run: dotnet run --project ./TattooParlor/test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --output Detailed
+      run: dotnet test ./TattooParlor/test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --verbosity detailed

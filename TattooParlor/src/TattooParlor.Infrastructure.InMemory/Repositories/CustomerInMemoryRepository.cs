@@ -33,7 +33,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     }
 
     public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
-         [.. data.TattooSessions.Where(s => s.Style.Style == style && s.CancelDate == null).Select(s => s.Customer).Distinct()];
+        [.. data.TattooSessions.Where(s => s.Style.Style == style && s.CancelDate == null).Select(s => s.Customer).DistinctBy(c => c.Id)];
 
     public IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
     {
