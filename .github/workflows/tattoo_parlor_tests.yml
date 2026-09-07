@@ -26,4 +26,4 @@ jobs:
       run: dotnet build ./TattooParlor/TattooParlor.slnx --no-restore
       
     - name: Test
-      run: dotnet run --project ./test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --output Detailed
+      run: dotnet run --project ./TattooParlor/test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --output Detailed
