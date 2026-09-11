@@ -4,8 +4,17 @@ using TattooParlor.Infrastructure.InMemory.Repositories;
 
 namespace TattooParlor.Domain.Tests;
 
+/// <summary>
+/// Тесты доменной службы мастеров
+/// </summary>
+/// <param name="data">Датасид</param>
 public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
 {
+    /// <summary>
+    /// Проверка, что метод возвращает мастеров с заданным стилем
+    /// </summary>
+    /// <param name="style">Стиль</param>
+    /// <param name="expectedCount">Ожидаемое количество</param>
     [Theory]
     [InlineData(TattooStyle.Realistic, 1)]
     [InlineData(TattooStyle.Watercolor, 1)]
@@ -19,6 +28,9 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
         Assert.Equal(expectedCount, result.Count);
     }
 
+    /// <summary>
+    /// Проверка, что метод возвращает пустую коллекцию, если стиль не встречается в сессиях
+    /// </summary>
     [Fact]
     public void ShowArtistsByFavoriteStyle_StyleDoesNotExistInSessions_ReturnsEmptyCollection()
     {
@@ -29,6 +41,13 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Проверка, что метод возвращает топ-5 мастеров по выручке за указанный период
+    /// </summary>
+    /// <param name="startDate">Дата начала периода</param>
+    /// <param name="endDate">Дата окончания периода</param>
+    /// <param name="expectedCount">Ожидаемое количество</param>
+    /// <param name="expectedRevenue">Ожидаемая выручка</param>
     [Theory]
     [InlineData("2026-01-01", "2026-12-31", 5, 14212.5)]
     [InlineData("2026-01-01", "2026-02-10", 2, 4914.00)]
@@ -45,6 +64,9 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
         Assert.Equal(expectedRevenue, result[0].Money);
     }
 
+    /// <summary>
+    /// Проверка, что метод выбрасывает исключение, если дата начала позже даты окончания
+    /// </summary>
     [Fact]
     public void ShowTop5ArtistsByRevenue_StartDateAfterEndDate_ThrowsArgumentException()
     {

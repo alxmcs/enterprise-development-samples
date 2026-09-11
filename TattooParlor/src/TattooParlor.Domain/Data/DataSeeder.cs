@@ -6,12 +6,34 @@ using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Domain.Data;
 
+/// <summary>
+/// Датасидер для первичного наполнения тествыми данными
+/// </summary>
 public class DataSeeder
 {
+    /// <summary>
+    /// Список клиентов
+    /// </summary>
     public List<Customer> Customers { get; set; }
+
+    /// <summary>
+    /// Список мастеров
+    /// </summary>
     public List<TattooArtist> TattooArtists { get; set; }
+
+    /// <summary>
+    /// Список сеансов
+    /// </summary>
     public List<TattooSession> TattooSessions { get; set; }
+
+    /// <summary>
+    /// Список доступных стилей
+    /// </summary>
     public List<StylePricing> StylePricings { get; set; }
+
+    /// <summary>
+    /// Список доступных зон для татуировки
+    /// </summary>
     public List<BodyZonePricing> BodyZonePricings { get; set; }
 
     public DataSeeder()

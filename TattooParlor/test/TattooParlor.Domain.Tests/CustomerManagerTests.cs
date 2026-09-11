@@ -4,8 +4,17 @@ using TattooParlor.Infrastructure.InMemory.Repositories;
 
 namespace TattooParlor.Domain.Tests;
 
+/// <summary>
+/// Тесты доменной службы клиентов
+/// </summary>
+/// <param name="data">Датасид</param>
 public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
 {
+    /// <summary>
+    /// Проверка, что метод возвращает клиентов с заданным стилем
+    /// </summary>
+    /// <param name="style">Стиль</param>
+    /// <param name="expectedCount">Ожидаемое количество</param>
     [Theory]
     [InlineData(TattooStyle.Blackwork, 1)]
     [InlineData(TattooStyle.Geometric, 2)]
@@ -19,6 +28,9 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
         Assert.Equal(expectedCount, result.Count);
     }
 
+    /// <summary>
+    /// Проверка, что метод возвращает пустую коллекцию, если стиль не встречается в сессиях
+    /// </summary>
     [Fact]
     public void ShowCustomersWithStyle_StyleDoesNotExistInSessions_ReturnsEmptyCollection()
     {
@@ -29,6 +41,12 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
         Assert.Empty(result);
     }
 
+    /// <summary>
+    /// Проверка, что метод возвращает топ-5 клиентов по количеству визитов за указанный период
+    /// </summary>
+    /// <param name="startDate">Дата начала периода</param>
+    /// <param name="endDate">Дата окончания периода</param>
+    /// <param name="expectedCount">Ожидаемое количество</param>
     [Theory]
     [InlineData("2026-01-01", "2026-12-31", 5)]
     [InlineData("2026-01-01", "2026-02-10", 2)]
@@ -44,6 +62,9 @@ public class CustomerManagerTests(DataSeeder data) : IClassFixture<DataSeeder>
         Assert.Equal(expectedCount, result.Count);
     }
 
+    /// <summary>
+    /// Проверка, что метод выбрасывает исключение, если дата начала позже даты окончания
+    /// </summary>
     [Fact]
     public void ShowTop5CustomersByVisits_StartDateAfterEndDate_ThrowsArgumentException()
     {
