@@ -6,7 +6,6 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
 	<OutputType>exe</OutputType>
-	<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 	<UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 	
