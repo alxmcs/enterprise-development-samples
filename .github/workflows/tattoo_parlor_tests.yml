@@ -1,0 +1,32 @@
+name: TattooParlor Domain Unit Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'TattooParlor/**'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: TattooParlor
+
+    steps:
+    - uses: actions/checkout@v7
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore ./TattooParlor.slnx
+
+    - name: Build
+      run: dotnet build ./TattooParlor.slnx --no-restore
+
+    - name: Test
+      run: dotnet test --project ./test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --verbosity detailed
