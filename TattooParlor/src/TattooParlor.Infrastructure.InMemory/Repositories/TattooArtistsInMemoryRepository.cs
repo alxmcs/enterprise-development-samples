@@ -5,36 +5,46 @@ using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
 
+/// <summary>
+/// Ин-мемори репозиторий для тату-мастеров
+/// </summary>
 public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistManager
 {
+    /// <inheritdoc/> 
     public TattooArtist Create(TattooArtist entity)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/> 
     public bool Delete(int entityId)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/> 
     public TattooArtist? Read(int entityId)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/> 
     public IList<TattooArtist> ReadAll()
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/> 
     public IList<TattooSession> Sessions(TattooArtist entity)
     {
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/> 
     public IList<TattooArtist> ShowArtistsByFavoriteStyle(TattooStyle style) =>
         [.. data.TattooArtists.Where(a => a.FavoriteStyle == style)];
 
+    /// <inheritdoc/> 
     public IList<(TattooArtist Artist, decimal Money)> ShowTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate)
     {
         var start = startDate.ToDateTime(TimeOnly.MinValue);
@@ -49,6 +59,8 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
             .Select(g => (Artist: g.First().TattooArtist, Money: g.Sum(s => s.Price)))
             .OrderByDescending(x => x.Money).Take(5)];
     }
+
+    /// <inheritdoc/> 
     public TattooArtist Update(TattooArtist entity)
     {
         throw new NotImplementedException();

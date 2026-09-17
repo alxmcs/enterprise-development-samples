@@ -58,5 +58,5 @@ public enum BodyZone
     /// <summary>
     /// Спина
     /// </summary>
-    Back = 10,
+    Back = 10
 }
