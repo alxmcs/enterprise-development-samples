@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/TattooParlor.Application.Contracts/TattooParlor.Application.Contracts.csproj" Id="4f047c33-c090-4b1e-a0d1-f6f1cd6da8ad" />
+    <Project Path="src/TattooParlor.Application/TattooParlor.Application.csproj" Id="d3cfab12-df4f-4973-bd36-9782fa07966a" />
     <Project Path="src/TattooParlor.Domain.Shared/TattooParlor.Domain.Shared.csproj" Id="64c5e86c-569d-456a-ab76-4b8584cc533f" />
     <Project Path="src/TattooParlor.Domain/TattooParlor.Domain.csproj" />
     <Project Path="src/TattooParlor.Infrastructure.InMemory/TattooParlor.Infrastructure.InMemory.csproj" Id="683153c9-542d-43db-ad84-61b4263100da" />

@@ -23,7 +23,7 @@ public class StylePricing
     public required decimal PricePerSqCm { get; set; }
 
     /// <summary>
-    /// Коэффициент за несколько цветовё
+    /// Коэффициент за несколько цветов
     /// </summary>
     public decimal? MulticolorMultiplier { get; set; }
 }
