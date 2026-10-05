@@ -1,4 +1,5 @@
-﻿using TattooParlor.Domain.Model.Common;
+﻿using TattooParlor.Domain.Data;
+using TattooParlor.Domain.Model.Common;
 using TattooParlor.Domain.Model.References;
 
 namespace TattooParlor.Infrastructure.InMemory.Repositories;
@@ -6,35 +7,34 @@ namespace TattooParlor.Infrastructure.InMemory.Repositories;
 /// <summary>
 /// Ин-мемори репозиторий для справочника частей тела
 /// </summary>
-public class BodyZonePricingInMemoryRepository : ICrudRepository<BodyZonePricing, int>
+public class BodyZonePricingInMemoryRepository(DataSeeder data) : ICrudRepository<BodyZonePricing, int>
 {
     /// <inheritdoc/>   
     public BodyZonePricing Create(BodyZonePricing entity)
     {
-        throw new NotImplementedException();
+        entity.Id = data.BodyZonePricings.MaxBy(b => b.Id)!.Id + 1;
+        data.BodyZonePricings.Add(entity);
+        return entity;
     }
 
     /// <inheritdoc/> 
     public bool Delete(int entityId)
     {
-        throw new NotImplementedException();
+        var res = data.BodyZonePricings.RemoveAll(s => s.Id == entityId);
+        return res > 0;
     }
 
     /// <inheritdoc/> 
-    public BodyZonePricing? Read(int entityId)
-    {
-        throw new NotImplementedException();
-    }
+    public BodyZonePricing? Read(int entityId) => data.BodyZonePricings.FirstOrDefault(s => s.Id == entityId);
 
     /// <inheritdoc/> 
-    public IList<BodyZonePricing> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+    public IList<BodyZonePricing> ReadAll() => [.. data.BodyZonePricings];
 
     /// <inheritdoc/> 
     public BodyZonePricing Update(BodyZonePricing entity)
     {
-        throw new NotImplementedException();
+        Delete(entity.Id);
+        Create(entity);
+        return entity;
     }
 }

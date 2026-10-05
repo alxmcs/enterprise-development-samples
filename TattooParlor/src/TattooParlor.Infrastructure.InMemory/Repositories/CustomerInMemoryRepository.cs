@@ -13,32 +13,27 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     /// <inheritdoc/> 
     public Customer Create(Customer entity)
     {
-        throw new NotImplementedException();
+        entity.Id = data.Customers.MaxBy(c => c.Id)!.Id + 1;
+        data.Customers.Add(entity);
+        return entity;
     }
 
     /// <inheritdoc/> 
     public bool Delete(int entityId)
     {
-        throw new NotImplementedException();
+        var res = data.Customers.RemoveAll(s => s.Id == entityId);
+        return res > 0;
     }
 
     /// <inheritdoc/> 
-    public Customer? Read(int entityId)
-    {
-        throw new NotImplementedException();
-    }
+    public Customer? Read(int entityId) => data.Customers.FirstOrDefault(s => s.Id == entityId);
 
     /// <inheritdoc/> 
-    public IList<Customer> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+    public IList<Customer> ReadAll() => [.. data.Customers];
 
     /// <inheritdoc/> 
     public IList<TattooSession> Sessions(Customer entity)
-    {
-        throw new NotImplementedException();
-    }
+        => [.. data.TattooSessions.Where(s => s.Customer.Id == entity.Id)];
 
     /// <inheritdoc/> 
     public IList<Customer> ShowCustomersWithStyle(TattooStyle style) =>
@@ -64,6 +59,8 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     /// <inheritdoc/> 
     public Customer Update(Customer entity)
     {
-        throw new NotImplementedException();
+        Delete(entity.Id);
+        Create(entity);
+        return entity;
     }
 }
