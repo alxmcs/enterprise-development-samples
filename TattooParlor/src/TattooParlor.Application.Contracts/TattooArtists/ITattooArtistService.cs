@@ -11,15 +11,15 @@ public interface ITattooArtistService : IApplicationService<TattooArtistDto, Tat
     /// <summary>
     /// Получение связанных сессий
     /// </summary>
-    /// <param name="tattooArtistId">Идентификатор мастера</param>
+    /// <param name="tattooArtist">DTO мастера</param>
     /// <returns>Список DTO сессий</returns>
-    IList<TattooSessionDto> GetSessions(int tattooArtistId);
+    IList<TattooSessionDto> GetSessions(TattooArtistDto tattooArtist);
 
     /// <summary>
     /// Тату-мастера по их любимому стилю
     /// </summary>
     /// <param name="style">Стиль</param>
-    /// <returns>Список DTOтату-мастеров с выручкой</returns>
+    /// <returns>Список DTO тату-мастеров с выручкой</returns>
     IList<TattooArtistDto> GetArtistsByFavoriteStyle(TattooStyle style);
 
     /// <summary>
@@ -27,6 +27,6 @@ public interface ITattooArtistService : IApplicationService<TattooArtistDto, Tat
     /// </summary>
     /// <param name="startDate">Дата начала периода</param>
     /// <param name="endDate">Дата окончания периода</param>
-    /// <returns>Список DTOтату-мастеров</returns>
+    /// <returns>Список DTO тату-мастеров</returns>
     IList<TattooArtistRevenueDto> GetTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate);
 }

@@ -11,9 +11,9 @@ public interface ICustomersService : IApplicationService<CustomerDto, CustomerCr
     /// <summary>
     /// Получение связанных сессий
     /// </summary>
-    /// <param name="customerId">Идентификатор клиента</param>
+    /// <param name="customer">DTO клиента</param>
     /// <returns>Список DTO сессий</returns>
-    IList<TattooSessionDto> GetSessions(int customerId);
+    IList<TattooSessionDto> GetSessions(CustomerDto customer);
 
     /// <summary>
     /// Получение списка клиентов с указанным стилем
