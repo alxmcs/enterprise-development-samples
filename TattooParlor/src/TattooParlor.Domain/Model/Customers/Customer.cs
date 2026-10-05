@@ -13,7 +13,7 @@ public class Customer : Person
     public required DateOnly FirstVisitDate { get; set; }
 
     /// <summary>
-    /// Число визита
+    /// Число визитов
     /// </summary>
     public int VisitCount { get; set; }
 
