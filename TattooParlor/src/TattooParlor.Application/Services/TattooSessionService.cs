@@ -5,6 +5,11 @@ using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Services;
 
+/// <summary>
+/// Аппликейшен служба для сессий
+/// </summary>
+/// <param name="manager">Доменная служба для сессий</param>
+/// <param name="mapper">Маппер</param>
 public class TattooSessionService(ITattooSessionManager manager, IMapper mapper) : ITattooSessionService
 {
     /// <inheritdoc/>

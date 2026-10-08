@@ -6,6 +6,11 @@ using TattooParlor.Domain.Model.References;
 
 namespace TattooParlor.Application.Services;
 
+/// <summary>
+/// Аппликейшен служба для справочника частей тела
+/// </summary>
+/// <param name="manager">Доменная служба для справочника частей тела</param>
+/// <param name="mapper">Маппер</param>
 public class BodyZonePricingService(ICrudRepository<BodyZonePricing, int> manager, IMapper mapper) : IApplicationService<BodyZonePricingDto, BodyZonePricingCreateUpdateDto, int>
 {
     /// <inheritdoc/>

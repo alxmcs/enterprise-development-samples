@@ -6,6 +6,11 @@ using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Services;
 
+/// <summary>
+/// Аппликейшен служба для тату-мастеров
+/// </summary>
+/// <param name="manager">Доменная служба для тату-мастеров</param>
+/// <param name="mapper">Маппер</param>
 public class TattooArtistService(ITattooArtistManager manager, IMapper mapper) : ITattooArtistService
 {
     /// <inheritdoc/>
