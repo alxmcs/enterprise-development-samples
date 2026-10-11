@@ -11,7 +11,7 @@ namespace TattooParlor.Application.Services;
 /// </summary>
 /// <param name="manager">Доменная служба для клиентов</param>
 /// <param name="mapper">Маппер</param>
-public class CustomerService(ICustomerManager manager, IMapper mapper) : ICustomersService
+public class CustomerService(ICustomerManager manager, IMapper mapper) : ICustomerService
 {
     /// <inheritdoc/>
     public CustomerDto Create(CustomerCreateUpdateDto dto)

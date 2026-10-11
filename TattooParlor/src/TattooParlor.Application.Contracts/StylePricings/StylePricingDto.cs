@@ -15,5 +15,5 @@ public record class StylePricingDto
     TattooStyle Style,
     decimal PricePerSqCm,
     decimal? MulticolorMultiplier
-);
+) : IHasId<int>;
 

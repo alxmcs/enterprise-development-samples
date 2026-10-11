@@ -6,7 +6,7 @@ namespace TattooParlor.Application.Contracts.Customers;
 /// <summary>
 /// Интерфейс службы приложения для клентов
 /// </summary>
-public interface ICustomersService : IApplicationService<CustomerDto, CustomerCreateUpdateDto, int>
+public interface ICustomerService : IApplicationService<CustomerDto, CustomerCreateUpdateDto, int>
 {
     /// <summary>
     /// Получение связанных сессий

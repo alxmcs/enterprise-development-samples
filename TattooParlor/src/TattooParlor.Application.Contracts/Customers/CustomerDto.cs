@@ -23,4 +23,4 @@ public record CustomerDto
     DateOnly FirstVisitDate,
     int VisitCount,
     bool HasAllergies
-);
+) : IHasId<int>;

@@ -25,4 +25,4 @@ public record TattooArtistDto
     DateOnly WorkStartDate,
     double Rating,
     TattooStyle? FavoriteStyle
-);
+) : IHasId<int>;

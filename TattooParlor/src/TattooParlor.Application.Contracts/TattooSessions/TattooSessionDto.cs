@@ -34,4 +34,4 @@ public record TattooSessionDto
     decimal Price,
     decimal Prepayment,
     bool IsPrepaymentNonRefundable
-);
+) : IHasId<Guid>;

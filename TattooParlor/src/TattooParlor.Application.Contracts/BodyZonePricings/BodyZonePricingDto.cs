@@ -8,4 +8,4 @@ namespace TattooParlor.Application.Contracts.BodyZonePricings;
 /// <param name="Id">Идентификатор</param>
 /// <param name="BodyZone">Участок тела</param>
 /// <param name="Multiplier">Коэффициент</param>
-public record BodyZonePricingDto(int Id, BodyZone BodyZone, decimal Multiplier);
+public record BodyZonePricingDto(int Id, BodyZone BodyZone, decimal Multiplier) : IHasId<int>;

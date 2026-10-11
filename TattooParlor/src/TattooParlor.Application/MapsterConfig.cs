@@ -14,51 +14,52 @@ namespace TattooParlor.Application;
 /// <summary>
 /// Конфигурация Mapster для преобразования DTO в доменные классы и обратно
 /// </summary>
-public class MapsterConfig
+public class MapsterConfig : IRegister
 {
-    public MapsterConfig()
+    /// <inheritdoc/>
+    public void Register(TypeAdapterConfig config)
     {
-        TypeAdapterConfig<CustomerCreateUpdateDto, Customer>.NewConfig()
+        config.NewConfig<CustomerCreateUpdateDto, Customer>()
             .Ignore(dest => dest.Id)
             .Ignore(dest => dest.VisitCount);
-        TypeAdapterConfig<CustomerDto, Customer>.NewConfig()
+        config.NewConfig<CustomerDto, Customer>()
             .TwoWays();
-        TypeAdapterConfig<(Customer Customer, int Visits), CustomerVisitsDto>.NewConfig()
+        config.NewConfig<(Customer Customer, int Visits), CustomerVisitsDto>()
             .MapWith(src => new CustomerVisitsDto(
                 src.Customer.Id, src.Customer.FirstName, src.Customer.LastName, src.Visits));
 
-        TypeAdapterConfig<TattooArtistCreateUpdateDto, TattooArtist>.NewConfig()
+        config.NewConfig<TattooArtistCreateUpdateDto, TattooArtist>()
             .Ignore(dest => dest.Id)
             .Ignore(dest => dest.Rating);
-        TypeAdapterConfig<TattooArtistDto, TattooArtist>.NewConfig()
+        config.NewConfig<TattooArtistDto, TattooArtist>()
             .TwoWays();
-        TypeAdapterConfig<(TattooArtist Artist, decimal Money), TattooArtistRevenueDto>.NewConfig()
+        config.NewConfig<(TattooArtist Artist, decimal Money), TattooArtistRevenueDto>()
             .MapWith(src => new TattooArtistRevenueDto(
                  src.Artist.Id, src.Artist.FirstName, src.Artist.LastName, src.Money));
 
-        TypeAdapterConfig<BodyZonePricingCreateUpdateDto, BodyZonePricing>.NewConfig()
+        config.NewConfig<BodyZonePricingCreateUpdateDto, BodyZonePricing>()
             .Ignore(dest => dest.Id);
-        TypeAdapterConfig<BodyZonePricingDto, BodyZonePricing>.NewConfig()
+        config.NewConfig<BodyZonePricingDto, BodyZonePricing>()
             .TwoWays();
 
-        TypeAdapterConfig<StylePricingCreateUpdateDto, StylePricing>.NewConfig()
+        config.NewConfig<StylePricingCreateUpdateDto, StylePricing>()
             .Ignore(dest => dest.Id);
-        TypeAdapterConfig<StylePricingDto, StylePricing>.NewConfig()
+        config.NewConfig<StylePricingDto, StylePricing>()
             .TwoWays();
 
-        TypeAdapterConfig<TattooSessionCreateUpdateDto, TattooSession>.NewConfig()
+        config.NewConfig<TattooSessionCreateUpdateDto, TattooSession>()
             .Ignore(dest => dest.Id)
             .Ignore(dest => dest.Customer)
             .Ignore(dest => dest.TattooArtist)
             .Ignore(dest => dest.BodyZone)
             .Ignore(dest => dest.Style);
-        TypeAdapterConfig<TattooSession, TattooSessionDto>.NewConfig()
+        config.NewConfig<TattooSession, TattooSessionDto>()
             .Map(dest => dest.CustomerId, src => src.Customer.Id)
             .Map(dest => dest.TattooArtistId, src => src.TattooArtist.Id)
             .Map(dest => dest.BodyZone, src => src.BodyZone)
             .Map(dest => dest.Style, src => src.Style)
             .TwoWays();
-        TypeAdapterConfig<(decimal MinCost, decimal MaxCost, decimal AverageCost), TattooSessionRange>.NewConfig()
+        config.NewConfig<(decimal MinCost, decimal MaxCost, decimal AverageCost), TattooSessionRange>()
             .MapWith(src => new TattooSessionRange(src.MinCost, src.MaxCost, src.AverageCost));
     }
 }
