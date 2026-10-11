@@ -12,26 +12,23 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     /// <inheritdoc/> 
     public TattooSession Create(TattooSession entity)
     {
-        throw new NotImplementedException();
+        entity.Id = Guid.NewGuid();
+        data.TattooSessions.Add(entity);
+        return entity;
     }
 
     /// <inheritdoc/> 
     public bool Delete(Guid entityId)
     {
-        throw new NotImplementedException();
+        var res = data.TattooSessions.RemoveAll(s => s.Id == entityId);
+        return res > 0;
     }
 
     /// <inheritdoc/> 
-    public TattooSession? Read(Guid entityId)
-    {
-        throw new NotImplementedException();
-    }
+    public TattooSession? Read(Guid entityId) => data.TattooSessions.FirstOrDefault(s => s.Id == entityId);
 
     /// <inheritdoc/> 
-    public IList<TattooSession> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+    public IList<TattooSession> ReadAll() => [.. data.TattooSessions];
 
     /// <inheritdoc/> 
     public IList<TattooSession> ShowAllNonRefundable() =>
@@ -48,6 +45,9 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     /// <inheritdoc/> 
     public TattooSession Update(TattooSession entity)
     {
-        throw new NotImplementedException();
+        Delete(entity.Id);
+        var newEntity = Create(entity);
+        newEntity.Id = entity.Id;
+        return newEntity;
     }
 }

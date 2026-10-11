@@ -9,7 +9,7 @@ namespace TattooParlor.Domain.Model.Common;
 public interface IHasSessions<TEntity>
 {
     /// <summary>
-    /// Получение связвнных с сущностью сессий
+    /// Получение связанных с сущностью сессий
     /// </summary>
     /// <param name="entity">Сущность</param>
     /// <returns>Список сессий</returns>

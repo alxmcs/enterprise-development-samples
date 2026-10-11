@@ -13,32 +13,27 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
     /// <inheritdoc/> 
     public TattooArtist Create(TattooArtist entity)
     {
-        throw new NotImplementedException();
+entity.Id = data.TattooArtists.Count == 0 ? 1 : data.TattooArtists.Max(a => a.Id) + 1;
+        data.TattooArtists.Add(entity);
+        return entity;
     }
 
     /// <inheritdoc/> 
     public bool Delete(int entityId)
     {
-        throw new NotImplementedException();
+        var res = data.TattooArtists.RemoveAll(s => s.Id == entityId);
+        return res > 0;
     }
 
     /// <inheritdoc/> 
-    public TattooArtist? Read(int entityId)
-    {
-        throw new NotImplementedException();
-    }
+    public TattooArtist? Read(int entityId) => data.TattooArtists.FirstOrDefault(s => s.Id == entityId);
 
     /// <inheritdoc/> 
-    public IList<TattooArtist> ReadAll()
-    {
-        throw new NotImplementedException();
-    }
+    public IList<TattooArtist> ReadAll() => [.. data.TattooArtists];
 
     /// <inheritdoc/> 
     public IList<TattooSession> Sessions(TattooArtist entity)
-    {
-        throw new NotImplementedException();
-    }
+        => [.. data.TattooSessions.Where(s => s.TattooArtist.Id == entity.Id)];
 
     /// <inheritdoc/> 
     public IList<TattooArtist> ShowArtistsByFavoriteStyle(TattooStyle style) =>
@@ -63,6 +58,8 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
     /// <inheritdoc/> 
     public TattooArtist Update(TattooArtist entity)
     {
-        throw new NotImplementedException();
+        Delete(entity.Id);
+        Create(entity);
+        return entity;
     }
 }
