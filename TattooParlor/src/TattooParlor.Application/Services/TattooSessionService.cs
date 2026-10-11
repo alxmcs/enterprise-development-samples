@@ -1,10 +1,10 @@
 ﻿using MapsterMapper;
 using TattooParlor.Application.Contracts.TattooSessions;
+using TattooParlor.Domain.Model.Common;
 using TattooParlor.Domain.Model.Customers;
 using TattooParlor.Domain.Model.References;
 using TattooParlor.Domain.Model.TattooArtists;
 using TattooParlor.Domain.Model.TattooSessions;
-using TattooParlor.Domain.Model.Common;
 using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Services;
@@ -28,12 +28,12 @@ public class TattooSessionService(
 {
     /// <inheritdoc/>
     public TattooSessionDto Create(TattooSessionCreateUpdateDto dto)
-    {     
+    {
         var result = mapper.Map<TattooSession>(dto);
         result.Customer = customerManager.Read(dto.CustomerId) ?? throw new KeyNotFoundException($"Cutomer with Id {dto.CustomerId} not found");
         result.TattooArtist = artistManager.Read(dto.TattooArtistId) ?? throw new KeyNotFoundException($"Tattoo artist with Id {dto.TattooArtistId} not found");
-        result.Style = styleRepo.ReadAll().FirstOrDefault( s => s.Style == dto.Style) ?? throw new KeyNotFoundException($"Tattoo style {dto.Style} not found");
-        result.BodyZone = zoneRepo.ReadAll().FirstOrDefault( s => s.BodyZone == dto.BodyZone) ?? throw new KeyNotFoundException($"Body zone {dto.BodyZone} not found");
+        result.Style = styleRepo.ReadAll().FirstOrDefault(s => s.Style == dto.Style) ?? throw new KeyNotFoundException($"Tattoo style {dto.Style} not found");
+        result.BodyZone = zoneRepo.ReadAll().FirstOrDefault(s => s.BodyZone == dto.BodyZone) ?? throw new KeyNotFoundException($"Body zone {dto.BodyZone} not found");
 
         sessionManager.Create(result);
         return mapper.Map<TattooSessionDto>(result);
