@@ -36,9 +36,9 @@
 
 |Приложение| Название проекта | Шаблон проекта | Назначение проекта | Лабораторная | Описание |
 |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|:------------|
-|Сервер|[TattooParlor.Api](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Api)|ASP.NET Core Web API|Лабораторная 2|Презентационный слой с RESTful API|
-|Сервер|[TattooParlor.Application](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application)|Class Library|Лабораторная 2|Библиотека с аппликейшен слоем сервера|
-|Сервер|[TattooParlor.Application.Contracts](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application.Contracts)|Class Library|Лабораторная 2|Библиотека с контрактами|
+|Сервер|[TattooParlor.Api](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Api)|ASP.NET Core Web API|Presentation layer|Лабораторная 2|Презентационный слой с RESTful API|
+|Сервер|[TattooParlor.Application](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application)|Class Library|Application layer|Лабораторная 2|Библиотека с аппликейшен слоем сервера|
+|Сервер|[TattooParlor.Application.Contracts](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application.Contracts)|Class Library|Application layer|Лабораторная 2|Библиотека с контрактами|
 |Сервер|[TattooParlor.Domain](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Domain)|Class Library|Domain layer|Лабораторная 1|Библиотека с описанием доменной области сервера|
 |Сервер|[TattooParlor.Domain.Shared](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Domain.Shared)|Class Library|Domain layer|Лабораторная 1|Библиотека с общими для остальных слоев архитектуры классами|
 |Сервер|[TattooParlor.Infrastructure.InMemory](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Infrastructure.InMemory)|Class Library|Infrastructure layer|Лабораторная 1|Библиотека с имплементацией инфраструктурного слоя с использованием инмемори коллекций|
