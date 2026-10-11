@@ -46,7 +46,8 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     public TattooSession Update(TattooSession entity)
     {
         Delete(entity.Id);
-        Create(entity);
-        return entity;
+        var newEntity = Create(entity);
+        newEntity.Id = entity.Id;
+        return newEntity;
     }
 }
