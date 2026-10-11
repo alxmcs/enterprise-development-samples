@@ -28,7 +28,7 @@ public class CustomerService(ICustomerManager manager, IMapper mapper) : ICustom
     {
         var result = manager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"Customer with Id {dtoId} not found.")
+            ? throw new KeyNotFoundException($"Customer with Id {dtoId} not found")
             : mapper.Map<CustomerDto>(result);
     }
 

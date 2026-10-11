@@ -27,7 +27,7 @@ public class TattooArtistService(ITattooArtistManager manager, IMapper mapper) :
     {
         var result = manager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"TattooArtist with Id {dtoId} not found.")
+            ? throw new KeyNotFoundException($"TattooArtist with Id {dtoId} not found")
             : mapper.Map<TattooArtistDto>(result);
     }
 

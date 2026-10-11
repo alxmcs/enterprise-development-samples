@@ -28,7 +28,7 @@ public class StylePricingService(ICrudRepository<StylePricing, int> manager, IMa
     {
         var result = manager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"StylePricing with Id {dtoId} not found.")
+            ? throw new KeyNotFoundException($"StylePricing with Id {dtoId} not found")
             : mapper.Map<StylePricingDto>(result);
     }
 
