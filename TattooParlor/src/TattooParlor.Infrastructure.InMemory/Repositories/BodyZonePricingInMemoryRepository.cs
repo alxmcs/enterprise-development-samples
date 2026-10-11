@@ -12,7 +12,7 @@ public class BodyZonePricingInMemoryRepository(DataSeeder data) : ICrudRepositor
     /// <inheritdoc/>   
     public BodyZonePricing Create(BodyZonePricing entity)
     {
-        entity.Id = data.BodyZonePricings.MaxBy(b => b.Id)!.Id + 1;
+entity.Id = data.BodyZonePricings.Count == 0 ? 1 : data.BodyZonePricings.Max(b => b.Id) + 1;
         data.BodyZonePricings.Add(entity);
         return entity;
     }

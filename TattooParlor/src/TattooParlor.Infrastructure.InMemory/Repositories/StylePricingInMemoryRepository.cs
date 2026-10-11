@@ -12,7 +12,7 @@ public class StylePricingInMemoryRepository(DataSeeder data) : ICrudRepository<S
     /// <inheritdoc/> 
     public StylePricing Create(StylePricing entity)
     {
-        entity.Id = data.StylePricings.MaxBy(s => s.Id)!.Id + 1;
+entity.Id = data.StylePricings.Count == 0 ? 1 : data.StylePricings.Max(s => s.Id) + 1;
         data.StylePricings.Add(entity);
         return entity;
     }

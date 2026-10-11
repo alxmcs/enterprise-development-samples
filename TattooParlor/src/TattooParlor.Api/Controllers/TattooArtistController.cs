@@ -82,7 +82,7 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
     [EndpointDescription("Возвращает список топ-5 тату-мастеров по доходу за указанный период")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<TattooArtistRevenueDto> GetTop5ArtistsByRevenue([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
+public ActionResult<IList<TattooArtistRevenueDto>> GetTop5ArtistsByRevenue([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
     {
         logger.LogInformation("{method} method of {controller} is called with {startDate}/{endDate} parameters", nameof(GetTop5ArtistsByRevenue), GetType().Name, startDate, endDate);
         try

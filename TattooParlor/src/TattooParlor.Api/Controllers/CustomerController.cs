@@ -81,7 +81,7 @@ public class CustomerController(ICustomerService appService, ILogger<CustomerCon
     [EndpointDescription("Возвращает список топ-5 клиентов по количеству визитов за указанный период")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public ActionResult<CustomerVisitsDto> GetTop5CustomersByVisits([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
+public ActionResult<IList<CustomerVisitsDto>> GetTop5CustomersByVisits([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
     {
         logger.LogInformation("{method} method of {controller} is called with {startDate}/{endDate} parameters", nameof(GetTop5CustomersByVisits), GetType().Name, startDate, endDate);
         try

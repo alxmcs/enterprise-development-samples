@@ -13,7 +13,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
     /// <inheritdoc/> 
     public TattooArtist Create(TattooArtist entity)
     {
-        entity.Id = data.TattooArtists.MaxBy(a => a.Id)!.Id + 1;
+entity.Id = data.TattooArtists.Count == 0 ? 1 : data.TattooArtists.Max(a => a.Id) + 1;
         data.TattooArtists.Add(entity);
         return entity;
     }
