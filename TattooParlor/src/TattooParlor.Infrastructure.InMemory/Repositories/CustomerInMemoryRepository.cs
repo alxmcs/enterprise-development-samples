@@ -13,7 +13,7 @@ public class CustomerInMemoryRepository(DataSeeder data) : ICustomerManager
     /// <inheritdoc/> 
     public Customer Create(Customer entity)
     {
-        entity.Id = data.Customers.MaxBy(c => c.Id)!.Id + 1;
+entity.Id = data.Customers.Count == 0 ? 1 : data.Customers.Max(c => c.Id) + 1;
         data.Customers.Add(entity);
         return entity;
     }
