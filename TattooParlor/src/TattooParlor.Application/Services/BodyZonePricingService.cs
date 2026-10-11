@@ -34,7 +34,7 @@ public class BodyZonePricingService(ICrudRepository<BodyZonePricing, int> manage
 
     /// <inheritdoc/>
     public IList<BodyZonePricingDto> GetAll() => mapper.Map<IList<BodyZonePricingDto>>(manager.ReadAll());
-    
+
     /// <inheritdoc/>
     public BodyZonePricingDto Update(BodyZonePricingCreateUpdateDto dto, int dtoId)
     {

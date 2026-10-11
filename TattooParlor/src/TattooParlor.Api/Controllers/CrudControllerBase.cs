@@ -37,7 +37,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
         {
             var res = appService.Create(newDto);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Create), GetType().Name);
-            return CreatedAtAction(nameof(Get), new { id = res.Id}, res);
+            return CreatedAtAction(nameof(Get), new { id = res.Id }, res);
         }
         catch (Exception ex)
         {

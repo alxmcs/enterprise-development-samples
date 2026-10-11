@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.OpenApi;
+using Microsoft.OpenApi;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Xml.Linq;
-using Microsoft.AspNetCore.OpenApi;
-using Microsoft.OpenApi;
 
 namespace TattooParlor.Api.OpenApi;
 

@@ -36,15 +36,15 @@ public class CustomerService(ICustomerManager manager, IMapper mapper) : ICustom
     public IList<CustomerDto> GetAll() => mapper.Map<IList<CustomerDto>>(manager.ReadAll());
 
     /// <inheritdoc/>
-    public IList<CustomerDto> GetCustomersWithStyle(TattooStyle style) 
+    public IList<CustomerDto> GetCustomersWithStyle(TattooStyle style)
         => mapper.Map<IList<CustomerDto>>(manager.ShowCustomersWithStyle(style));
 
     /// <inheritdoc/>
-    public IList<TattooSessionDto> GetSessions(CustomerDto customer) 
+    public IList<TattooSessionDto> GetSessions(CustomerDto customer)
         => mapper.Map<IList<TattooSessionDto>>(manager.Sessions(mapper.Map<Customer>(customer)));
 
     /// <inheritdoc/>
-    public IList<CustomerVisitsDto> GetTop5CustomersByVisits(DateOnly startDate, DateOnly endDate) 
+    public IList<CustomerVisitsDto> GetTop5CustomersByVisits(DateOnly startDate, DateOnly endDate)
         => mapper.Map<IList<CustomerVisitsDto>>(manager.ShowTop5CustomersByVisits(startDate, endDate));
 
     /// <inheritdoc/>

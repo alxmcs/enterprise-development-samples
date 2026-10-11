@@ -1,7 +1,7 @@
 using Mapster;
+using MapsterMapper;
 using Scalar.AspNetCore;
 using TattooParlor.Api.OpenApi;
-using MapsterMapper;
 using TattooParlor.Application;
 using TattooParlor.Application.Contracts;
 using TattooParlor.Application.Contracts.BodyZonePricings;

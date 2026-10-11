@@ -32,7 +32,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
     public IList<TattooArtist> ReadAll() => [.. data.TattooArtists];
 
     /// <inheritdoc/> 
-    public IList<TattooSession> Sessions(TattooArtist entity) 
+    public IList<TattooSession> Sessions(TattooArtist entity)
         => [.. data.TattooSessions.Where(s => s.TattooArtist.Id == entity.Id)];
 
     /// <inheritdoc/> 
