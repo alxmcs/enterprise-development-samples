@@ -206,14 +206,14 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                 columns: new[] { "id", "body_zone_id", "cancel_date", "customer_id", "height_in_cm", "is_multicolor", "session_date", "style_id", "tattoo_artist_id", "width_in_cm" },
                 values: new object[,]
                 {
-                    { new Guid("1a46cf63-aa9c-495d-b9c1-b0220ccab8e2"), 7, null, 4, 8.0, false, new DateTime(2026, 3, 1, 13, 0, 0, 0, DateTimeKind.Unspecified), 4, 4, 6.0 },
-                    { new Guid("5654c0c7-d255-4327-a269-bbd81a954f93"), 1, null, 3, 25.0, true, new DateTime(2026, 5, 5, 17, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 18.0 },
-                    { new Guid("7d6f7795-75ac-4312-8419-b1b6802d8048"), 5, new DateTime(2026, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified), 1, 18.0, true, new DateTime(2026, 4, 2, 15, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 14.0 },
-                    { new Guid("a6873552-7cf5-4f4b-9043-9629f8b3d1ee"), 10, null, 3, 20.0, false, new DateTime(2026, 2, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 20.0 },
-                    { new Guid("a9f3267b-0da0-4365-b281-8509772add11"), 8, new DateTime(2026, 4, 19, 18, 0, 0, 0, DateTimeKind.Unspecified), 6, 6.0, false, new DateTime(2026, 4, 20, 12, 0, 0, 0, DateTimeKind.Unspecified), 7, 3, 5.0 },
-                    { new Guid("c75eab3c-bdac-40f0-a01a-3071365a9f0a"), 2, null, 5, 12.0, false, new DateTime(2026, 3, 15, 10, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 9.0 },
-                    { new Guid("dea21416-f6f6-4c86-b0e4-658f501c9e72"), 1, null, 1, 10.0, false, new DateTime(2026, 1, 10, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 8.0 },
-                    { new Guid("fd70574c-3321-4ab0-9484-4393f59f3922"), 4, null, 2, 15.0, false, new DateTime(2026, 2, 5, 11, 30, 0, 0, DateTimeKind.Unspecified), 2, 2, 12.0 }
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e54"), 1, null, 1, 10.0, false, new DateTime(2026, 1, 10, 14, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 8.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e55"), 4, null, 2, 15.0, false, new DateTime(2026, 2, 5, 11, 30, 0, 0, DateTimeKind.Unspecified), 2, 2, 12.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e56"), 10, null, 3, 20.0, false, new DateTime(2026, 2, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 20.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e57"), 7, null, 4, 8.0, false, new DateTime(2026, 3, 1, 13, 0, 0, 0, DateTimeKind.Unspecified), 4, 4, 6.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e58"), 2, null, 5, 12.0, false, new DateTime(2026, 3, 15, 10, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, 9.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e59"), 5, new DateTime(2026, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified), 1, 18.0, true, new DateTime(2026, 4, 2, 15, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 14.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5a"), 8, new DateTime(2026, 4, 19, 18, 0, 0, 0, DateTimeKind.Unspecified), 6, 6.0, false, new DateTime(2026, 4, 20, 12, 0, 0, 0, DateTimeKind.Unspecified), 7, 3, 5.0 },
+                    { new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5b"), 1, null, 3, 25.0, true, new DateTime(2026, 5, 5, 17, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 18.0 }
                 });
 
             migrationBuilder.CreateIndex(

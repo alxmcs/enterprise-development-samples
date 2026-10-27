@@ -26,6 +26,8 @@ config.Compile();
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 //Cлужбы персистенс слоя
 builder.Services.AddSingleton<DataSeeder>();
 builder.Services.AddScoped<ICustomerManager, CustomerEfCoreRepository>();
@@ -49,6 +51,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi(options => options.AddSchemaTransformer<EnumSchemaTransformer>());
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();

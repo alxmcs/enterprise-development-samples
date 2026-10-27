@@ -207,7 +207,7 @@ public class DataSeeder
         [
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e54"),
                 CustomerId = 1,
                 Customer = Customers[0],
                 TattooArtistId = 1,
@@ -222,7 +222,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e55"),
                 CustomerId = 2,
                 Customer = Customers[1],
                 TattooArtistId = 2,
@@ -237,7 +237,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e56"),
                 CustomerId = 3,
                 Customer = Customers[2],
                 TattooArtistId = 3,
@@ -252,7 +252,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e57"),
                 CustomerId = 4,
                 Customer = Customers[3],
                 TattooArtistId = 4,
@@ -267,7 +267,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e58"),
                 CustomerId = 5,
                 Customer = Customers[4],
                 TattooArtistId = 5,
@@ -282,7 +282,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e59"),
                 CustomerId = 1,
                 Customer = Customers[0],
                 TattooArtistId = 2,
@@ -299,7 +299,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5a"),
                 CustomerId = 6,
                 Customer = Customers[5],
                 TattooArtistId = 3,
@@ -315,7 +315,7 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5b"),
                 CustomerId = 3,
                 Customer = Customers[2],
                 TattooArtistId = 1,

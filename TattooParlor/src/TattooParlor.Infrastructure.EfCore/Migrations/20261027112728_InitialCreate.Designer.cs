@@ -12,7 +12,7 @@ using TattooParlor.Infrastructure.EfCore;
 namespace TattooParlor.Infrastructure.EfCore.Migrations
 {
     [DbContext(typeof(TattooParlorDbContext))]
-    [Migration("20261027105924_InitialCreate")]
+    [Migration("20261027112728_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -480,7 +480,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dea21416-f6f6-4c86-b0e4-658f501c9e72"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e54"),
                             BodyZoneId = 1,
                             CustomerId = 1,
                             HeightInCm = 10.0,
@@ -492,7 +492,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fd70574c-3321-4ab0-9484-4393f59f3922"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e55"),
                             BodyZoneId = 4,
                             CustomerId = 2,
                             HeightInCm = 15.0,
@@ -504,7 +504,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a6873552-7cf5-4f4b-9043-9629f8b3d1ee"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e56"),
                             BodyZoneId = 10,
                             CustomerId = 3,
                             HeightInCm = 20.0,
@@ -516,7 +516,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1a46cf63-aa9c-495d-b9c1-b0220ccab8e2"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e57"),
                             BodyZoneId = 7,
                             CustomerId = 4,
                             HeightInCm = 8.0,
@@ -528,7 +528,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c75eab3c-bdac-40f0-a01a-3071365a9f0a"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e58"),
                             BodyZoneId = 2,
                             CustomerId = 5,
                             HeightInCm = 12.0,
@@ -540,7 +540,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7d6f7795-75ac-4312-8419-b1b6802d8048"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e59"),
                             BodyZoneId = 5,
                             CancelDate = new DateTime(2026, 3, 25, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = 1,
@@ -553,7 +553,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a9f3267b-0da0-4365-b281-8509772add11"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5a"),
                             BodyZoneId = 8,
                             CancelDate = new DateTime(2026, 4, 19, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             CustomerId = 6,
@@ -566,7 +566,7 @@ namespace TattooParlor.Infrastructure.EfCore.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5654c0c7-d255-4327-a269-bbd81a954f93"),
+                            Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5b"),
                             BodyZoneId = 1,
                             CustomerId = 3,
                             HeightInCm = 25.0,
