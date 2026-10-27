@@ -14,31 +14,31 @@ public interface ICrudRepository<TEntity, TKey>
     /// </summary>
     /// <param name="entity">Новая сущность</param>
     /// <returns>Созданная сущность</returns>   
-    TEntity Create(TEntity entity);
+    Task<TEntity> Create(TEntity entity);
 
     /// <summary>
     /// Получение сущности по идентификатору
     /// </summary>
     /// <param name="entityId">Идентификатор сущности</param>
     /// <returns>Сущность</returns>
-    TEntity? Read(TKey entityId);
+    Task<TEntity?> Read(TKey entityId);
 
     /// <summary>
     /// Получение всего списка сущностей
     /// </summary> 
     /// <returns>Весь список сущностей</returns>
-    IList<TEntity> ReadAll();
+    Task<IList<TEntity>> ReadAll();
 
     /// <summary>
     /// Обновление сущности в коллекции
     /// </summary>
     /// <param name="entity">Отредактированная сущность</param>
-    TEntity Update(TEntity entity);
+    Task<TEntity> Update(TEntity entity);
 
     /// <summary>
     /// Удаление сущности из коллекции
     /// </summary>
     /// <param name="entityId">Идентификатор сущности</param>
     /// <returns>True, если сущность была удалена, иначе False</returns>
-    bool Delete(TKey entityId);
+    Task<bool> Delete(TKey entityId);
 }

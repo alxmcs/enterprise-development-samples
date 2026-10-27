@@ -21,12 +21,12 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
     [EndpointDescription("Возвращает список всех сессий, которые не подлежат возврату")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<IList<TattooSessionDto>> GetAllNonRefundable()
+    public async Task<ActionResult<IList<TattooSessionDto>>> GetAllNonRefundable()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAllNonRefundable), GetType().Name);
         try
         {
-            var res = appService.GetAllNonRefundable();
+            var res = await appService.GetAllNonRefundable();
             return Ok(res);
         }
         catch (Exception ex)
@@ -46,12 +46,12 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
     [EndpointDescription("Возвращает диапазон стоимости для указанного стиля")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public ActionResult<TattooSessionRange> GetCostRange(TattooStyle style)
+    public async Task<ActionResult<TattooSessionRange>> GetCostRange(TattooStyle style)
     {
         logger.LogInformation("{method} method of {controller} is called with {style} parameter", nameof(GetCostRange), GetType().Name, style);
         try
         {
-            var res = appService.GetCostRange(style);
+            var res = await appService.GetCostRange(style);
             return Ok(res);
         }
         catch (Exception ex)

@@ -14,33 +14,33 @@ namespace TattooParlor.Application.Services;
 public class StylePricingService(ICrudRepository<StylePricing, int> manager, IMapper mapper) : IApplicationService<StylePricingDto, StylePricingCreateUpdateDto, int>
 {
     /// <inheritdoc/>
-    public StylePricingDto Create(StylePricingCreateUpdateDto dto)
+    public async Task<StylePricingDto> Create(StylePricingCreateUpdateDto dto)
     {
-        var result = manager.Create(mapper.Map<StylePricing>(dto));
+        var result = await manager.Create(mapper.Map<StylePricing>(dto));
         return mapper.Map<StylePricingDto>(result);
     }
 
     /// <inheritdoc/>
-    public bool Delete(int dtoId) => manager.Delete(dtoId);
+    public async Task<bool> Delete(int dtoId) => await manager.Delete(dtoId);
 
     /// <inheritdoc/>
-    public StylePricingDto? Get(int dtoId)
+    public async Task<StylePricingDto?> Get(int dtoId)
     {
-        var result = manager.Read(dtoId);
+        var result = await manager.Read(dtoId);
         return result is null
             ? throw new KeyNotFoundException($"StylePricing with Id {dtoId} not found")
             : mapper.Map<StylePricingDto>(result);
     }
 
     /// <inheritdoc/>
-    public IList<StylePricingDto> GetAll() => mapper.Map<IList<StylePricingDto>>(manager.ReadAll());
+    public async Task<IList<StylePricingDto>> GetAll() => mapper.Map<IList<StylePricingDto>>(await manager.ReadAll());
 
     /// <inheritdoc/>
-    public StylePricingDto Update(StylePricingCreateUpdateDto dto, int dtoId)
+    public async Task<StylePricingDto> Update(StylePricingCreateUpdateDto dto, int dtoId)
     {
         var entity = mapper.Map<StylePricing>(dto);
         entity.Id = dtoId;
-        var result = manager.Update(entity);
+        var result = await manager.Update(entity);
         return mapper.Map<StylePricingDto>(result);
     }
 }
