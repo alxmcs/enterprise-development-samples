@@ -9,13 +9,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.14">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Scalar.AspNetCore" Version="2.17.14" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\aspire\TattooParlor.ServiceDefaults\TattooParlor.ServiceDefaults.csproj" />
     <ProjectReference Include="..\TattooParlor.Application.Contracts\TattooParlor.Application.Contracts.csproj" />
     <ProjectReference Include="..\TattooParlor.Application\TattooParlor.Application.csproj" />
-    <ProjectReference Include="..\TattooParlor.Infrastructure.InMemory\TattooParlor.Infrastructure.InMemory.csproj" />
+    <ProjectReference Include="..\TattooParlor.Infrastructure.EfCore\TattooParlor.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

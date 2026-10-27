@@ -1,9 +1,5 @@
 ﻿using MapsterMapper;
 using TattooParlor.Application.Contracts.TattooSessions;
-using TattooParlor.Domain.Model.Common;
-using TattooParlor.Domain.Model.Customers;
-using TattooParlor.Domain.Model.References;
-using TattooParlor.Domain.Model.TattooArtists;
 using TattooParlor.Domain.Model.TattooSessions;
 using TattooParlor.Domain.Shared.Enums;
 
@@ -13,61 +9,45 @@ namespace TattooParlor.Application.Services;
 /// Аппликейшен служба для сессий
 /// </summary>
 /// <param name="sessionManager">Доменная служба для сессий</param>
-/// <param name="customerManager">Доменная служба для клиентов</param>
-/// <param name="artistManager">Доменная служба для тату-художников</param>
-/// <param name="styleRepo">Репозиторий для стилей татуировки</param>
-/// <param name="zoneRepo">Репозиторий для частей тела</param>
 /// <param name="mapper">Маппер</param>
-public class TattooSessionService(
-    ITattooSessionManager sessionManager,
-    ICustomerManager customerManager,
-    ITattooArtistManager artistManager,
-    ICrudRepository<StylePricing, int> styleRepo,
-    ICrudRepository<BodyZonePricing, int> zoneRepo,
-    IMapper mapper) : ITattooSessionService
+public class TattooSessionService(ITattooSessionManager sessionManager, IMapper mapper) : ITattooSessionService
 {
     /// <inheritdoc/>
-    public TattooSessionDto Create(TattooSessionCreateUpdateDto dto)
+    public async Task<TattooSessionDto> Create(TattooSessionCreateUpdateDto dto)
     {
-        var result = mapper.Map<TattooSession>(dto);
-        result.Customer = customerManager.Read(dto.CustomerId) ?? throw new KeyNotFoundException($"Cutomer with Id {dto.CustomerId} not found");
-        result.TattooArtist = artistManager.Read(dto.TattooArtistId) ?? throw new KeyNotFoundException($"Tattoo artist with Id {dto.TattooArtistId} not found");
-        result.Style = styleRepo.ReadAll().FirstOrDefault(s => s.Style == dto.Style) ?? throw new KeyNotFoundException($"Tattoo style {dto.Style} not found");
-        result.BodyZone = zoneRepo.ReadAll().FirstOrDefault(s => s.BodyZone == dto.BodyZone) ?? throw new KeyNotFoundException($"Body zone {dto.BodyZone} not found");
-
-        sessionManager.Create(result);
+        var result = await sessionManager.Create(mapper.Map<TattooSession>(dto));
         return mapper.Map<TattooSessionDto>(result);
     }
 
     /// <inheritdoc/>
-    public bool Delete(Guid dtoId) => sessionManager.Delete(dtoId);
+    public async Task<bool> Delete(Guid dtoId) => await sessionManager.Delete(dtoId);
 
     /// <inheritdoc/>
-    public TattooSessionDto? Get(Guid dtoId)
+    public async Task<TattooSessionDto?> Get(Guid dtoId)
     {
-        var result = sessionManager.Read(dtoId);
+        var result = await sessionManager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"TattooSession with Id {dtoId} not found")
+            ? throw new KeyNotFoundException($"Тату-сессия с Id {dtoId} не найдена")
             : mapper.Map<TattooSessionDto>(result);
     }
 
     /// <inheritdoc/>
-    public IList<TattooSessionDto> GetAll() => mapper.Map<IList<TattooSessionDto>>(sessionManager.ReadAll());
+    public async Task<IList<TattooSessionDto>> GetAll() => mapper.Map<IList<TattooSessionDto>>(await sessionManager.ReadAll());
 
     /// <inheritdoc/>
-    public IList<TattooSessionDto> GetAllNonRefundable()
-        => mapper.Map<IList<TattooSessionDto>>(sessionManager.ShowAllNonRefundable());
+    public async Task<IList<TattooSessionDto>> GetAllNonRefundable()
+        => mapper.Map<IList<TattooSessionDto>>(await sessionManager.ShowAllNonRefundable());
 
     /// <inheritdoc/>
-    public TattooSessionRange GetCostRange(TattooStyle style)
-        => mapper.Map<TattooSessionRange>(sessionManager.ShowCostRange(style));
+    public async Task<TattooSessionRange> GetCostRange(TattooStyle style)
+        => mapper.Map<TattooSessionRange>(await sessionManager.ShowCostRange(style));
 
     /// <inheritdoc/>
-    public TattooSessionDto Update(TattooSessionCreateUpdateDto dto, Guid dtoId)
+    public async Task<TattooSessionDto> Update(TattooSessionCreateUpdateDto dto, Guid dtoId)
     {
         var entity = mapper.Map<TattooSession>(dto);
         entity.Id = dtoId;
-        var result = sessionManager.Update(entity);
+        var result = await sessionManager.Update(entity);
         return mapper.Map<TattooSessionDto>(result);
     }
 }

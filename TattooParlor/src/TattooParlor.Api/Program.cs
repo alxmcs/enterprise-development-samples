@@ -1,5 +1,6 @@
 using Mapster;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TattooParlor.Api.OpenApi;
 using TattooParlor.Application;
@@ -16,7 +17,8 @@ using TattooParlor.Domain.Model.Customers;
 using TattooParlor.Domain.Model.References;
 using TattooParlor.Domain.Model.TattooArtists;
 using TattooParlor.Domain.Model.TattooSessions;
-using TattooParlor.Infrastructure.InMemory.Repositories;
+using TattooParlor.Infrastructure.EfCore;
+using TattooParlor.Infrastructure.EfCore.Repositories;
 
 var config = new TypeAdapterConfig();
 config.Apply(new MapsterConfig());
@@ -24,13 +26,18 @@ config.Compile();
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<DataSeeder>();
-builder.Services.AddSingleton<ICustomerManager, CustomerInMemoryRepository>();
-builder.Services.AddSingleton<ITattooArtistManager, TattooArtistsInMemoryRepository>();
-builder.Services.AddSingleton<ITattooSessionManager, TattooSessionsInMemoryRepository>();
-builder.Services.AddSingleton<ICrudRepository<StylePricing, int>, StylePricingInMemoryRepository>();
-builder.Services.AddSingleton<ICrudRepository<BodyZonePricing, int>, BodyZonePricingInMemoryRepository>();
+builder.AddServiceDefaults();
 
+//Cлужбы персистенс слоя
+builder.Services.AddSingleton<DataSeeder>();
+builder.Services.AddScoped<ICustomerManager, CustomerEfCoreRepository>();
+builder.Services.AddScoped<ITattooArtistManager, TattooArtistsEfCoreRepository>();
+builder.Services.AddScoped<ITattooSessionManager, TattooSessionsEfCoreRepository>();
+builder.Services.AddScoped<ICrudRepository<StylePricing, int>, StylePricingEfCoreRepository>();
+builder.Services.AddScoped<ICrudRepository<BodyZonePricing, int>, BodyZonePricingEfCoreRepository>();
+builder.AddNpgsqlDbContext<TattooParlorDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
+
+//Cлужбы аппликейшен слоя
 builder.Services.AddSingleton<MapsterConfig>();
 builder.Services.AddSingleton<IMapper>(new Mapper(config));
 builder.Services.AddScoped<ICustomerService, CustomerService>();
@@ -39,20 +46,23 @@ builder.Services.AddScoped<ITattooSessionService, TattooSessionService>();
 builder.Services.AddScoped<IApplicationService<BodyZonePricingDto, BodyZonePricingCreateUpdateDto, int>, BodyZonePricingService>();
 builder.Services.AddScoped<IApplicationService<StylePricingDto, StylePricingCreateUpdateDto, int>, StylePricingService>();
 
+//Cлужбы презентейшен слоя
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(options => options.AddSchemaTransformer<EnumSchemaTransformer>());
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<TattooParlorDbContext>();
+    db.Database.Migrate();
+
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

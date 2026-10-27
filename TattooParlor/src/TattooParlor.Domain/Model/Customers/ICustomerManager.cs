@@ -14,12 +14,12 @@ public interface ICustomerManager : ICrudRepository<Customer, int>, IHasSessions
     /// <param name="startDate">Дата начала</param>
     /// <param name="endDate">Дата окночания</param>
     /// <returns>Список клиентов с количеством визитов</returns>
-    IList<(Customer Customer, int Visits)> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate);
+    Task<IList<(Customer Customer, int Visits)>> ShowTop5CustomersByVisits(DateOnly startDate, DateOnly endDate);
 
     /// <summary>
     /// Получение списка клиентов с указанным стилем
     /// </summary>
     /// <param name="style">Стиль</param>
     /// <returns>Список клиентов с указанным стилем</returns>
-    IList<Customer> ShowCustomersWithStyle(TattooStyle style);
+    Task<IList<Customer>> ShowCustomersWithStyle(TattooStyle style);
 }

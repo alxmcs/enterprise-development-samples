@@ -1,4 +1,4 @@
-using TattooParlor.Domain.Model.Customers;
+﻿using TattooParlor.Domain.Model.Customers;
 using TattooParlor.Domain.Model.References;
 using TattooParlor.Domain.Model.TattooArtists;
 using TattooParlor.Domain.Model.TattooSessions;
@@ -207,66 +207,90 @@ public class DataSeeder
         [
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e54"),
+                CustomerId = 1,
                 Customer = Customers[0],
+                TattooArtistId = 1,
                 TattooArtist = TattooArtists[0],
                 SessionDate = new DateTime(2026, 1, 10, 14, 0, 0),
+                BodyZoneId = 1,
                 BodyZone = BodyZonePricings[0],
+                StyleId = 2,
                 Style = StylePricings[1],
                 HeightInCm = 10,
                 WidthInCm = 8,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e55"),
+                CustomerId = 2,
                 Customer = Customers[1],
+                TattooArtistId = 2,
                 TattooArtist = TattooArtists[1],
                 SessionDate = new DateTime(2026, 2, 5, 11, 30, 0),
+                BodyZoneId = 4,
                 BodyZone = BodyZonePricings[3],
+                StyleId = 2,
                 Style = StylePricings[1],
                 HeightInCm = 15,
                 WidthInCm = 12,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e56"),
+                CustomerId = 3,
                 Customer = Customers[2],
+                TattooArtistId = 3,
                 TattooArtist = TattooArtists[2],
                 SessionDate = new DateTime(2026, 2, 20, 16, 0, 0),
+                BodyZoneId = 10,
                 BodyZone = BodyZonePricings[9],
+                StyleId = 3,
                 Style = StylePricings[2],
                 HeightInCm = 20,
                 WidthInCm = 20
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e57"),
+                CustomerId = 4,
                 Customer = Customers[3],
+                TattooArtistId = 4,
                 TattooArtist = TattooArtists[3],
                 SessionDate = new DateTime(2026, 3, 1, 13, 0, 0),
+                BodyZoneId = 7,
                 BodyZone = BodyZonePricings[6],
+                StyleId = 4,
                 Style = StylePricings[3],
                 HeightInCm = 8,
                 WidthInCm = 6,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e58"),
+                CustomerId = 5,
                 Customer = Customers[4],
+                TattooArtistId = 5,
                 TattooArtist = TattooArtists[4],
                 SessionDate = new DateTime(2026, 3, 15, 10, 0, 0),
+                BodyZoneId = 2,
                 BodyZone = BodyZonePricings[1],
+                StyleId = 4,
                 Style = StylePricings[3],
                 HeightInCm = 12,
                 WidthInCm = 9,
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e59"),
+                CustomerId = 1,
                 Customer = Customers[0],
+                TattooArtistId = 2,
                 TattooArtist = TattooArtists[1],
                 SessionDate = new DateTime(2026, 4, 2, 15, 0, 0),
+                BodyZoneId = 5,
                 BodyZone = BodyZonePricings[4],
+                StyleId = 2,
                 Style = StylePricings[1],
                 HeightInCm = 18,
                 WidthInCm = 14,
@@ -275,11 +299,15 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5a"),
+                CustomerId = 6,
                 Customer = Customers[5],
+                TattooArtistId = 3,
                 TattooArtist = TattooArtists[2],
                 SessionDate = new DateTime(2026, 4, 20, 12, 0, 0),
+                BodyZoneId = 8,
                 BodyZone = BodyZonePricings[7],
+                StyleId = 7,
                 Style = StylePricings[6],
                 HeightInCm = 6,
                 WidthInCm = 5,
@@ -287,11 +315,15 @@ public class DataSeeder
             },
             new TattooSession
             {
-                Id = Guid.NewGuid(),
+                Id = new Guid("39c97262-44ce-4b30-92e2-0f0e8a168e5b"),
+                CustomerId = 3,
                 Customer = Customers[2],
+                TattooArtistId = 1,
                 TattooArtist = TattooArtists[0],
                 SessionDate = new DateTime(2026, 5, 5, 17, 0, 0),
+                BodyZoneId = 1,
                 BodyZone = BodyZonePricings[0],
+                StyleId = 1,
                 Style = StylePricings[0],
                 HeightInCm = 25,
                 WidthInCm = 18,

@@ -27,22 +27,22 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
     [HttpPost]
     [EndpointSummary("Добавление новой записи")]
     [EndpointDescription("Создаёт запись и возвращает её с присвоенным идентификатором")]
-    [ProducesResponseType(201)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
-    public ActionResult<TDto> Create(TCreateUpdateDto newDto)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<TDto>> Create(TCreateUpdateDto newDto)
     {
         logger.LogInformation("{method} method of {controller} is called with {@dto} parameter", nameof(Create), GetType().Name, newDto);
         try
         {
-            var res = appService.Create(newDto);
+            var res = await appService.Create(newDto);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Create), GetType().Name);
             return CreatedAtAction(nameof(Get), new { id = res.Id }, res);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Create), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -55,22 +55,22 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
     [HttpPut("{id}")]
     [EndpointSummary("Изменение имеющихся данных")]
     [EndpointDescription("Изменяет данные по указанному идентификатору и возвращает обновленные данные")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(500)]
-    public ActionResult<TDto> Edit(TKey id, TCreateUpdateDto newDto)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<TDto>> Edit(TKey id, TCreateUpdateDto newDto)
     {
         logger.LogInformation("{method} method of {controller} is called with {key},{@dto} parameters", nameof(Edit), GetType().Name, id, newDto);
         try
         {
-            var res = appService.Update(newDto, id);
+            var res = await appService.Update(newDto, id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Edit), GetType().Name);
             return Ok(res);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Edit), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -81,21 +81,21 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
     [HttpDelete("{id}")]
     [EndpointSummary("Удаление имеющихся данных")]
     [EndpointDescription("Удаляет данные по указанному идентификатору")]
-    [ProducesResponseType(204)]
-    [ProducesResponseType(500)]
-    public IActionResult Delete(TKey id)
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete(TKey id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Delete), GetType().Name, id);
         try
         {
-            var res = appService.Delete(id);
+            var res = await appService.Delete(id);
             logger.LogInformation("{method} method of {controller} executed with result {res}", nameof(Delete), GetType().Name, res);
             return NoContent();
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Delete), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -106,21 +106,21 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
     [HttpGet]
     [EndpointSummary("Получение списка всех данных")]
     [EndpointDescription("Возвращает список всех данных")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
-    public ActionResult<IList<TDto>> GetAll()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<TDto>>> GetAll()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAll), GetType().Name);
         try
         {
-            var res = appService.GetAll();
+            var res = await appService.GetAll();
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(GetAll), GetType().Name);
             return Ok(res);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetAll), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -132,15 +132,15 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
     [HttpGet("{id}")]
     [EndpointSummary("Получение данных по идентификатору")]
     [EndpointDescription("Возвращает данные по указанному идентификатору")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
-    public ActionResult<TDto> Get(TKey id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<TDto>> Get(TKey id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(Get), GetType().Name, id);
         try
         {
-            var res = appService.Get(id);
+            var res = await appService.Get(id);
             logger.LogInformation("{method} method of {controller} executed successfully", nameof(Get), GetType().Name);
             return Ok(res);
         }
@@ -152,7 +152,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(IApplicat
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(Get), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 

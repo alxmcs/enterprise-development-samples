@@ -1,4 +1,5 @@
-﻿using TattooParlor.Domain.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Contracts.BodyZonePricings;
 
@@ -7,4 +8,7 @@ namespace TattooParlor.Application.Contracts.BodyZonePricings;
 /// </summary>
 /// <param name="BodyZone">Участок тела</param>
 /// <param name="Multiplier">Коэффициент</param>
-public record BodyZonePricingCreateUpdateDto(BodyZone BodyZone, decimal Multiplier);
+public record BodyZonePricingCreateUpdateDto(
+    [EnumDataType(typeof(BodyZone))] BodyZone BodyZone,
+    [Range(0.01, 100)] decimal Multiplier
+);

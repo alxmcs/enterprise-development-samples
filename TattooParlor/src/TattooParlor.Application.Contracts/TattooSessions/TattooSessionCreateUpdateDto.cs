@@ -1,4 +1,5 @@
-﻿using TattooParlor.Domain.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Contracts.TattooSessions;
 
@@ -16,13 +17,13 @@ namespace TattooParlor.Application.Contracts.TattooSessions;
 /// <param name="CancelDate">Дата отмены</param>
 public record TattooSessionCreateUpdateDto
 (
-    int CustomerId,
-    int TattooArtistId,
+    [Range(1, int.MaxValue)] int CustomerId,
+    [Range(1, int.MaxValue)] int TattooArtistId,
     DateTime SessionDate,
-    BodyZone BodyZone,
-    TattooStyle Style,
-    double HeightInCm,
-    double WidthInCm,
+    [EnumDataType(typeof(BodyZone))] BodyZone BodyZone,
+    [EnumDataType(typeof(TattooStyle))] TattooStyle Style,
+    [Range(0.1, 500)] double HeightInCm,
+    [Range(0.1, 500)] double WidthInCm,
     bool IsMulticolor,
     DateTime? CancelDate
 );

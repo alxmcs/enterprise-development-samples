@@ -18,19 +18,19 @@ public class CustomerController(ICustomerService appService, ILogger<CustomerCon
     /// </summary>
     /// <param name="id">Идентификатор клиента</param>
     /// <returns>Список сессий</returns>
-    [HttpGet("{id}/sessions")]
+    [HttpGet("{id:int}/sessions")]
     [EndpointSummary("Получение связанных сессий")]
     [EndpointDescription("Возвращает список всех сессий, связанных с указанным клиентом")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
-    public ActionResult<IList<TattooSessionDto>> GetSessions(int id)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<TattooSessionDto>>> GetSessions(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(GetSessions), GetType().Name, id);
         try
         {
-            var customer = appService.Get(id);
-            var res = appService.GetSessions(customer!);
+            var customer = await appService.Get(id);
+            var res = await appService.GetSessions(customer!);
             return Ok(res);
         }
         catch (KeyNotFoundException ex)
@@ -41,7 +41,7 @@ public class CustomerController(ICustomerService appService, ILogger<CustomerCon
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetSessions), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -53,20 +53,20 @@ public class CustomerController(ICustomerService appService, ILogger<CustomerCon
     [HttpGet("by-style/{style}")]
     [EndpointSummary("Получение списка клиентов с указанным стилем")]
     [EndpointDescription("Возвращает список всех клиентов с указанным стилем")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
-    public ActionResult<IList<CustomerDto>> GetCustomersWithStyle(TattooStyle style)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<CustomerDto>>> GetCustomersWithStyle(TattooStyle style)
     {
         logger.LogInformation("{method} method of {controller} is called with {style} parameter", nameof(GetCustomersWithStyle), GetType().Name, style);
         try
         {
-            var customers = appService.GetCustomersWithStyle(style);
+            var customers = await appService.GetCustomersWithStyle(style);
             return Ok(customers);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetCustomersWithStyle), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -79,20 +79,20 @@ public class CustomerController(ICustomerService appService, ILogger<CustomerCon
     [HttpGet("top-by-visits")]
     [EndpointSummary("Получение топ-5 клиентов по количеству визитов")]
     [EndpointDescription("Возвращает список топ-5 клиентов по количеству визитов за указанный период")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
-public ActionResult<IList<CustomerVisitsDto>> GetTop5CustomersByVisits([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<IList<CustomerVisitsDto>>> GetTop5CustomersByVisits([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
     {
         logger.LogInformation("{method} method of {controller} is called with {startDate}/{endDate} parameters", nameof(GetTop5CustomersByVisits), GetType().Name, startDate, endDate);
         try
         {
-            var customers = appService.GetTop5CustomersByVisits(startDate, endDate);
+            var customers = await appService.GetTop5CustomersByVisits(startDate, endDate);
             return Ok(customers);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetTop5CustomersByVisits), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 }

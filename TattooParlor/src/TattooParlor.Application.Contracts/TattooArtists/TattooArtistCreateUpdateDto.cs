@@ -1,4 +1,5 @@
-﻿using TattooParlor.Domain.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Contracts.TattooArtists;
 
@@ -12,13 +13,15 @@ namespace TattooParlor.Application.Contracts.TattooArtists;
 /// <param name="Email">Электронная почта</param>
 /// <param name="WorkStartDate">Дата начала работы</param>
 /// <param name="FavoriteStyle">Предпочитаемый стиль</param>
+/// <param name="Rating">Рейтинг</param>
 public record TattooArtistCreateUpdateDto
 (
-    string FirstName,
-    string LastName,
+    [Required, StringLength(50, MinimumLength = 1)] string FirstName,
+    [Required, StringLength(50, MinimumLength = 1)] string LastName,
     DateOnly? DateOfBirth,
-    string? PhoneNumber,
-    string? Email,
+    [Phone, StringLength(20)] string? PhoneNumber,
+    [EmailAddress, StringLength(100)] string? Email,
     DateOnly WorkStartDate,
-    TattooStyle? FavoriteStyle
+    [EnumDataType(typeof(TattooStyle))] TattooStyle? FavoriteStyle,
+    [Range(0, double.MaxValue)] double Rating = 0
 );

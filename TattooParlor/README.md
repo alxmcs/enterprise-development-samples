@@ -36,10 +36,13 @@
 
 |Приложение| Название проекта | Шаблон проекта | Назначение проекта | Лабораторная | Описание |
 |:-----------:|:-----------:|:-----------:|:-----------:|:-----------:|:------------|
-|Сервер|[TattooParlor.Api](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Api)|ASP.NET Core Web API|Presentation layer|Лабораторная 2|Презентационный слой с RESTful API|
-|Сервер|[TattooParlor.Application](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application)|Class Library|Application layer|Лабораторная 2|Библиотека с аппликейшен слоем сервера|
-|Сервер|[TattooParlor.Application.Contracts](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application.Contracts)|Class Library|Application layer|Лабораторная 2|Библиотека с контрактами|
+|Оркестратор|[TattooParlor.AppHost](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.AppHost)|.Net Aspire Starter App|Orchestration|Лабораторная 3|Aspire-проект для определения топологии и оркестрации сервисов|
+|Оркестратор|[TattooParlor.ServiceDefaults](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.ServiceDefaults)|Class Library|Orchestration|Лабораторная 3|Aspire-проект для общих настроек запускаемых сервисов|
+|Сервер|[TattooParlor.Api](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Api)|ASP.NET Core Web API|Лабораторная 2|Презентационный слой с RESTful API|
+|Сервер|[TattooParlor.Application](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application)|Class Library|Лабораторная 2|Библиотека с аппликейшен слоем сервера|
+|Сервер|[TattooParlor.Application.Contracts](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Application.Contracts)|Class Library|Лабораторная 2|Библиотека с контрактами|
 |Сервер|[TattooParlor.Domain](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Domain)|Class Library|Domain layer|Лабораторная 1|Библиотека с описанием доменной области сервера|
 |Сервер|[TattooParlor.Domain.Shared](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Domain.Shared)|Class Library|Domain layer|Лабораторная 1|Библиотека с общими для остальных слоев архитектуры классами|
 |Сервер|[TattooParlor.Infrastructure.InMemory](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Infrastructure.InMemory)|Class Library|Infrastructure layer|Лабораторная 1|Библиотека с имплементацией инфраструктурного слоя с использованием инмемори коллекций|
+|Сервер|[TattooParlor.Infrastructure.EfCore](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Infrastructure.EfCore)|Class Library|Infrastructure layer|Лабораторная 3|Библиотека с имплементацией инфраструктурного слоя с использованием Entity Framework Core|
 |Сервер|[TattooParlor.Domain.Tests](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor/TattooParlor.Domain.Tests)|xUnit Test Project|Unit Tests|Лабораторная 1|Юнит-тесты доменной логики|

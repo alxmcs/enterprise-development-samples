@@ -13,5 +13,5 @@ public interface IHasSessions<TEntity>
     /// </summary>
     /// <param name="entity">Сущность</param>
     /// <returns>Список сессий</returns>
-    IList<TattooSession> Sessions(TEntity entity);
+    Task<IList<TattooSession>> Sessions(TEntity entity);
 }

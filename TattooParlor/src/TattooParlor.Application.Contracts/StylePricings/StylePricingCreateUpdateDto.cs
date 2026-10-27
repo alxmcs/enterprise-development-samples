@@ -1,4 +1,5 @@
-﻿using TattooParlor.Domain.Shared.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using TattooParlor.Domain.Shared.Enums;
 
 namespace TattooParlor.Application.Contracts.StylePricings;
 
@@ -10,7 +11,7 @@ namespace TattooParlor.Application.Contracts.StylePricings;
 /// <param name="MulticolorMultiplier">Коэффициент за несколько цветов</param>
 public record class StylePricingCreateUpdateDto
 (
-    TattooStyle Style,
-    decimal PricePerSqCm,
-    decimal? MulticolorMultiplier
+    [EnumDataType(typeof(TattooStyle))] TattooStyle Style,
+    [Range(0.01, 1000000)] decimal PricePerSqCm,
+    [Range(1, 100)] decimal? MulticolorMultiplier
 );

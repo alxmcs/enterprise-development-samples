@@ -15,13 +15,13 @@ public interface ITattooArtistManager : ICrudRepository<TattooArtist, int>, IHas
     /// <param name="startDate">Дата начала периода</param>
     /// <param name="endDate">Дата окончания периода</param>
     /// <returns>Список тату-мастеров с выручкой</returns>
-    IList<(TattooArtist Artist, decimal Money)> ShowTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate);
+    Task<IList<(TattooArtist Artist, decimal Money)>> ShowTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate);
 
     /// <summary>
     /// Тату-мастера по их любимому стилю
     /// </summary>
     /// <param name="style">Стиль</param>
     /// <returns>Список тату-мастеров</returns>
-    IList<TattooArtist> ShowArtistsByFavoriteStyle(TattooStyle style);
+    Task<IList<TattooArtist>> ShowArtistsByFavoriteStyle(TattooStyle style);
 }
 

@@ -14,44 +14,44 @@ namespace TattooParlor.Application.Services;
 public class TattooArtistService(ITattooArtistManager manager, IMapper mapper) : ITattooArtistService
 {
     /// <inheritdoc/>
-    public TattooArtistDto Create(TattooArtistCreateUpdateDto dto)
+    public async Task<TattooArtistDto> Create(TattooArtistCreateUpdateDto dto)
     {
-        var result = manager.Create(mapper.Map<TattooArtist>(dto));
+        var result = await manager.Create(mapper.Map<TattooArtist>(dto));
         return mapper.Map<TattooArtistDto>(result);
     }
 
     /// <inheritdoc/>
-    public bool Delete(int dtoId) => manager.Delete(dtoId);
+    public async Task<bool> Delete(int dtoId) => await manager.Delete(dtoId);
 
-    public TattooArtistDto? Get(int dtoId)
+    public async Task<TattooArtistDto?> Get(int dtoId)
     {
-        var result = manager.Read(dtoId);
+        var result = await manager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"TattooArtist with Id {dtoId} not found")
+            ? throw new KeyNotFoundException($"Тату-мастер с Id {dtoId} не найден")
             : mapper.Map<TattooArtistDto>(result);
     }
 
     /// <inheritdoc/>
-    public IList<TattooArtistDto> GetAll() => mapper.Map<IList<TattooArtistDto>>(manager.ReadAll());
+    public async Task<IList<TattooArtistDto>> GetAll() => mapper.Map<IList<TattooArtistDto>>(await manager.ReadAll());
 
     /// <inheritdoc/>
-    public IList<TattooArtistDto> GetArtistsByFavoriteStyle(TattooStyle style)
-        => mapper.Map<IList<TattooArtistDto>>(manager.ShowArtistsByFavoriteStyle(style));
+    public async Task<IList<TattooArtistDto>> GetArtistsByFavoriteStyle(TattooStyle style)
+        => mapper.Map<IList<TattooArtistDto>>(await manager.ShowArtistsByFavoriteStyle(style));
 
     /// <inheritdoc/>
-    public IList<TattooSessionDto> GetSessions(TattooArtistDto tattooArtist)
-        => mapper.Map<IList<TattooSessionDto>>(manager.Sessions(mapper.Map<TattooArtist>(tattooArtist)));
+    public async Task<IList<TattooSessionDto>> GetSessions(TattooArtistDto tattooArtist)
+        => mapper.Map<IList<TattooSessionDto>>(await manager.Sessions(mapper.Map<TattooArtist>(tattooArtist)));
 
     /// <inheritdoc/>
-    public IList<TattooArtistRevenueDto> GetTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate)
-        => mapper.Map<IList<TattooArtistRevenueDto>>(manager.ShowTop5ArtistsByRevenue(startDate, endDate));
+    public async Task<IList<TattooArtistRevenueDto>> GetTop5ArtistsByRevenue(DateOnly startDate, DateOnly endDate)
+        => mapper.Map<IList<TattooArtistRevenueDto>>(await manager.ShowTop5ArtistsByRevenue(startDate, endDate));
 
     /// <inheritdoc/>
-    public TattooArtistDto Update(TattooArtistCreateUpdateDto dto, int dtoId)
+    public async Task<TattooArtistDto> Update(TattooArtistCreateUpdateDto dto, int dtoId)
     {
         var entity = mapper.Map<TattooArtist>(dto);
         entity.Id = dtoId;
-        var result = manager.Update(entity);
+        var result =  await manager.Update(entity);
         return mapper.Map<TattooArtistDto>(result);
     }
 }

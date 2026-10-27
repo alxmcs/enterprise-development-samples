@@ -9,32 +9,32 @@ namespace TattooParlor.Infrastructure.InMemory.Repositories;
 /// </summary>
 public class StylePricingInMemoryRepository(DataSeeder data) : ICrudRepository<StylePricing, int>
 {
-    /// <inheritdoc/> 
-    public StylePricing Create(StylePricing entity)
+    /// <inheritdoc/>
+    public Task<StylePricing> Create(StylePricing entity)
     {
-entity.Id = data.StylePricings.Count == 0 ? 1 : data.StylePricings.Max(s => s.Id) + 1;
+        entity.Id = data.StylePricings.Count == 0 ? 1 : data.StylePricings.Max(s => s.Id) + 1;
         data.StylePricings.Add(entity);
-        return entity;
+        return Task.FromResult(entity);
     }
 
-    /// <inheritdoc/> 
-    public bool Delete(int entityId)
+    /// <inheritdoc/>
+    public Task<bool> Delete(int entityId)
     {
         var res = data.StylePricings.RemoveAll(s => s.Id == entityId);
-        return res > 0;
+        return Task.FromResult(res > 0);
     }
 
-    /// <inheritdoc/> 
-    public StylePricing? Read(int entityId) => data.StylePricings.FirstOrDefault(s => s.Id == entityId);
+    /// <inheritdoc/>
+    public Task<StylePricing?> Read(int entityId) => Task.FromResult(data.StylePricings.FirstOrDefault(s => s.Id == entityId));
 
-    /// <inheritdoc/> 
-    public IList<StylePricing> ReadAll() => [.. data.StylePricings];
+    /// <inheritdoc/>
+    public Task<IList<StylePricing>> ReadAll() => Task.FromResult<IList<StylePricing>>([.. data.StylePricings]);
 
-    /// <inheritdoc/> 
-    public StylePricing Update(StylePricing entity)
+    /// <inheritdoc/>
+    public Task<StylePricing> Update(StylePricing entity)
     {
         Delete(entity.Id);
         Create(entity);
-        return entity;
+        return Task.FromResult(entity);
     }
 }
