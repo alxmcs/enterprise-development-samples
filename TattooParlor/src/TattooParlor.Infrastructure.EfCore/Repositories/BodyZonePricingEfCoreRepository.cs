@@ -33,7 +33,7 @@ public class BodyZonePricingEfCoreRepository(TattooParlorDbContext context) : IC
     public async Task<BodyZonePricing> Update(BodyZonePricing entity)
     {
         var existing = await context.BodyZonePricings.FirstOrDefaultAsync(b => b.Id == entity.Id)
-            ?? throw new KeyNotFoundException($"Body zone pricing with Id {entity.Id} not found");
+            ?? throw new KeyNotFoundException($"Запись справочника зон тела с Id {entity.Id} не найдена");
         context.Entry(existing).CurrentValues.SetValues(entity);
         await context.SaveChangesAsync();
         return existing;

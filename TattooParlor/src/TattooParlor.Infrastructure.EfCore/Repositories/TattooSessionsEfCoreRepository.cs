@@ -12,6 +12,7 @@ public class TattooSessionsEfCoreRepository(TattooParlorDbContext context) : ITa
     /// <inheritdoc/>
     public async Task<TattooSession> Create(TattooSession entity)
     {
+        await ResolveRelations(entity);
         context.TattooSessions.Add(entity);
         await context.SaveChangesAsync();
         return entity;
@@ -50,9 +51,33 @@ public class TattooSessionsEfCoreRepository(TattooParlorDbContext context) : ITa
     public async Task<TattooSession> Update(TattooSession entity)
     {
         var existing = await context.TattooSessions.FirstOrDefaultAsync(s => s.Id == entity.Id)
-            ?? throw new KeyNotFoundException($"Tattoo session with Id {entity.Id} not found");
+            ?? throw new KeyNotFoundException($"Тату-сессия с Id {entity.Id} не найдена");
+        await ResolveRelations(entity);
+
         context.Entry(existing).CurrentValues.SetValues(entity);
+        existing.Customer = entity.Customer;
+        existing.TattooArtist = entity.TattooArtist;
+        existing.Style = entity.Style;
+        existing.BodyZone = entity.BodyZone;
         await context.SaveChangesAsync();
         return existing;
+    }
+
+    private async Task ResolveRelations(TattooSession entity)
+    {
+        var style = entity.Style.Style;
+        var bodyZone = entity.BodyZone.BodyZone;
+
+        entity.Customer = await context.Customers.FirstOrDefaultAsync(c => c.Id == entity.CustomerId)
+            ?? throw new KeyNotFoundException($"Клиент с Id {entity.CustomerId} не найден");
+        entity.TattooArtist = await context.TattooArtists.FirstOrDefaultAsync(a => a.Id == entity.TattooArtistId)
+            ?? throw new KeyNotFoundException($"Тату-мастер с Id {entity.TattooArtistId} не найден");
+        entity.Style = await context.StylePricings.FirstOrDefaultAsync(s => s.Style == style)
+            ?? throw new KeyNotFoundException($"Стиль татуировки {style} не найден");
+        entity.BodyZone = await context.BodyZonePricings.FirstOrDefaultAsync(z => z.BodyZone == bodyZone)
+            ?? throw new KeyNotFoundException($"Зона тела {bodyZone} не найдена");
+
+        entity.StyleId = entity.Style.Id;
+        entity.BodyZoneId = entity.BodyZone.Id;
     }
 }

@@ -64,7 +64,7 @@ public class TattooArtistsEfCoreRepository(TattooParlorDbContext context) : ITat
     public async Task<TattooArtist> Update(TattooArtist entity)
     {
         var existing = await context.TattooArtists.FirstOrDefaultAsync(a => a.Id == entity.Id)
-            ?? throw new KeyNotFoundException($"Tattoo artist with Id {entity.Id} not found");
+            ?? throw new KeyNotFoundException($"Тату-мастер с Id {entity.Id} не найден");
         context.Entry(existing).CurrentValues.SetValues(entity);
         await context.SaveChangesAsync();
         return existing;

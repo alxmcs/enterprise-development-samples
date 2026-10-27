@@ -1,9 +1,5 @@
 ﻿using MapsterMapper;
 using TattooParlor.Application.Contracts.TattooSessions;
-using TattooParlor.Domain.Model.Common;
-using TattooParlor.Domain.Model.Customers;
-using TattooParlor.Domain.Model.References;
-using TattooParlor.Domain.Model.TattooArtists;
 using TattooParlor.Domain.Model.TattooSessions;
 using TattooParlor.Domain.Shared.Enums;
 
@@ -13,32 +9,13 @@ namespace TattooParlor.Application.Services;
 /// Аппликейшен служба для сессий
 /// </summary>
 /// <param name="sessionManager">Доменная служба для сессий</param>
-/// <param name="customerManager">Доменная служба для клиентов</param>
-/// <param name="artistManager">Доменная служба для тату-художников</param>
-/// <param name="styleRepo">Репозиторий для стилей татуировки</param>
-/// <param name="zoneRepo">Репозиторий для частей тела</param>
 /// <param name="mapper">Маппер</param>
-public class TattooSessionService(
-    ITattooSessionManager sessionManager,
-    ICustomerManager customerManager,
-    ITattooArtistManager artistManager,
-    ICrudRepository<StylePricing, int> styleRepo,
-    ICrudRepository<BodyZonePricing, int> zoneRepo,
-    IMapper mapper) : ITattooSessionService
+public class TattooSessionService(ITattooSessionManager sessionManager, IMapper mapper) : ITattooSessionService
 {
     /// <inheritdoc/>
     public async Task<TattooSessionDto> Create(TattooSessionCreateUpdateDto dto)
     {
-        var result = mapper.Map<TattooSession>(dto);
-        result.Customer = await customerManager.Read(dto.CustomerId) ?? throw new KeyNotFoundException($"Cutomer with Id {dto.CustomerId} not found");
-        result.TattooArtist = await artistManager.Read(dto.TattooArtistId) ?? throw new KeyNotFoundException($"Tattoo artist with Id {dto.TattooArtistId} not found");
-        result.Style = (await styleRepo.ReadAll()).FirstOrDefault(s => s.Style == dto.Style) ?? throw new KeyNotFoundException($"Tattoo style {dto.Style} not found");
-        result.BodyZone = (await zoneRepo.ReadAll()).FirstOrDefault(s => s.BodyZone == dto.BodyZone) ?? throw new KeyNotFoundException($"Body zone {dto.BodyZone} not found");
-
-        result.StyleId = result.Style.Id;
-        result.BodyZoneId = result.BodyZone.Id;
-
-        await sessionManager.Create(result);
+        var result = await sessionManager.Create(mapper.Map<TattooSession>(dto));
         return mapper.Map<TattooSessionDto>(result);
     }
 
@@ -50,7 +27,7 @@ public class TattooSessionService(
     {
         var result = await sessionManager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"TattooSession with Id {dtoId} not found")
+            ? throw new KeyNotFoundException($"Тату-сессия с Id {dtoId} не найдена")
             : mapper.Map<TattooSessionDto>(result);
     }
 

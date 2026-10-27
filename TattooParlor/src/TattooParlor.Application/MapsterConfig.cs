@@ -21,8 +21,9 @@ public class MapsterConfig : IRegister
     {
         config.NewConfig<CustomerCreateUpdateDto, Customer>()
             .Ignore(dest => dest.Id)
-            .Ignore(dest => dest.VisitCount);
+            .Ignore(dest => dest.Sessions);
         config.NewConfig<CustomerDto, Customer>()
+            .Ignore(dest => dest.Sessions)
             .TwoWays();
         config.NewConfig<(Customer Customer, int Visits), CustomerVisitsDto>()
             .MapWith(src => new CustomerVisitsDto(
@@ -30,35 +31,41 @@ public class MapsterConfig : IRegister
 
         config.NewConfig<TattooArtistCreateUpdateDto, TattooArtist>()
             .Ignore(dest => dest.Id)
-            .Ignore(dest => dest.Rating);
+            .Ignore(dest => dest.Sessions);
         config.NewConfig<TattooArtistDto, TattooArtist>()
+            .Ignore(dest => dest.Sessions)
             .TwoWays();
         config.NewConfig<(TattooArtist Artist, decimal Money), TattooArtistRevenueDto>()
             .MapWith(src => new TattooArtistRevenueDto(
                  src.Artist.Id, src.Artist.FirstName, src.Artist.LastName, src.Money));
 
         config.NewConfig<BodyZonePricingCreateUpdateDto, BodyZonePricing>()
-            .Ignore(dest => dest.Id);
+            .Ignore(dest => dest.Id)
+            .Ignore(dest => dest.Sessions);
         config.NewConfig<BodyZonePricingDto, BodyZonePricing>()
+            .Ignore(dest => dest.Sessions)
             .TwoWays();
 
         config.NewConfig<StylePricingCreateUpdateDto, StylePricing>()
-            .Ignore(dest => dest.Id);
+            .Ignore(dest => dest.Id)
+            .Ignore(dest => dest.Sessions);
         config.NewConfig<StylePricingDto, StylePricing>()
+            .Ignore(dest => dest.Sessions)
             .TwoWays();
 
         config.NewConfig<TattooSessionCreateUpdateDto, TattooSession>()
             .Ignore(dest => dest.Id)
             .Ignore(dest => dest.Customer)
             .Ignore(dest => dest.TattooArtist)
-            .Ignore(dest => dest.BodyZone)
-            .Ignore(dest => dest.Style);
+            .Ignore(dest => dest.BodyZoneId)
+            .Ignore(dest => dest.StyleId)
+            .Map(dest => dest.Style, src => new StylePricing { Id = 0, Style = src.Style, PricePerSqCm = 0 })
+            .Map(dest => dest.BodyZone, src => new BodyZonePricing { Id = 0, BodyZone = src.BodyZone, Multiplier = 0 });
         config.NewConfig<TattooSession, TattooSessionDto>()
             .Map(dest => dest.CustomerId, src => src.Customer.Id)
             .Map(dest => dest.TattooArtistId, src => src.TattooArtist.Id)
             .Map(dest => dest.BodyZone, src => src.BodyZone)
-            .Map(dest => dest.Style, src => src.Style)
-            .TwoWays();
+            .Map(dest => dest.Style, src => src.Style);
         config.NewConfig<(decimal MinCost, decimal MaxCost, decimal AverageCost), TattooSessionRange>()
             .MapWith(src => new TattooSessionRange(src.MinCost, src.MaxCost, src.AverageCost));
     }

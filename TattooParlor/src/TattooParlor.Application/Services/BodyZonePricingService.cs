@@ -28,7 +28,7 @@ public class BodyZonePricingService(ICrudRepository<BodyZonePricing, int> manage
     {
         var result = await manager.Read(dtoId);
         return result is null
-            ? throw new KeyNotFoundException($"BodyZonePricing with Id {dtoId} not found")
+            ? throw new KeyNotFoundException($"Запись справочника зон тела с Id {dtoId} не найдена")
             : mapper.Map<BodyZonePricingDto>(result);
     }
 

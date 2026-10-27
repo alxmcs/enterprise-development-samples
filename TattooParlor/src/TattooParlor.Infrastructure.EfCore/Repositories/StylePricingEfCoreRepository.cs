@@ -33,7 +33,7 @@ public class StylePricingEfCoreRepository(TattooParlorDbContext context) : ICrud
     public async Task<StylePricing> Update(StylePricing entity)
     {
         var existing = await context.StylePricings.FirstOrDefaultAsync(s => s.Id == entity.Id)
-            ?? throw new KeyNotFoundException($"Style pricing with Id {entity.Id} not found");
+            ?? throw new KeyNotFoundException($"Запись справочника стилей с Id {entity.Id} не найдена");
         context.Entry(existing).CurrentValues.SetValues(entity);
         await context.SaveChangesAsync();
         return existing;

@@ -12,6 +12,7 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     /// <inheritdoc/>
     public Task<TattooSession> Create(TattooSession entity)
     {
+        ResolveRelations(entity);
         entity.Id = Guid.NewGuid();
         data.TattooSessions.Add(entity);
         return Task.FromResult(entity);
@@ -46,9 +47,28 @@ public class TattooSessionsInMemoryRepository(DataSeeder data) : ITattooSessionM
     public Task<TattooSession> Update(TattooSession entity)
     {
         var id = entity.Id;
+        ResolveRelations(entity);
         Delete(id);
         Create(entity);
         entity.Id = id;
         return Task.FromResult(entity);
+    }
+
+    private void ResolveRelations(TattooSession entity)
+    {
+        var style = entity.Style.Style;
+        var bodyZone = entity.BodyZone.BodyZone;
+
+        entity.Customer = data.Customers.FirstOrDefault(c => c.Id == entity.CustomerId)
+            ?? throw new KeyNotFoundException($"Клиент с Id {entity.CustomerId} не найден");
+        entity.TattooArtist = data.TattooArtists.FirstOrDefault(a => a.Id == entity.TattooArtistId)
+            ?? throw new KeyNotFoundException($"Тату-мастер с Id {entity.TattooArtistId} не найден");
+        entity.Style = data.StylePricings.FirstOrDefault(s => s.Style == style)
+            ?? throw new KeyNotFoundException($"Стиль татуировки {style} не найден");
+        entity.BodyZone = data.BodyZonePricings.FirstOrDefault(z => z.BodyZone == bodyZone)
+            ?? throw new KeyNotFoundException($"Зона тела {bodyZone} не найдена");
+
+        entity.StyleId = entity.Style.Id;
+        entity.BodyZoneId = entity.BodyZone.Id;
     }
 }

@@ -13,6 +13,7 @@ namespace TattooParlor.Application.Contracts.TattooArtists;
 /// <param name="Email">Электронная почта</param>
 /// <param name="WorkStartDate">Дата начала работы</param>
 /// <param name="FavoriteStyle">Предпочитаемый стиль</param>
+/// <param name="Rating">Рейтинг</param>
 public record TattooArtistCreateUpdateDto
 (
     [Required, StringLength(50, MinimumLength = 1)] string FirstName,
@@ -21,5 +22,6 @@ public record TattooArtistCreateUpdateDto
     [Phone, StringLength(20)] string? PhoneNumber,
     [EmailAddress, StringLength(100)] string? Email,
     DateOnly WorkStartDate,
-    [EnumDataType(typeof(TattooStyle))] TattooStyle? FavoriteStyle
+    [EnumDataType(typeof(TattooStyle))] TattooStyle? FavoriteStyle,
+    [Range(0, double.MaxValue)] double Rating = 0
 );

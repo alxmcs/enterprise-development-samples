@@ -71,7 +71,7 @@ public class CustomerEfCoreRepository(TattooParlorDbContext context) : ICustomer
     public async Task<Customer> Update(Customer entity)
     {
         var existing = await context.Customers.FirstOrDefaultAsync(c => c.Id == entity.Id)
-            ?? throw new KeyNotFoundException($"Customer with Id {entity.Id} not found");
+            ?? throw new KeyNotFoundException($"Клиент с Id {entity.Id} не найден");
         context.Entry(existing).CurrentValues.SetValues(entity);
         await context.SaveChangesAsync();
         return existing;

@@ -12,6 +12,7 @@ namespace TattooParlor.Application.Contracts.Customers;
 /// <param name="Email">Электронная почта</param>
 /// <param name="FirstVisitDate">Дата первого визита</param>
 /// <param name="HasAllergies">Наличие аллергий</param>
+/// <param name="VisitCount">Число визитов</param>
 public record CustomerCreateUpdateDto
 (
     [Required, StringLength(50, MinimumLength = 1)] string FirstName,
@@ -20,5 +21,6 @@ public record CustomerCreateUpdateDto
     [Phone, StringLength(20)] string? PhoneNumber,
     [EmailAddress, StringLength(100)] string? Email,
     DateOnly FirstVisitDate,
-    bool HasAllergies
+    bool HasAllergies,
+    [Range(0, int.MaxValue)] int VisitCount = 0
 );
