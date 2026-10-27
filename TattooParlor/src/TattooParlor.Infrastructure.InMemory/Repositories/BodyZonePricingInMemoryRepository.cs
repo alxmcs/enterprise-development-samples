@@ -28,7 +28,7 @@ public class BodyZonePricingInMemoryRepository(DataSeeder data) : ICrudRepositor
     public Task<BodyZonePricing?> Read(int entityId) => Task.FromResult(data.BodyZonePricings.FirstOrDefault(s => s.Id == entityId));
 
     /// <inheritdoc/> 
-    public Task<IList<BodyZonePricing>> ReadAll() => Task.FromResult<IList<BodyZonePricing>>(data.BodyZonePricings);
+    public Task<IList<BodyZonePricing>> ReadAll() => Task.FromResult<IList<BodyZonePricing>>([.. data.BodyZonePricings]);
 
     /// <inheritdoc/> 
     public Task<BodyZonePricing> Update(BodyZonePricing entity)
