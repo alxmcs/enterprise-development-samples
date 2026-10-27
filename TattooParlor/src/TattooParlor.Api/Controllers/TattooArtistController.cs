@@ -18,12 +18,12 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
     /// </summary>
     /// <param name="id">Идентификатор тату-мастера</param>
     /// <returns>Список сессий</returns>
-    [HttpGet("{id}/sessions")]
+    [HttpGet("{id:int}/sessions")]
     [EndpointSummary("Получение связанных сессий")]
     [EndpointDescription("Возвращает список всех сессий, связанных с указанным тату-мастером")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<IList<TattooSessionDto>> GetSessions(int id)
     {
         logger.LogInformation("{method} method of {controller} is called with {id} parameter", nameof(GetSessions), GetType().Name, id);
@@ -41,7 +41,7 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetSessions), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
 
     }
@@ -54,8 +54,8 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
     [HttpGet("by-style/{style}")]
     [EndpointSummary("Получение списка тату-мастеров с указанным стилем")]
     [EndpointDescription("Возвращает список всех тату-мастеров с указанным стилем")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<IList<TattooArtistDto>> GetArtistsByFavoriteStyle(TattooStyle style)
     {
         logger.LogInformation("{method} method of {controller} is called with {style} parameter", nameof(GetArtistsByFavoriteStyle), GetType().Name, style);
@@ -67,7 +67,7 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetArtistsByFavoriteStyle), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -80,8 +80,8 @@ public class TattooArtistController(ITattooArtistService appService, ILogger<Tat
     [HttpGet("top-by-revenue")]
     [EndpointSummary("Получение топ-5 тату-мастеров по доходу")]
     [EndpointDescription("Возвращает список топ-5 тату-мастеров по доходу за указанный период")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 public ActionResult<IList<TattooArtistRevenueDto>> GetTop5ArtistsByRevenue([FromQuery] DateOnly startDate, [FromQuery] DateOnly endDate)
     {
         logger.LogInformation("{method} method of {controller} is called with {startDate}/{endDate} parameters", nameof(GetTop5ArtistsByRevenue), GetType().Name, startDate, endDate);
@@ -93,7 +93,7 @@ public ActionResult<IList<TattooArtistRevenueDto>> GetTop5ArtistsByRevenue([From
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetTop5ArtistsByRevenue), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 }

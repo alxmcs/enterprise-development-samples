@@ -19,8 +19,8 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
     [HttpGet("non-refundable")]
     [EndpointSummary("Получение всех сессий, которые не подлежат возврату")]
     [EndpointDescription("Возвращает список всех сессий, которые не подлежат возврату")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<IList<TattooSessionDto>> GetAllNonRefundable()
     {
         logger.LogInformation("{method} method of {controller} is called", nameof(GetAllNonRefundable), GetType().Name);
@@ -32,7 +32,7 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetAllNonRefundable), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 
@@ -44,8 +44,8 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
     [HttpGet("cost-range/{style}")]
     [EndpointSummary("Получение диапазона стоимости для указанного стиля")]
     [EndpointDescription("Возвращает диапазон стоимости для указанного стиля")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(500)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<TattooSessionRange> GetCostRange(TattooStyle style)
     {
         logger.LogInformation("{method} method of {controller} is called with {style} parameter", nameof(GetCostRange), GetType().Name, style);
@@ -57,7 +57,7 @@ public class TattooSessionController(ITattooSessionService appService, ILogger<T
         catch (Exception ex)
         {
             logger.LogError(ex, "An exception happened during {method} method of {controller}", nameof(GetCostRange), GetType().Name);
-            return StatusCode(500, "Internal server error occurred");
+            return StatusCode(StatusCodes.Status500InternalServerError, "Internal server error occurred");
         }
     }
 }
