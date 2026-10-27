@@ -35,6 +35,9 @@ public class TattooSessionService(
         result.Style = styleRepo.ReadAll().FirstOrDefault(s => s.Style == dto.Style) ?? throw new KeyNotFoundException($"Tattoo style {dto.Style} not found");
         result.BodyZone = zoneRepo.ReadAll().FirstOrDefault(s => s.BodyZone == dto.BodyZone) ?? throw new KeyNotFoundException($"Body zone {dto.BodyZone} not found");
 
+        result.StyleId = result.Style.Id;
+        result.BodyZoneId = result.BodyZone.Id;
+
         sessionManager.Create(result);
         return mapper.Map<TattooSessionDto>(result);
     }
