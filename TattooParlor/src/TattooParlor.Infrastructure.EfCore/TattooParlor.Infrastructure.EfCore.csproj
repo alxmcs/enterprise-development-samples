@@ -9,14 +9,9 @@
   <ItemGroup>
 	<PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.6.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.14" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.14">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\TattooParlor.Domain\TattooParlor.Domain.csproj" />
     <ProjectReference Include="..\TattooParlor.Domain\TattooParlor.Domain.csproj" />
   </ItemGroup>
 
