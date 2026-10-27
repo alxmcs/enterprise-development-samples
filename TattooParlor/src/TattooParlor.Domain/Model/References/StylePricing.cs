@@ -39,5 +39,5 @@ public class StylePricing
     /// <summary>
     /// Сессии с данным стилем
     /// </summary>
-    public ICollection<TattooSession> Sessions { get; set; } = [];
+    public virtual ICollection<TattooSession> Sessions { get; set; } = [];
 }

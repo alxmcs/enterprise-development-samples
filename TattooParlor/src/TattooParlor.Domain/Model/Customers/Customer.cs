@@ -31,5 +31,5 @@ public class Customer : Person
     /// <summary>
     /// Сессии клиента
     /// </summary>
-    public ICollection<TattooSession> Sessions { get; set; } = [];
+    public virtual ICollection<TattooSession> Sessions { get; set; } = [];
 }

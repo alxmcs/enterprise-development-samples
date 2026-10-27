@@ -46,7 +46,7 @@ public class TattooArtistsInMemoryRepository(DataSeeder data) : ITattooArtistMan
         var end = endDate.ToDateTime(TimeOnly.MaxValue);
 
         if (start > end)
-            throw new ArgumentException("Start date must be less than or equal to end date");
+            throw new ArgumentException("Дата начала не может быть позже даты окончания");
 
         return Task.FromResult<IList<(TattooArtist Artist, decimal Money)>>([.. data.TattooSessions
             .Where(s => s.SessionDate >= start && s.SessionDate <= end && s.CancelDate == null)

@@ -29,7 +29,7 @@ public class TattooSession
     /// <summary>
     /// Клиент
     /// </summary>
-    public required Customer Customer { get; set; }
+    public virtual required Customer Customer { get; set; }
 
     /// <summary>
     /// Идентификатор мастера
@@ -41,7 +41,7 @@ public class TattooSession
     /// <summary>
     /// Мастер
     /// </summary>
-    public required TattooArtist TattooArtist { get; set; }
+    public virtual required TattooArtist TattooArtist { get; set; }
 
     /// <summary>
     /// Дата сессии
@@ -59,7 +59,7 @@ public class TattooSession
     /// <summary>
     /// Зона татуировки
     /// </summary>
-    public required BodyZonePricing BodyZone { get; set; }
+    public virtual required BodyZonePricing BodyZone { get; set; }
 
     /// <summary>
     /// Идентификатор стиля татуировки
@@ -71,7 +71,7 @@ public class TattooSession
     /// <summary>
     /// Стиль татуировки
     /// </summary>
-    public required StylePricing Style { get; set; }
+    public virtual required StylePricing Style { get; set; }
 
     /// <summary>
     /// Высота татуировки в сантиметрах

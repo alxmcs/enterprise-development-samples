@@ -32,5 +32,5 @@ public class TattooArtist : Person
     /// <summary>
     /// Сессии мастера
     /// </summary>
-    public ICollection<TattooSession> Sessions { get; set; } = [];
+    public virtual ICollection<TattooSession> Sessions { get; set; } = [];
 }
