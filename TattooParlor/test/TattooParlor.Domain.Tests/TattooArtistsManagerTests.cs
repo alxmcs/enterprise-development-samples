@@ -19,11 +19,11 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
     [InlineData(TattooStyle.Realistic, 1)]
     [InlineData(TattooStyle.Watercolor, 1)]
     [InlineData(TattooStyle.Blackwork, 1)]
-    public void ShowArtistsByFavoriteStyle_StyleExistsInSessions_ReturnsArtists(TattooStyle style, int expectedCount)
+    public async Task ShowArtistsByFavoriteStyle_StyleExistsInSessions_ReturnsArtists(TattooStyle style, int expectedCount)
     {
         var repo = new TattooArtistsInMemoryRepository(data);
 
-        var result = repo.ShowArtistsByFavoriteStyle(style);
+        var result = await repo.ShowArtistsByFavoriteStyle(style);
 
         Assert.Equal(expectedCount, result.Count);
     }
@@ -32,11 +32,11 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
     /// Проверка, что метод возвращает пустую коллекцию, если стиль не встречается в сессиях
     /// </summary>
     [Fact]
-    public void ShowArtistsByFavoriteStyle_StyleDoesNotExistInSessions_ReturnsEmptyCollection()
+    public async Task ShowArtistsByFavoriteStyle_StyleDoesNotExistInSessions_ReturnsEmptyCollection()
     {
         var repo = new TattooArtistsInMemoryRepository(data);
 
-        var result = repo.ShowArtistsByFavoriteStyle(TattooStyle.Minimalism);
+        var result = await repo.ShowArtistsByFavoriteStyle(TattooStyle.Minimalism);
 
         Assert.Empty(result);
     }
@@ -52,13 +52,13 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
     [InlineData("2026-01-01", "2026-12-31", 5, 14212.5)]
     [InlineData("2026-01-01", "2026-02-10", 2, 4914.00)]
     [InlineData("2026-03-01", "2026-04-20", 2, 1829.52)]
-    public void ShowTop5ArtistsByRevenue_CorrectDates_ReturnsArtists(string startDate, string endDate, int expectedCount, decimal expectedRevenue)
+    public async Task ShowTop5ArtistsByRevenue_CorrectDates_ReturnsArtists(string startDate, string endDate, int expectedCount, decimal expectedRevenue)
     {
         var repo = new TattooArtistsInMemoryRepository(data);
         var start = DateOnly.Parse(startDate);
         var end = DateOnly.Parse(endDate);
 
-        var result = repo.ShowTop5ArtistsByRevenue(start, end);
+        var result = await repo.ShowTop5ArtistsByRevenue(start, end);
 
         Assert.Equal(expectedCount, result.Count);
         Assert.Equal(expectedRevenue, result[0].Money);
@@ -68,12 +68,12 @@ public class TattooArtistsManagerTests(DataSeeder data) : IClassFixture<DataSeed
     /// Проверка, что метод выбрасывает исключение, если дата начала позже даты окончания
     /// </summary>
     [Fact]
-    public void ShowTop5ArtistsByRevenue_StartDateAfterEndDate_ThrowsArgumentException()
+    public async Task ShowTop5ArtistsByRevenue_StartDateAfterEndDate_ThrowsArgumentException()
     {
         var repo = new TattooArtistsInMemoryRepository(data);
         var start = DateOnly.Parse("2026-12-31");
         var end = DateOnly.Parse("2026-01-01");
 
-        Assert.Throws<ArgumentException>(() => repo.ShowTop5ArtistsByRevenue(start, end));
+        await Assert.ThrowsAsync<ArgumentException>(() => repo.ShowTop5ArtistsByRevenue(start, end));
     }
 }

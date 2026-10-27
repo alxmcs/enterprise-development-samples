@@ -14,11 +14,11 @@ public class TattooSessionManagerTests(DataSeeder data) : IClassFixture<DataSeed
     /// Проверка, что метод возвращает все сессии, которые не подлежат возврату
     /// </summary>
     [Fact]
-    public void ShowAllNonRefundable_Sessions_ReturnsNonRefundableSessions()
+    public async Task ShowAllNonRefundable_Sessions_ReturnsNonRefundableSessions()
     {
         var repo = new TattooSessionsInMemoryRepository(data);
 
-        var result = repo.ShowAllNonRefundable();
+        var result = await repo.ShowAllNonRefundable();
 
         Assert.NotEmpty(result);
         Assert.All(result, s => Assert.True(s.IsPrepaymentNonRefundable));
@@ -36,11 +36,11 @@ public class TattooSessionManagerTests(DataSeeder data) : IClassFixture<DataSeed
     [InlineData(TattooStyle.Watercolor, 2400, 11430.72, 6248.24)]
     [InlineData(TattooStyle.Blackwork, 7840, 7840, 7840)]
     [InlineData(TattooStyle.Minimalism, 0, 0, 0)]
-    public void ShowCostRange_ReturnsValues(TattooStyle style, decimal expectedMin, decimal expectedMax, decimal expectedAverage)
+    public async Task ShowCostRange_ReturnsValues(TattooStyle style, decimal expectedMin, decimal expectedMax, decimal expectedAverage)
     {
         var repo = new TattooSessionsInMemoryRepository(data);
 
-        var (min, max, average) = repo.ShowCostRange(style);
+        var (min, max, average) = await repo.ShowCostRange(style);
 
         Assert.Equal(expectedMin, min);
         Assert.Equal(expectedMax, max);
