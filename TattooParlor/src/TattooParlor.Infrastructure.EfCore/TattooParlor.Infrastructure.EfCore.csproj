@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\TattooParlor.Domain\TattooParlor.Domain.csproj" />
+    <ProjectReference Include="..\TattooParlor.Domain\TattooParlor.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TattooParlor.Application.Contracts\TattooParlor.Application.Contracts.csproj" />
     <ProjectReference Include="..\TattooParlor.Application\TattooParlor.Application.csproj" />
-    <ProjectReference Include="..\TattooParlor.Infrastructure.InMemory\TattooParlor.Infrastructure.InMemory.csproj" />
+    <ProjectReference Include="..\TattooParlor.Infrastructure.EfCore\TattooParlor.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>
