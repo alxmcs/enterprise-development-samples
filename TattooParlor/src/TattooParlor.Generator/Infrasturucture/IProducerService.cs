@@ -11,5 +11,6 @@ public interface IProducerService
     /// Метод для отправки коллекции контрактов
     /// </summary>
     /// <param name="batch">Коллекция контрактов</param>
-    public Task SendAsync(IList<TattooSessionCreateUpdateDto> batch);
+    /// <param name="cancellationToken">Токен отмены</param>
+    public Task SendAsync(IList<TattooSessionCreateUpdateDto> batch, CancellationToken cancellationToken);
 }

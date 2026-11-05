@@ -20,12 +20,17 @@ if (builder.Environment.EnvironmentName == "Kafka")
 {
     var kafkaTopic = builder.AddParameter("KafkaTopic");
 
-    var kafka = builder.AddKafka("bookstore-kafka")
-    .WithKafkaUI();
+    var kafka = builder.AddKafka("tattooparlor-kafka")
+        .WithKafkaUI();
+
+    var kafkaGenerator = builder.AddProject<Projects.TattooParlor_Generator_Kafka>("tattooparlor-generator-kafka")
+        .WithEnvironment("Kafka:TopicName", kafkaTopic)
+        .WithReference(kafka)
+        .WaitFor(kafka);
 
     apiHost.WithEnvironment("Kafka:TopicName", kafkaTopic)
-    .WithReference(kafka)
-    .WaitFor(kafka);
+        .WithReference(kafka)
+        .WaitFor(kafka);
 }
 if (builder.Environment.EnvironmentName == "RabbitMQ")
 {
@@ -33,7 +38,7 @@ if (builder.Environment.EnvironmentName == "RabbitMQ")
     var rabbitPassword = builder.AddParameter("RabbitMQPassword");
     var rabbitMqQueue = builder.AddParameter("RabbitMQQueue");
 
-    var rabbitMq = builder.AddRabbitMQ("bookstore-rabbitmq", userName: rabbitUserName, password: rabbitPassword)
+    var rabbitMq = builder.AddRabbitMQ("tattooparlor-rabbitmq", userName: rabbitUserName, password: rabbitPassword)
         .WithManagementPlugin();
 
     apiHost.WithEnvironment("RabbitMq:QueueName", rabbitMqQueue)
@@ -47,15 +52,15 @@ if (builder.Environment.EnvironmentName == "Nats")
     var natsStream = builder.AddParameter("NatsStream");
     var natsSubject = builder.AddParameter("NatsSubject");
 
-    var nats = builder.AddNats("bookstore-nats", userName: natsUserName, password: natsPassword, port: 4222)
+    var nats = builder.AddNats("tattooparlor-nats", userName: natsUserName, password: natsPassword, port: 4222)
         .WithJetStream()
         .WithArgs("-m", "8222")
         .WithHttpEndpoint(port: 8222, targetPort: 8222);
 
-    builder.AddContainer("bookstore-nui", "ghcr.io/nats-nui/nui")
-     .WithReference(nats)
-     .WaitFor(nats)
-     .WithHttpEndpoint(port: 31311, targetPort: 31311);
+    builder.AddContainer("tattooparlor-nui", "ghcr.io/nats-nui/nui")
+        .WithReference(nats)
+        .WaitFor(nats)
+        .WithHttpEndpoint(port: 31311, targetPort: 31311);
 
     apiHost.WithEnvironment("Nats:SubjectName", natsSubject)
         .WithEnvironment("Nats:StreamName", natsStream)

@@ -6,9 +6,9 @@ namespace TattooParlor.Generator.Kafka.Infrastructure.Serializers;
 /// <summary>
 /// Сериализатор для ключа пейлода Kafka
 /// </summary>
-public class TattooParlorKeySerializer : ISerializer<Guid>
+public class TattooParlorKeySerializer : ISerializer<int>
 {
     /// <inheritdoc/>
-    public byte[] Serialize(Guid data, SerializationContext context) =>
+    public byte[] Serialize(int data, SerializationContext context) =>
        JsonSerializer.SerializeToUtf8Bytes(data);
 }

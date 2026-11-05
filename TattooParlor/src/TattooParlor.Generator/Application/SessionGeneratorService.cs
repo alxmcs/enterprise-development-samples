@@ -20,7 +20,7 @@ public class SessionGeneratorService(IConfiguration configuration, IServiceScope
     private readonly string _waitTime = configuration.GetSection("Generator")["WaitTime"] ?? throw new KeyNotFoundException("WaitTime section of Generator is missing");
 
     /// <inheritdoc/>
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         logger.LogInformation("Starting to send {total} messages with {time}s interval with {batch} messages in batch", _payloadLimit, _waitTime, _batchSize);
 
@@ -34,8 +34,8 @@ public class SessionGeneratorService(IConfiguration configuration, IServiceScope
         while (counter < payloadLimit)
         {
 
-            await producer.SendAsync(SessionGenerator.GenerateLinks(batchSize));
-            await Task.Delay(waitTime * 1000, stoppingToken);
+            await producer.SendAsync(SessionGenerator.GenerateLinks(batchSize), cancellationToken);
+            await Task.Delay(waitTime * 1000, cancellationToken);
             counter += batchSize;
         }
         logger.LogInformation("Finished sending {total} messages with {time}s interval with {batch} messages in batch", _payloadLimit, _waitTime, _batchSize);
