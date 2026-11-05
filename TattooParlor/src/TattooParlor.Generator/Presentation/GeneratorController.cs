@@ -40,7 +40,7 @@ public class GeneratorController(ILogger<GeneratorController> logger, IApiMeter 
                 var batch = SessionGenerator.GenerateLinks(batchSize);
                 await producerService.SendAsync(batch, cancellationToken);
                 logger.LogInformation("Batch of {batchSize} items has been sent", batchSize);
-                await Task.Delay(waitTime * 1000);
+                await Task.Delay(waitTime * 1000, cancellationToken);
                 counter += batchSize;
                 list.AddRange(batch);
             }

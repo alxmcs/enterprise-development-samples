@@ -36,12 +36,25 @@ if (builder.Environment.EnvironmentName == "RabbitMQ")
 {
     var rabbitUserName = builder.AddParameter("RabbitMQLogin");
     var rabbitPassword = builder.AddParameter("RabbitMQPassword");
-    var rabbitMqQueue = builder.AddParameter("RabbitMQQueue");
+    var rabbitMqExchange = builder.AddParameter("RabbitMQExchangeName");
+    var rabbitMQCanceledRoutingKey = builder.AddParameter("RabbitMQConfirmedRoutingKey");
+    var rabbitMQConfirmedRoutingKey = builder.AddParameter("RabbitMQCanceledRoutingKey");
+    var rabbitMQConfirmedQueueName = builder.AddParameter("RabbitMQConfirmedQueueName");
+    var rabbitMQCanceledQueueName = builder.AddParameter("RabbitMQCanceledQueueName");
 
     var rabbitMq = builder.AddRabbitMQ("tattooparlor-rabbitmq", userName: rabbitUserName, password: rabbitPassword)
         .WithManagementPlugin();
 
-    apiHost.WithEnvironment("RabbitMq:QueueName", rabbitMqQueue)
+    builder.AddProject<Projects.TattooParlor_Generator_Rabbitmq>("tattooparlor-generator-rabbitmq")
+        .WithEnvironment("RabbitMQ:ExchangeName", rabbitMqExchange)
+        .WithEnvironment("RabbitMQ:ConfirmedQueueName", rabbitMQCanceledRoutingKey)
+        .WithEnvironment("RabbitMQ:CanceledQueueName", rabbitMQConfirmedRoutingKey)
+        .WithEnvironment("RabbitMQ:ConfirmedRoutingKey", rabbitMQConfirmedQueueName)
+        .WithEnvironment("RabbitMQ:CanceledRoutingKey", rabbitMQCanceledQueueName)
+        .WithReference(rabbitMq)
+        .WaitFor(rabbitMq);
+
+    apiHost.WithEnvironment("RabbitMq:QueueName", rabbitMQConfirmedQueueName)
         .WithReference(rabbitMq)
         .WaitFor(rabbitMq);
 }
@@ -71,7 +84,5 @@ if (builder.Environment.EnvironmentName == "gRPC")
 {
 
 }
-
-builder.AddProject<Projects.TattooParlor_Generator_Kafka>("tattooparlor-generator-kafka");
 
 builder.Build().Run();

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.RabbitMQ.Client" Version="13.6.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\aspire\TattooParlor.ServiceDefaults\TattooParlor.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\TattooParlor.Application.Contracts\TattooParlor.Application.Contracts.csproj" />
+    <ProjectReference Include="..\TattooParlor.Generator\TattooParlor.Generator.csproj" />
+  </ItemGroup>
+
+</Project>
