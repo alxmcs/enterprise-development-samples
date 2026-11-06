@@ -63,7 +63,8 @@ if (builder.Environment.EnvironmentName == "Nats")
     var natsUserName = builder.AddParameter("NatsLogin");
     var natsPassword = builder.AddParameter("NatsPassword");
     var natsStream = builder.AddParameter("NatsStream");
-    var natsSubject = builder.AddParameter("NatsSubject");
+    var natsSubjectConfirmed = builder.AddParameter("NatsConfirmedSubjectName");
+    var natsSubjectCancelled = builder.AddParameter("NatsCanceledSubjectName");
 
     var nats = builder.AddNats("tattooparlor-nats", userName: natsUserName, password: natsPassword, port: 4222)
         .WithJetStream()
@@ -75,7 +76,14 @@ if (builder.Environment.EnvironmentName == "Nats")
         .WaitFor(nats)
         .WithHttpEndpoint(port: 31311, targetPort: 31311);
 
-    apiHost.WithEnvironment("Nats:SubjectName", natsSubject)
+    builder.AddProject<Projects.TattooParlor_Generator_Nats>("tattooparlor-generator-nats")
+        .WithEnvironment("Nats:StreamName", natsStream)
+        .WithEnvironment("Nats:CanceledSubjectName", natsSubjectCancelled)
+        .WithEnvironment("Nats:ConfirmedSubjectName", natsSubjectConfirmed)
+        .WithReference(nats)
+        .WaitFor(nats);
+
+    apiHost.WithEnvironment("Nats:SubjectName", natsSubjectConfirmed)
         .WithEnvironment("Nats:StreamName", natsStream)
         .WithReference(nats)
         .WaitFor(nats);
@@ -84,5 +92,7 @@ if (builder.Environment.EnvironmentName == "gRPC")
 {
 
 }
+
+
 
 builder.Build().Run();

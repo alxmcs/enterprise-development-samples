@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\TattooParlor.Api\TattooParlor.Api.csproj" />
     <ProjectReference Include="..\..\src\TattooParlor.Generator.Kafka\TattooParlor.Generator.Kafka.csproj" />
+    <ProjectReference Include="..\..\src\TattooParlor.Generator.Nats\TattooParlor.Generator.Nats.csproj" />
     <ProjectReference Include="..\..\src\TattooParlor.Generator.Rabbitmq\TattooParlor.Generator.Rabbitmq.csproj" />
   </ItemGroup>
 
