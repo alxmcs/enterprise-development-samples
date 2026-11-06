@@ -17,13 +17,13 @@ public static class SessionGenerator
     public static List<TattooSessionCreateUpdateDto> GenerateLinks(int count) =>
         new Faker<TattooSessionCreateUpdateDto>()
             .WithRecord()
-            .RuleFor(ts => ts.CustomerId, f => f.Random.Int(1, 200))
-            .RuleFor(ts => ts.TattooArtistId, f => f.Random.Int(1, 200))
-            .RuleFor(ts => ts.SessionDate, f => f.Date.Between(DateTime.Now.AddDays(-30), DateTime.Now.AddDays(30)))
+            .RuleFor(ts => ts.CustomerId, f => f.Random.Int(1, 15))
+            .RuleFor(ts => ts.TattooArtistId, f => f.Random.Int(1, 15))
+            .RuleFor(ts => ts.SessionDate, f => f.Date.Between(DateTime.Now.AddDays(-5), DateTime.Now.AddDays(30)))
             .RuleFor(ts => ts.BodyZone, f => f.PickRandom<BodyZone>())
             .RuleFor(ts => ts.Style, f => f.PickRandom<TattooStyle>())
-            .RuleFor(ts => ts.HeightInCm, f => f.Random.Double(0.1, 500))
-            .RuleFor(ts => ts.WidthInCm, f => f.Random.Double(0.1, 500))
+            .RuleFor(ts => ts.HeightInCm, f => Math.Round(f.Random.Double(0.1, 500), 2))
+            .RuleFor(ts => ts.WidthInCm, f => Math.Round(f.Random.Double(0.1, 500), 2))
             .RuleFor(ts => ts.IsMulticolor, f => f.Random.Bool())
             .RuleFor(ts => ts.CancelDate, (f, ts) => f.Random.Bool() ? f.Date.Between(DateTime.Now, ts.SessionDate) : null)
             .Generate(count);

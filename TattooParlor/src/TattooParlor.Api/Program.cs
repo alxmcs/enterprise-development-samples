@@ -2,6 +2,7 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using TattooParlor.Api;
 using TattooParlor.Api.OpenApi;
 using TattooParlor.Application;
 using TattooParlor.Application.Contracts;
@@ -28,7 +29,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-//Cлужбы персистенс слоя
+//Cлужбы инфраструктурного слоя
 builder.Services.AddSingleton<DataSeeder>();
 builder.Services.AddScoped<ICustomerManager, CustomerEfCoreRepository>();
 builder.Services.AddScoped<ITattooArtistManager, TattooArtistsEfCoreRepository>();
@@ -36,6 +37,7 @@ builder.Services.AddScoped<ITattooSessionManager, TattooSessionsEfCoreRepository
 builder.Services.AddScoped<ICrudRepository<StylePricing, int>, StylePricingEfCoreRepository>();
 builder.Services.AddScoped<ICrudRepository<BodyZonePricing, int>, BodyZonePricingEfCoreRepository>();
 builder.AddNpgsqlDbContext<TattooParlorDbContext>("Database", configureDbContextOptions: builder => builder.UseLazyLoadingProxies());
+builder.AddGeneratorService(builder.Configuration);
 
 //Cлужбы аппликейшен слоя
 builder.Services.AddSingleton<MapsterConfig>();
@@ -49,6 +51,7 @@ builder.Services.AddScoped<IApplicationService<StylePricingDto, StylePricingCrea
 //Cлужбы презентейшен слоя
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(options => options.AddSchemaTransformer<EnumSchemaTransformer>());
+
 
 var app = builder.Build();
 

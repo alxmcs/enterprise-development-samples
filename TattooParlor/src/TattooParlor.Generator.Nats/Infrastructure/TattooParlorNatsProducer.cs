@@ -16,8 +16,6 @@ namespace TattooParlor.Generator.Nats.Infrastructure;
 /// <param name="logger">Логгер</param>
 public class TattooParlorNatsProducer(IConfiguration configuration, INatsConnection connection, ILogger<TattooParlorNatsProducer> logger) : IProducerService
 {
-    private const string ConsumerName = "tattoo-sessions-consumer";
-
     private readonly string _streamName = configuration.GetSection("Nats")["StreamName"] ?? throw new KeyNotFoundException("StreamName section of Nats is missing");
     private readonly string _confirmedSubjectName = configuration.GetSection("Nats")["ConfirmedSubjectName"] ?? throw new KeyNotFoundException("ConfirmedSubjectName section of Nats is missing");
     private readonly string _canceledSubjectName = configuration.GetSection("Nats")["CanceledSubjectName"] ?? throw new KeyNotFoundException("CanceledSubjectName section of Nats is missing");
@@ -37,14 +35,6 @@ public class TattooParlorNatsProducer(IConfiguration configuration, INatsConnect
                 NumReplicas = 1,
                 MaxMsgs = 100_000,
                 MaxAge = TimeSpan.FromHours(1)
-            }, cancellationToken);
-
-            await context.CreateOrUpdateConsumerAsync(_streamName, new ConsumerConfig(ConsumerName)
-            {
-                DurableName = ConsumerName,
-                AckPolicy = ConsumerConfigAckPolicy.All,
-                AckWait = TimeSpan.FromSeconds(60),
-                MaxDeliver = 5
             }, cancellationToken);
 
             foreach (var stateGroup in batch.GroupBy(contract => contract.CancelDate is not null))
