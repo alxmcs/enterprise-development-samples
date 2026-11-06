@@ -13,5 +13,5 @@ public class TattooParlorValueDeserializer : IDeserializer<IList<TattooSessionCr
 
     /// <inheritdoc/>
     public IList<TattooSessionCreateUpdateDto> Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context) =>
-        isNull? []: JsonSerializer.Deserialize<IList<TattooSessionCreateUpdateDto>>(data, Options) ?? [];
+        isNull ? [] : JsonSerializer.Deserialize<IList<TattooSessionCreateUpdateDto>>(data, Options) ?? [];
 }

@@ -1,4 +1,6 @@
 using Confluent.Kafka;
+using TattooParlor.Api.Grpc;
+using TattooParlor.Application.Contracts.Protos;
 using TattooParlor.Application.Contracts.TattooSessions;
 using TattooParlor.Infrastructure.Kafka;
 using TattooParlor.Infrastructure.Nats;
@@ -69,6 +71,15 @@ internal static class WebApplicationBuilderExtensions
 
         private WebApplicationBuilder AddGrpc()
         {
+            builder.Services.AddHostedService<TattooParlorGrpcClient>();
+            builder.Services.AddGrpc(options =>
+            {
+                options.EnableDetailedErrors = builder.Environment.IsDevelopment();
+            });
+            builder.Services.AddGrpcClient<TattooSessionGrpcService.TattooSessionGrpcServiceClient>(options =>
+            {
+                options.Address = new Uri("https://tattooparlor-generator-grpc:5000");
+            });
 
             return builder;
         }

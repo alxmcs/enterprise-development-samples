@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-const string dbName = "tattoo-parlor";
+const string dbName = "tattoo-parlor-db";
 var password = builder.AddParameter("DatabasePassword");
 var batchSize = builder.AddParameter("GeneratorBatchSize");
 var payloadLimit = builder.AddParameter("GeneratorPayloadLimit");
@@ -109,9 +109,16 @@ if (builder.Environment.EnvironmentName == "Nats")
 }
 if (builder.Environment.EnvironmentName == "gRPC")
 {
+    var grpcGenerator = builder.AddProject<Projects.TattooParlor_Generator_Grpc>("tattooparlor-generator-grpc")
+        .WithReference(apiHost)
+        .WithHttpsEndpoint(5000)
+        .WithEnvironment("Generator:BatchSize", batchSize)
+        .WithEnvironment("Generator:PayloadLimit", payloadLimit)
+        .WithEnvironment("Generator:WaitTime", waitTime);
 
+    apiHost.WithEnvironment("BusType", "gRPC")
+        .WithReference(grpcGenerator)
+        .WaitFor(grpcGenerator);
 }
-
-
 
 builder.Build().Run();

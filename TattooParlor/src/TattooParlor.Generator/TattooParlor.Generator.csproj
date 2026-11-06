@@ -11,7 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Bogus" Version="35.6.5" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.14" />
-	<PackageReference Include="Scalar.AspNetCore" Version="2.17.14" />
+	<PackageReference Include="Scalar.AspNetCore" Version="2.19.0" />
   </ItemGroup>
 
   <ItemGroup>

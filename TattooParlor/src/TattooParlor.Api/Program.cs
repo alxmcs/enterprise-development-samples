@@ -52,7 +52,6 @@ builder.Services.AddScoped<IApplicationService<StylePricingDto, StylePricingCrea
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(options => options.AddSchemaTransformer<EnumSchemaTransformer>());
 
-
 var app = builder.Build();
 
 app.MapDefaultEndpoints();

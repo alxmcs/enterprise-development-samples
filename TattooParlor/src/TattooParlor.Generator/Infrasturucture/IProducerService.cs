@@ -1,4 +1,4 @@
-﻿using TattooParlor.Application.Contracts.TattooSessions;
+using TattooParlor.Application.Contracts.TattooSessions;
 
 namespace TattooParlor.Generator.Infrasturucture;
 

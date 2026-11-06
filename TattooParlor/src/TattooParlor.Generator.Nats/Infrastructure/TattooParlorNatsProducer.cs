@@ -1,7 +1,7 @@
-using System.Text.Json;
 using NATS.Client.Core;
 using NATS.Client.JetStream.Models;
 using NATS.Net;
+using System.Text.Json;
 using TattooParlor.Application.Contracts.TattooSessions;
 using TattooParlor.Generator.Infrasturucture;
 

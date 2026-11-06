@@ -51,7 +51,7 @@ public class TattooArtistService(ITattooArtistManager manager, IMapper mapper) :
     {
         var entity = mapper.Map<TattooArtist>(dto);
         entity.Id = dtoId;
-        var result =  await manager.Update(entity);
+        var result = await manager.Update(entity);
         return mapper.Map<TattooArtistDto>(result);
     }
 }
