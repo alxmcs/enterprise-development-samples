@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "TattooParlor.Application.Contracts.Protos";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service TattooSessionGrpcService
+{
+	rpc GetTattooSessionsStream(google.protobuf.Empty) returns (stream TattooSessionResponse);
+}
+
+message TattooSessionResponse {
+	repeated TattooSessionCreateUpdateMessage TattooSessions = 1;
+	bool IsFinal = 2;
+}
+
+message TattooSessionCreateUpdateMessage {
+  int32 CustomerId = 1;
+  int32 TattooArtistId = 2;
+  google.protobuf.Timestamp SessionDate = 3;
+  BodyZone BodyZone = 4;
+  TattooStyle Style = 5;
+  double HeightInCm = 6;
+  double WidthInCm = 7;
+  bool IsMulticolor = 8;
+  google.protobuf.Timestamp CancelDate = 9;  
+}
+
+enum BodyZone {
+  Forearm = 0;          
+  Shoulder = 1;         
+  Arm = 2;              
+  Chest = 3;            
+  Belly = 4;            
+  Hip = 5;              
+  Thigh = 6;            
+  Calf = 7;             
+  Shin = 8;             
+  Face = 9;             
+  Back = 10;            
+}
+
+enum TattooStyle {
+  Realistic = 0;        
+  Watercolor = 1;       
+  Blackwork = 2;        
+  Geometric = 3;        
+  OldSchool = 4;        
+  Minimalism = 5;       
+  Ornamental = 6;       
+  NeoTraditional = 7;   
+  Tribal = 8;           
+}

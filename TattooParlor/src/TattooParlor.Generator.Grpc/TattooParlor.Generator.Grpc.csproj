@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.85.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\aspire\TattooParlor.ServiceDefaults\TattooParlor.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\TattooParlor.Application.Contracts\TattooParlor.Application.Contracts.csproj" />
+    <ProjectReference Include="..\TattooParlor.Generator\TattooParlor.Generator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\TattooParlor.Application.Contracts\Protos\TattooSessions.proto" GrpcServices="Server">
+      <Link>Protos\TattooSessions.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+</Project>

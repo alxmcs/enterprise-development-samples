@@ -9,8 +9,16 @@
     <Project Path="src/TattooParlor.Application/TattooParlor.Application.csproj" Id="d3cfab12-df4f-4973-bd36-9782fa07966a" />
     <Project Path="src/TattooParlor.Domain.Shared/TattooParlor.Domain.Shared.csproj" Id="64c5e86c-569d-456a-ab76-4b8584cc533f" />
     <Project Path="src/TattooParlor.Domain/TattooParlor.Domain.csproj" />
+    <Project Path="src/TattooParlor.Generator.Grpc/TattooParlor.Generator.Grpc.csproj" />
+    <Project Path="src/TattooParlor.Generator.Kafka/TattooParlor.Generator.Kafka.csproj" />
+    <Project Path="src/TattooParlor.Generator.Nats/TattooParlor.Generator.Nats.csproj" />
+    <Project Path="src/TattooParlor.Generator.Rabbitmq/TattooParlor.Generator.Rabbitmq.csproj" />
+    <Project Path="src/TattooParlor.Generator/TattooParlor.Generator.csproj" Id="6a83a381-4e6a-43de-a30c-0149eac134e4" />
     <Project Path="src/TattooParlor.Infrastructure.EfCore/TattooParlor.Infrastructure.EfCore.csproj" Id="39fbeee7-b70c-4793-aedc-d152576382da" />
     <Project Path="src/TattooParlor.Infrastructure.InMemory/TattooParlor.Infrastructure.InMemory.csproj" Id="683153c9-542d-43db-ad84-61b4263100da" />
+    <Project Path="src/TattooParlor.Infrastructure.Kafka/TattooParlor.Infrastructure.Kafka.csproj" Id="7c3ca6e7-5402-42d0-80a6-695bf74ec2b8" />
+    <Project Path="src/TattooParlor.Infrastructure.Nats/TattooParlor.Infrastructure.Nats.csproj" Id="125f5f1c-a2c4-495c-b7f6-1d9b05e997cf" />
+    <Project Path="src/TattooParlor.Infrastructure.RabbitMq/TattooParlor.Infrastructure.RabbitMq.csproj" Id="e2d9f02a-4840-41be-b4d2-7301562feaff" />
   </Folder>
   <Folder Name="/test/">
     <Project Path="test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj" Id="7a4a1853-2ec3-4e24-9de8-c93aee9dfe51" />
