@@ -12,7 +12,7 @@
     <Project Path="src/TattooParlor.Generator.Grpc/TattooParlor.Generator.Grpc.csproj" />
     <Project Path="src/TattooParlor.Generator.Kafka/TattooParlor.Generator.Kafka.csproj" />
     <Project Path="src/TattooParlor.Generator.Nats/TattooParlor.Generator.Nats.csproj" />
-    <Project Path="src/TattooParlor.Generator.Rabbitmq/TattooParlor.Generator.RabbitMq.csproj" />
+    <Project Path="src/TattooParlor.Generator.RabbitMq/TattooParlor.Generator.RabbitMq.csproj" />
     <Project Path="src/TattooParlor.Generator/TattooParlor.Generator.csproj" Id="6a83a381-4e6a-43de-a30c-0149eac134e4" />
     <Project Path="src/TattooParlor.Infrastructure.EfCore/TattooParlor.Infrastructure.EfCore.csproj" Id="39fbeee7-b70c-4793-aedc-d152576382da" />
     <Project Path="src/TattooParlor.Infrastructure.InMemory/TattooParlor.Infrastructure.InMemory.csproj" Id="683153c9-542d-43db-ad84-61b4263100da" />
