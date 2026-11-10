@@ -26,6 +26,7 @@ public static class ServiceCollectionExtensions
         services.AddControllers().AddApplicationPart(typeof(GeneratorController).Assembly);
         services.AddOpenApi();
         services.AddScoped<IProducerService, TProducer>();
+        services.AddSingleton<TattooParlor.ServiceDefaults.Metrics.IApiMeter, TattooParlor.ServiceDefaults.Metrics.GeneratorApiMeter>();
 
         return services;
     }

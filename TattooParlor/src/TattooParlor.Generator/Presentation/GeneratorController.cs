@@ -30,6 +30,10 @@ public class GeneratorController(ILogger<GeneratorController> logger, IApiMeter 
     [ProducesResponseType(500)]
     public async Task<ActionResult<List<TattooSessionCreateUpdateDto>>> Get([FromQuery] int batchSize, [FromQuery] int payloadLimit, [FromQuery] int waitTime, CancellationToken cancellationToken)
     {
+        if (batchSize <= 0 || payloadLimit < 0 || waitTime < 0)
+        {
+            return BadRequest("batchSize must be positive; payloadLimit and waitTime must be nonnegative.");
+        }
         logger.LogInformation("Generating {limit} contracts via {batchSize} batches and {waitTime}s delay", payloadLimit, batchSize, waitTime);
         try
         {
@@ -37,11 +41,11 @@ public class GeneratorController(ILogger<GeneratorController> logger, IApiMeter 
             var counter = 0;
             while (counter < payloadLimit)
             {
-                var batch = SessionGenerator.GenerateLinks(batchSize);
+                var batch = SessionGenerator.GenerateLinks(Math.Min(batchSize, payloadLimit - counter));
                 await producerService.SendAsync(batch, cancellationToken);
-                logger.LogInformation("Batch of {batchSize} items has been sent", batchSize);
+                logger.LogInformation("Batch of {batchSize} items has been sent", batch.Count);
                 await Task.Delay(waitTime * 1000, cancellationToken);
-                counter += batchSize;
+                counter += batch.Count;
                 list.AddRange(batch);
             }
 

@@ -46,6 +46,7 @@ public class TattooParlorKafkaProducer(
         catch (Exception ex)
         {
             logger.LogError(ex, "Exception occured during sending a batch of {count} contracts to {topic}", batch.Count, _topicName);
+            throw;
         }
     }
 

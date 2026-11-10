@@ -57,6 +57,7 @@ public class TattooParlorNatsProducer(IConfiguration configuration, INatsConnect
         catch (Exception ex)
         {
             logger.LogError(ex, "Exception occured during sending a batch of {count} contracts to {stream}", batch.Count, _streamName);
+            throw;
         }
     }
 }

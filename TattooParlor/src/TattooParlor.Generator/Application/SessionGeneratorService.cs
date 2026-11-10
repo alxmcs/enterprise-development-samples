@@ -24,7 +24,7 @@ public class SessionGeneratorService(IConfiguration configuration, IServiceScope
     {
         logger.LogInformation("Starting to send {total} messages with {time}s interval with {batch} messages in batch", _payloadLimit, _waitTime, _batchSize);
 
-        if (!int.TryParse(_batchSize, out var batchSize)) throw new FormatException("Unable to parse BatchSize");
+        if (!int.TryParse(_batchSize, out var batchSize) || batchSize <= 0) throw new FormatException("BatchSize must be a positive integer");
         if (!int.TryParse(_payloadLimit, out var payloadLimit)) throw new FormatException("Unable to parse PayloadLimit");
         if (!int.TryParse(_waitTime, out var waitTime)) throw new FormatException("Unable to parse WaitTime");
 
@@ -34,9 +34,10 @@ public class SessionGeneratorService(IConfiguration configuration, IServiceScope
         while (counter < payloadLimit)
         {
 
-            await producer.SendAsync(SessionGenerator.GenerateLinks(batchSize), cancellationToken);
+            var batch = SessionGenerator.GenerateLinks(Math.Min(batchSize, payloadLimit - counter));
+            await producer.SendAsync(batch, cancellationToken);
             await Task.Delay(waitTime * 1000, cancellationToken);
-            counter += batchSize;
+            counter += batch.Count;
         }
         logger.LogInformation("Finished sending {total} messages with {time}s interval with {batch} messages in batch", _payloadLimit, _waitTime, _batchSize);
     }

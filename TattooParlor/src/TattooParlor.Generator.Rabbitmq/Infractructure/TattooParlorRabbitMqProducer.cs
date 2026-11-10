@@ -51,6 +51,7 @@ public class TattooParlorRabbitMqProducer(IConfiguration configuration, IConnect
         catch (Exception ex)
         {
             logger.LogError(ex, "Exception occured during sending a batch of {count} contracts to {exchange}", batch.Count, _exchangeName);
+            throw;
         }
     }
 

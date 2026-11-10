@@ -44,7 +44,7 @@ public class TattooParlorNatsConsumer(
                 {
                     DurableName = _consumerName,
                     FilterSubject = _subjectName,
-                    AckPolicy = ConsumerConfigAckPolicy.All,
+                    AckPolicy = ConsumerConfigAckPolicy.Explicit,
                     AckWait = TimeSpan.FromSeconds(60),
                     MaxDeliver = 5
                 }, stoppingToken);

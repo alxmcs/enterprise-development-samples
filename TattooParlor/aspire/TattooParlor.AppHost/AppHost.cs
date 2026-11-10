@@ -44,8 +44,8 @@ if (builder.Environment.EnvironmentName == "RabbitMQ")
     var rabbitUserName = builder.AddParameter("RabbitMQLogin");
     var rabbitPassword = builder.AddParameter("RabbitMQPassword");
     var rabbitMqExchange = builder.AddParameter("RabbitMQExchangeName");
-    var rabbitMQCanceledRoutingKey = builder.AddParameter("RabbitMQConfirmedRoutingKey");
-    var rabbitMQConfirmedRoutingKey = builder.AddParameter("RabbitMQCanceledRoutingKey");
+    var rabbitMQCanceledRoutingKey = builder.AddParameter("RabbitMQCanceledRoutingKey");
+    var rabbitMQConfirmedRoutingKey = builder.AddParameter("RabbitMQConfirmedRoutingKey");
     var rabbitMQConfirmedQueueName = builder.AddParameter("RabbitMQConfirmedQueueName");
     var rabbitMQCanceledQueueName = builder.AddParameter("RabbitMQCanceledQueueName");
 

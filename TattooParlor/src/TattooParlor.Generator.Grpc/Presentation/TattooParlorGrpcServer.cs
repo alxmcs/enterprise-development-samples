@@ -29,7 +29,7 @@ public class TattooParlorGrpcServer(IConfiguration configuration, ILogger<Tattoo
     {
         logger.LogInformation("Starting to send {total} messages with {time}s interval with {batch} messages in batch", _payloadLimit, _waitTime, _batchSize);
 
-        if (!int.TryParse(_batchSize, out var batchSize)) throw new FormatException("Unable to parse BatchSize");
+        if (!int.TryParse(_batchSize, out var batchSize) || batchSize <= 0) throw new FormatException("BatchSize must be a positive integer");
         if (!int.TryParse(_payloadLimit, out var payloadLimit)) throw new FormatException("Unable to parse PayloadLimit");
         if (!int.TryParse(_waitTime, out var waitTime)) throw new FormatException("Unable to parse WaitTime");
 
@@ -38,8 +38,8 @@ public class TattooParlorGrpcServer(IConfiguration configuration, ILogger<Tattoo
         {
             try
             {
-                counter += batchSize;
-                var batch = SessionGenerator.GenerateLinks(batchSize);
+                var batch = SessionGenerator.GenerateLinks(Math.Min(batchSize, payloadLimit - counter));
+                counter += batch.Count;
                 var payload = new TattooSessionResponse { IsFinal = counter >= payloadLimit };
                 payload.TattooSessions.AddRange(batch.Select(Map));
                 await responseStream.WriteAsync(payload);

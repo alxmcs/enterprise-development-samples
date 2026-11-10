@@ -19,7 +19,7 @@ public class TattooParlorGrpcClient(
     /// <inheritdoc/>
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var ctx = new CancellationTokenSource();
+        using var ctx = CancellationTokenSource.CreateLinkedTokenSource(stoppingToken);
         while (!ctx.Token.IsCancellationRequested)
         {
             try
