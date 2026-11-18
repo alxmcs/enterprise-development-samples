@@ -32,7 +32,7 @@ public class ExampleClientController(ExampleService.ExampleServiceClient client,
         catch (Exception ex)
         {
             logger.LogError(ex, "Exception occured during gRPC {name} method", nameof(GetSampleUnary));
-            return StatusCode(500, $"{ex.Message}\n\r{ex.InnerException?.Message}");
+return Problem(statusCode: 500);
         }
     }
 
@@ -73,8 +73,8 @@ public class ExampleClientController(ExampleService.ExampleServiceClient client,
         try
         {
             var samples = new List<Sample>(count);
-            using var call = client.GetSamplesServerStream(new GetSampleCountRequest { SampleCount = count });
-            await foreach (var sample in call.ResponseStream.ReadAllAsync())
+using var call = client.GetSamplesServerStream(new GetSampleCountRequest { SampleCount = count }, deadline: DateTime.UtcNow.AddSeconds(15), cancellationToken: HttpContext.RequestAborted);
+await foreach (var sample in call.ResponseStream.ReadAllAsync(HttpContext.RequestAborted))
             {
                 samples.Add(sample);
                 logger.LogInformation("Received sample {count} from server stream with id {id}", samples.Count, sample.SampleId);
@@ -105,7 +105,7 @@ public class ExampleClientController(ExampleService.ExampleServiceClient client,
             using var call = client.GetSamplesClientStream(deadline: DateTime.UtcNow.AddSeconds(15));
             for (var i = 0; i < count; i++)
             {
-                var sample = new GetSampleByIdRequest { SampleId = rand.Next(1, count) };
+var sample = new GetSampleByIdRequest { SampleId = (int)rand.NextInt64(1, (long)count + 1) };
                 await call.RequestStream.WriteAsync(sample);
                 logger.LogInformation("Wrote request {count} to client stream with id {id}", i + 1, sample.SampleId);
             }

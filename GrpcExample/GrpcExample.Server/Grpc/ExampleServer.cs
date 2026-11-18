@@ -92,8 +92,7 @@ public class ExampleServer(ILogger<ExampleServer> logger) : ExampleService.Examp
     }
 
     /// <summary>
-    /// Пример клиенского стриминга - клиент посылает один запрос, сервер возвращает поток ответов
-    /// Клиент инициирует обмен
+/// Пример клиентского стриминга — клиент посылает поток запросов, сервер возвращает один ответ
     /// </summary>
     /// <param name="requestStream">Стрим запросов</param>
     /// <param name="context">Контекст вызова</param>
