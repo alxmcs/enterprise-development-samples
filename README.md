@@ -4,3 +4,4 @@
 |Проект|  Описание |
 |:-----------:|:------------|
 |[TattooParlor](https://github.com/alxmcs/enterprise-development-samples/tree/main/TattooParlor)|Пример выполнения лабораторных работ|
+|[GrpcExample](GrpcExample)|Пример сервисов, взаимодействующих через gRPC|

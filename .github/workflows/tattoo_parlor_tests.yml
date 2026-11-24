@@ -26,7 +26,7 @@ jobs:
       run: dotnet restore ./TattooParlor.slnx
 
     - name: Build
-      run: dotnet build ./TattooParlor.slnx --no-restore
+      run: dotnet build ./TattooParlor.slnx --no-restore -p:AspireUseCliBundle=false
 
     - name: Test
       run: dotnet test --project ./test/TattooParlor.Domain.Tests/TattooParlor.Domain.Tests.csproj --verbosity detailed

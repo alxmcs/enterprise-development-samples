@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/aspire/">
+    <Project Path="GrpcExample.AppHost/GrpcExample.AppHost.csproj" />
+    <Project Path="GrpcExample.ServiceDefaults/GrpcExample.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="GrpcExample.Client/GrpcExample.Client.csproj" />
+    <Project Path="GrpcExample.Server/GrpcExample.Server.csproj" />
+  </Folder>
+</Solution>

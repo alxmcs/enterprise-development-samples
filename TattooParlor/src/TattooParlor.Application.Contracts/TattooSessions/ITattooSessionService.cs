@@ -19,4 +19,11 @@ public interface ITattooSessionService : IApplicationService<TattooSessionDto, T
     /// <param name="style">Стиль</param>
     /// <returns>DTO с результатом запроса</returns>
     Task<TattooSessionRange> GetCostRange(TattooStyle style);
+
+    /// <summary>
+    /// Метод для получения сессий
+    /// </summary>
+    /// <param name="sessions">Список сессий</param>
+    /// <param name="cancellationToken">Токен отмены</param>
+    Task ReceiveSessions(IList<TattooSessionCreateUpdateDto> sessions, CancellationToken cancellationToken);
 }
